@@ -8,8 +8,14 @@ original package could result in typing this other package name.
 Mis-typing distance is measured via levenshtein distance, a measure
 of "edit" distance. The default configuration identifies a package
 as a potential typosquatter if its edit distance is less than 1 compared
-to one of the top packages.
+to one of the top packages. Note: Only packages whose names are at
+least as long a specified minimum are analyzed.
 """
+
+# TODO: Create freeze top package list option to enable longitudinal study
+# TODO: Create database capability to store daily results
+# TODO: Add whitelisting capability after whitelist analysis
+
 import collections
 import time
 
@@ -21,8 +27,9 @@ import urllib.request
 import requests
 
 # Key constants
-TOP_N = 100  # number of top packages to examine
-MAX_DISTANCE = 1 # Edit distance threshold to determine typosquatting status
+TOP_N = 50  # number of top packages to examine
+MAX_DISTANCE = 2 # Edit distance threshold to determine typosquatting status
+MIN_LEN_PACKAGE_NAME = 6 # Minimum length of package name to be included for analysis
 
 def getAllPackages(page='https://pypi.org/simple/'):
 	""" Download simple list of pypi package names
@@ -83,6 +90,28 @@ def getTopPackages(top_n=TOP_N):
 
 	return top_packages
 
+def filterByPackageNameLen(package_list,
+	                       min_len=MIN_LEN_PACKAGE_NAME):
+	"""
+	Filter out package names whose length in characters is
+	greater than a specified minimum length
+
+	INPUTS:
+	--package_list: a list of package names
+	--min_len: a specific minimum length of characters
+
+	OUTPUTS:
+	--filtered_package_list: filtered list of package names
+	"""
+
+	# Loop thru packages and add package if name's
+	# length is greater than or equal to specified min length
+	filtered_package_list = []
+	for package in package_list:
+		if len(package) >= min_len:
+			filtered_package_list.append(package)
+
+	return filtered_package_list
 
 def distanceCalculations(top_package, all_packages, 
 	                     max_distance=MAX_DISTANCE):
@@ -144,8 +173,13 @@ if __name__ == '__main__':
 
 	current_timestamp, package_names = getAllPackages()
 	top_packages = getTopPackages()
-	squat_candidates = createSuspiciousPackageDict(package_names, top_packages)
+	filtered_package_list = filterByPackageNameLen(top_packages)
+	squat_candidates = createSuspiciousPackageDict(package_names, filtered_package_list)
 	
 	# Print all top packages and potential typosquatters
+	print("Number of top packages to examine: " + str(len(squat_candidates)))
+	cnt_potential_squatters = 0
 	for i in squat_candidates:
 		print(i, ': ', squat_candidates[i])
+		cnt_potential_squatters += len(squat_candidates[i])
+	print("Number of potential typosquatters: " + str(cnt_potential_squatters))
