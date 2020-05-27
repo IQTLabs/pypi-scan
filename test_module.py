@@ -51,6 +51,7 @@ class TestFunctions(unittest.TestCase):
         top_packages = main.getTopPackages()
         squat_candidates = main.createSuspiciousPackageDict(package_names,
                                                             top_packages)
+        main.storeSquattingCandidates(squat_candidates)
 
 if __name__ == '__main__':
     unittest.main()
