@@ -28,6 +28,18 @@ class TestFunctions(unittest.TestCase):
                                               all_packages)
         self.assertEqual(squatters, ['bat'])
 
+    def test_filterByPackageNameLen(self):
+        '''test filterByPackageNameLen'''
+        initial_list = ['eeny', 'meeny', 'miny', 'moe']
+        six_char_list   = main.filterByPackageNameLen(initial_list, 6)
+        five_char_list  = main.filterByPackageNameLen(initial_list, 5)
+        four_char_list  = main.filterByPackageNameLen(initial_list, 4)
+        three_char_list = main.filterByPackageNameLen(initial_list, 3)
+        self.assertEqual(six_char_list, [])
+        self.assertEqual(five_char_list, ['meeny'])
+        self.assertEqual(four_char_list, ['eeny', 'meeny', 'miny'])
+        self.assertEqual(three_char_list, ['eeny', 'meeny', 'miny', 'moe'])
+
     def test_end2end(self):
         '''Test pypi-scan analysis from start to finish'''
         current_timestamp, package_names = main.getAllPackages()
