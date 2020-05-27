@@ -16,6 +16,7 @@ least as long a specified minimum are analyzed.
 # TODO: Add whitelisting capability after whitelist analysis
 
 import collections
+import os
 import time
 
 from bs4 import BeautifulSoup
@@ -178,13 +179,31 @@ def createSuspiciousPackageDict(all_packages, top_packages):
 	return suspicious_packages
 
 
+def storeSquattingCandidates(squat_candidates):
+	''' Persist results of squatting candidate search
+
+	Dump typosquatter candidate list to a json file. Store
+	with time-stamped file name to results folder.
+
+	INPUT:
+	--squat_candidates: A dic of the top packages and their
+	potential typosquatters
+	'''
+
+	timestamp = time.strftime("%d-%b-%Y-%H-%M-%S", time.localtime())
+	full_file_name = timestamp + "-record" + ".json"
+	file_name =  os.path.join("results", full_file_name)
+	with open(file_name, 'w') as path:
+   		json.dump(squat_candidates, path)
+
 if __name__ == '__main__':
 
 	current_timestamp, package_names = getAllPackages()
 	top_packages = getTopPackages()
 	filtered_package_list = filterByPackageNameLen(top_packages)
 	squat_candidates = createSuspiciousPackageDict(package_names, filtered_package_list)
-	
+	storeSquattingCandidates(squat_candidates)
+
 	# Print all top packages and potential typosquatters
 	print("Number of top packages to examine: " + str(len(squat_candidates)))
 	cnt_potential_squatters = 0
