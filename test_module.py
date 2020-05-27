@@ -20,6 +20,11 @@ class TestFunctions(unittest.TestCase):
         self.assertEqual(len(top_packages), 100)
         self.assertEqual(top_packages['requests'], 4)
 
+        # Check if stored package option works
+        stored_packages = main.getTopPackages(50, stored=True)
+        self.assertEqual(len(stored_packages), 50)
+        self.assertEqual(stored_packages['requests'], 4)
+
     def test_distanceCalculations(self):
         '''Test distanceCalculations function'''
         top_package = 'cat'
