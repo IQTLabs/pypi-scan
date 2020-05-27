@@ -12,7 +12,6 @@ to one of the top packages. Note: Only packages whose names are at
 least as long a specified minimum are analyzed.
 """
 
-# TODO: Create freeze top package list option to enable longitudinal study
 # TODO: Create database capability to store daily results
 # TODO: Add whitelisting capability after whitelist analysis
 
@@ -61,21 +60,31 @@ def getAllPackages(page='https://pypi.org/simple/'):
 	return current_timestamp, package_names
 
 
-def getTopPackages(top_n=TOP_N):
+def getTopPackages(top_n=TOP_N, stored=False):
 	""" Identify top packages by download count on pypi
 
 	A friendly person has already provided an occasionally
 	updated JSON feed to enable this program to build a list
-	of the top pypi packages by download count
+	of the top pypi packages by download count. The default
+	does a fresh pull of this feed. If the user wants to use
+	a stored list, that is possible if the user sets the stored
+	flag to true.
 
 	INPUTS:
 	--top_n: the number of top packages to retrieve
+	--stored: whether to use the stored package list
+
+	OUTPUTS:
+	--top_packages: dict with top packages
 	"""
 
-	# Get json data for top pypi packages from website
-	top_packages_url = "https://hugovk.github.io/top-pypi-packages/top-pypi-packages-30-days.json"
-	with urllib.request.urlopen(top_packages_url) as url:
-		data = json.loads(url.read().decode())
+	if stored: # Get stored data
+		with open('top_packages_may_2020.json', 'r') as f:
+   			data = json.load(f)
+	else: # Get json data for top pypi packages from website
+		top_packages_url = "https://hugovk.github.io/top-pypi-packages/top-pypi-packages-30-days.json"
+		with urllib.request.urlopen(top_packages_url) as url:
+			data = json.loads(url.read().decode())
 
 	# Make JSON data easy to navigate
 	json_data = jsontree.jsontree(data)
