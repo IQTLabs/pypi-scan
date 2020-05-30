@@ -12,8 +12,8 @@ to one of the top packages. Note: Only packages whose names are at
 least as long a specified minimum are analyzed.
 """
 
-# TODO: Create database capability to store daily results
 # TODO: Add whitelisting capability after whitelist analysis
+# TODO: Add results diff checking capability
 
 import collections
 import os
