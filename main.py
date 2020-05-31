@@ -11,9 +11,7 @@ as a potential typosquatter if its edit distance is less than 1 compared
 to one of the top packages. Note: Only packages whose names are at
 least as long a specified minimum are analyzed.
 """
-
-# TODO: Add whitelisting capability after whitelist analysis
-# TODO: Add results diff checking capability
+# TODO: Do initial whitelist scan
 
 import collections
 import os
@@ -28,8 +26,8 @@ import requests
 
 # Key constants
 TOP_N = 50  # number of top packages to examine
-MAX_DISTANCE = 2 # Edit distance threshold to determine typosquatting status
-MIN_LEN_PACKAGE_NAME = 6 # Minimum length of package name to be included for analysis
+MAX_DISTANCE = 1 # Edit distance threshold to determine typosquatting status
+MIN_LEN_PACKAGE_NAME = 5 # Minimum length of package name to be included for analysis
 
 def getAllPackages(page='https://pypi.org/simple/'):
 	""" Download simple list of pypi package names
@@ -196,18 +194,53 @@ def storeSquattingCandidates(squat_candidates):
 	with open(file_name, 'w') as path:
    		json.dump(squat_candidates, path)
 
+
+def whitelist(squat_candidates, whitelist_filename="whitelist.txt"):
+	''' Remove whitelisted packages from typosquat candidate list
+
+	Using packages listed in the whitelist_filename file, remove all
+	potential typosquatters that are found in the whitelist, a list of
+	known good packages.
+
+	INPUT:
+	--squat_candidates: dict of potential typosquatters pre-whitelist
+	--whitelist_filename: file location for whitelist
+
+	OUPUT:
+	--dict of post-whitelist potential typosquatters
+	'''
+
+	# Create whitelist
+	whitelist = []
+	with open(whitelist_filename, 'r') as file:
+		for line in file:
+			# Strip out end of line character
+ 			whitelist.append(line.strip('\n'))
+
+ 	# Remove packages contained in whitelist from candidate dict
+	delete = []
+	for pkg in squat_candidates: # gather pkg's to delete
+		if pkg in whitelist:
+			delete.append(pkg)
+	for pkg in delete: # delete these pkg's
+		del squat_candidates[pkg]
+
+	return squat_candidates
+
+
 if __name__ == '__main__':
 
 	current_timestamp, package_names = getAllPackages()
 	top_packages = getTopPackages()
 	filtered_package_list = filterByPackageNameLen(top_packages)
 	squat_candidates = createSuspiciousPackageDict(package_names, filtered_package_list)
-	storeSquattingCandidates(squat_candidates)
+	whitelist_candidates = whitelist(squat_candidates)
+	storeSquattingCandidates(whitelist_candidates)
 
 	# Print all top packages and potential typosquatters
 	print("Number of top packages to examine: " + str(len(squat_candidates)))
 	cnt_potential_squatters = 0
-	for i in squat_candidates:
-		print(i, ': ', squat_candidates[i])
-		cnt_potential_squatters += len(squat_candidates[i])
+	for i in whitelist_candidates:
+		print(i, ': ', whitelist_candidates[i])
+		cnt_potential_squatters += len(whitelist_candidates[i])
 	print("Number of potential typosquatters: " + str(cnt_potential_squatters))

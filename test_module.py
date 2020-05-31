@@ -45,6 +45,14 @@ class TestFunctions(unittest.TestCase):
         self.assertEqual(four_char_list, ['eeny', 'meeny', 'miny'])
         self.assertEqual(three_char_list, ['eeny', 'meeny', 'miny', 'moe'])
 
+    def test_whitelist(self):
+        '''test whitelist function'''
+        test_whitelist = {'key1':'val1','key2':'val2'}
+        result = main.whitelist(test_whitelist, "test_data/whitelist.txt")
+        self.assertEqual(result, {'key2':'val2'})
+        self.assertEqual(len(result), 1)
+        self.assertTrue('key1' not in result)
+
     def test_end2end(self):
         '''Test pypi-scan analysis from start to finish'''
         current_timestamp, package_names = main.getAllPackages()
