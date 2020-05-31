@@ -1,15 +1,16 @@
 """
 Check top pypi packages for typosquatting
 
-The top packages (the default is the top 100) packages
+The top packages (the default is the top 50) packages
 are checked for typosquatting, i.e. instances of other packages
 that are intentionally named such that common mis-typings of the
 original package could result in typing this other package name.
 Mis-typing distance is measured via levenshtein distance, a measure
 of "edit" distance. The default configuration identifies a package
 as a potential typosquatter if its edit distance is less than 1 compared
-to one of the top packages. Note: Only packages whose names are at
-least as long a specified minimum are analyzed.
+to one of the top packages. Additionally, there is a whitelist capability
+to exclude packages that are known good. Note: Only packages whose names
+are at least as long a specified minimum are analyzed. 
 """
 # TODO: Do initial whitelist scan
 
