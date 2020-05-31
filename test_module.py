@@ -47,11 +47,11 @@ class TestFunctions(unittest.TestCase):
 
     def test_whitelist(self):
         '''test whitelist function'''
-        test_whitelist = {'key1':'val1','key2':'val2'}
+        test_whitelist = {'key1':['val1'],'key2':['val2']}
         result = main.whitelist(test_whitelist, "test_data/whitelist.txt")
-        self.assertEqual(result, {'key2':'val2'})
-        self.assertEqual(len(result), 1)
-        self.assertTrue('key1' not in result)
+        self.assertEqual(result, {'key1':[],'key2':['val2']})
+        self.assertEqual(len(result), 2)
+        self.assertTrue('key1' in result)
 
     def test_end2end(self):
         '''Test pypi-scan analysis from start to finish'''

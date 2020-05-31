@@ -204,11 +204,11 @@ def whitelist(squat_candidates, whitelist_filename="whitelist.txt"):
 	known good packages.
 
 	INPUT:
-	--squat_candidates: dict of potential typosquatters pre-whitelist
+	--squat_candidates: dict of packages and potential typosquatters
 	--whitelist_filename: file location for whitelist
 
 	OUPUT:
-	--dict of post-whitelist potential typosquatters
+	--dict of packages and post-whitelist potential typosquatters
 	'''
 
 	# Create whitelist
@@ -218,16 +218,18 @@ def whitelist(squat_candidates, whitelist_filename="whitelist.txt"):
 			# Strip out end of line character
  			whitelist.append(line.strip('\n'))
 
- 	# Remove packages contained in whitelist from candidate dict
-	delete = []
-	for pkg in squat_candidates: # gather pkg's to delete
-		if pkg in whitelist:
-			delete.append(pkg)
-	for pkg in delete: # delete these pkg's
-		del squat_candidates[pkg]
+ 	# Remove packages contained in whitelist from dict of
+ 	# top packages (keys) and potential typosquatters (values)
+	for pkg in squat_candidates: # loop thru pkg's
+		new_squat_candidates = []
+		for candidate in squat_candidates[pkg]:
+			# Only keep candidates NOT on whitelist
+			if candidate not in whitelist:
+				new_squat_candidates.append(candidate)
+		# Update typosquat candidate list
+		squat_candidates[pkg] = new_squat_candidates
 
 	return squat_candidates
-
 
 if __name__ == '__main__':
 
