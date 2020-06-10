@@ -10,7 +10,7 @@ of "edit" distance. The default configuration identifies a package
 as a potential typosquatter if its edit distance is less than 1 compared
 to one of the top packages. Additionally, there is a whitelist capability
 to exclude packages that are known good. Note: Only packages whose names
-are at least as long a specified minimum are analyzed. 
+are at least as long a specified minimum are analyzed.
 """
 # TODO: Do initial whitelist scan
 
@@ -18,12 +18,13 @@ import collections
 import os
 import time
 
-from bs4 import BeautifulSoup
-import json
-import jsontree
-import Levenshtein
 import urllib.request
+import json
+
+from bs4 import BeautifulSoup
+import Levenshtein
 import requests
+import jsontree
 
 # Key constants
 TOP_N = 50  # number of top packages to examine
@@ -158,9 +159,9 @@ def distanceCalculations(top_package, all_packages,
 def createSuspiciousPackageDict(all_packages, top_packages):
 	""" Examine all top packages for typosquatters
 
-	Loop through all top packages and check for instances of 
-	typosquatting. 
-	
+	Loop through all top packages and check for instances of
+	typosquatting.
+
 	INPUTS:
 	--all_packages: list of all package names
 	--top_package: package name to perform comparison
@@ -191,7 +192,7 @@ def storeSquattingCandidates(squat_candidates):
 
 	timestamp = time.strftime("%d-%b-%Y-%H-%M-%S", time.localtime())
 	full_file_name = timestamp + "-record" + ".json"
-	file_name =  os.path.join("results", full_file_name)
+	file_name = os.path.join("results", full_file_name)
 	with open(file_name, 'w') as path:
    		json.dump(squat_candidates, path)
 
