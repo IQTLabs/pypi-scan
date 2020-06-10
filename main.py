@@ -83,7 +83,7 @@ def getTopPackages(top_n=TOP_N, stored=False):
    			data = json.load(f)
 	else: # Get json data for top pypi packages from website
 		top_packages_url = "https://hugovk.github.io/top-pypi-packages/top-pypi-packages-30-days.json"
-		with urllib.request.urlopen(top_packages_url) as url:
+		with urllib.request.urlopen(top_packages_url) as url: #nosec
 			data = json.loads(url.read().decode())
 
 	# Make JSON data easy to navigate
