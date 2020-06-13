@@ -55,7 +55,7 @@ class TestFunctions(unittest.TestCase):
 
     def test_end2end(self):
         """Test pypi-scan analysis from start to finish"""
-        current_timestamp, package_names = main.getAllPackages()
+        _, package_names = main.getAllPackages()
         top_packages = main.getTopPackages()
         squat_candidates = main.createSuspiciousPackageDict(package_names, top_packages)
         main.storeSquattingCandidates(squat_candidates)
