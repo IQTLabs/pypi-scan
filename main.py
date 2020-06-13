@@ -1,8 +1,8 @@
 """
 Check top pypi packages for typosquatting
 
-The top packages (the default is the top 50) packages
-are checked for typosquatting, i.e. instances of other packages
+This programs checks the top packages (the default is the top 50)
+for typosquatting, i.e. instances of other packages
 that are intentionally named such that common mis-typings of the
 original package could result in typing this other package name.
 Mis-typing distance is measured via levenshtein distance, a measure
