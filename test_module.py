@@ -2,9 +2,9 @@
 
 import unittest
 
-import main  # Script containing pypi-scan functions
 from filters import filterByPackageNameLen, distanceCalculations, whitelist
 from scrapers import getAllPackages, getTopPackages
+from utils import createSuspiciousPackageDict, storeSquattingCandidates
 
 class TestFunctions(unittest.TestCase):
     """Test all functions for pypi-scan script"""
@@ -56,8 +56,8 @@ class TestFunctions(unittest.TestCase):
         """Test pypi-scan analysis from start to finish"""
         package_names = getAllPackages()
         top_packages = getTopPackages()
-        squat_candidates = main.createSuspiciousPackageDict(package_names, top_packages)
-        main.storeSquattingCandidates(squat_candidates)
+        squat_candidates = createSuspiciousPackageDict(package_names, top_packages)
+        storeSquattingCandidates(squat_candidates)
 
 
 if __name__ == "__main__":
