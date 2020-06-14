@@ -10,9 +10,7 @@ class TestFunctions(unittest.TestCase):
 
     def test_getAllPackages(self):
         """Test getAllPackages function"""
-        current_timestamp, package_names = main.getAllPackages()
-        self.assertTrue(current_timestamp)
-        self.assertIsInstance(current_timestamp, float)
+        package_names = main.getAllPackages()
         self.assertTrue(len(package_names) > 200000)
 
     def test_getTopPackages(self):
@@ -55,7 +53,7 @@ class TestFunctions(unittest.TestCase):
 
     def test_end2end(self):
         """Test pypi-scan analysis from start to finish"""
-        _, package_names = main.getAllPackages()
+        package_names = main.getAllPackages()
         top_packages = main.getTopPackages()
         squat_candidates = main.createSuspiciousPackageDict(package_names, top_packages)
         main.storeSquattingCandidates(squat_candidates)

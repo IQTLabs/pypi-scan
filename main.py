@@ -40,15 +40,11 @@ def getAllPackages(page="https://pypi.org/simple/"):
 	the package names in a python list structure.
 
 	OUPUT:
-	current_timestamp: unix time when pypi call finishes
 	package_names: a list of package names on pypi
 	"""
 
     # Retrieve package name listing data from pypy
     pypi_package_page = requests.get(page)
-
-    # Get timestamp
-    current_timestamp = time.time()
 
     # Convert html to easily digestible format
     soup = BeautifulSoup(pypi_package_page.text, "html.parser")
@@ -59,7 +55,7 @@ def getAllPackages(page="https://pypi.org/simple/"):
         package_names.append(elem.string)  # Get string inside a tag
 
     # Return timestamp and package name list
-    return current_timestamp, package_names
+    return package_names
 
 
 def getTopPackages(top_n=TOP_N, stored=False):
@@ -238,7 +234,7 @@ def whitelist(squat_candidates, whitelist_filename="whitelist.txt"):
 
 if __name__ == "__main__":
 
-    current_timestamp, package_names = getAllPackages()
+    package_names = getAllPackages()
     top_packages = getTopPackages()
     filtered_package_list = filterByPackageNameLen(top_packages)
     squat_candidates = createSuspiciousPackageDict(package_names, filtered_package_list)
