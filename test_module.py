@@ -3,24 +3,24 @@
 import unittest
 
 import main  # Script containing pypi-scan functions
-
+from scrapers import getAllPackages, getTopPackages
 
 class TestFunctions(unittest.TestCase):
     """Test all functions for pypi-scan script"""
 
     def test_getAllPackages(self):
         """Test getAllPackages function"""
-        package_names = main.getAllPackages()
+        package_names = getAllPackages()
         self.assertTrue(len(package_names) > 200000)
 
     def test_getTopPackages(self):
         """Test getTopPackages function"""
-        top_packages = main.getTopPackages(100)
+        top_packages = getTopPackages(100)
         self.assertEqual(len(top_packages), 100)
         self.assertEqual(top_packages["requests"], 4)
 
         # Check if stored package option works
-        stored_packages = main.getTopPackages(50, stored=True)
+        stored_packages = getTopPackages(50, stored=True)
         self.assertEqual(len(stored_packages), 50)
         self.assertEqual(stored_packages["requests"], 4)
 
@@ -53,8 +53,8 @@ class TestFunctions(unittest.TestCase):
 
     def test_end2end(self):
         """Test pypi-scan analysis from start to finish"""
-        package_names = main.getAllPackages()
-        top_packages = main.getTopPackages()
+        package_names = getAllPackages()
+        top_packages = getTopPackages()
         squat_candidates = main.createSuspiciousPackageDict(package_names, top_packages)
         main.storeSquattingCandidates(squat_candidates)
 
