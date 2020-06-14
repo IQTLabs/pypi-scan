@@ -218,8 +218,8 @@ def whitelist(squat_candidates, whitelist_filename="whitelist.txt"):
             # Strip out end of line character
             whitelist.append(line.strip("\n"))
 
-        # Remove packages contained in whitelist from dict of
-        # top packages (keys) and potential typosquatters (values)
+    # Remove packages contained in whitelist from dict of
+    # top packages (keys) and potential typosquatters (values)
     for pkg in squat_candidates:  # loop thru pkg's
         new_squat_candidates = []
         for candidate in squat_candidates[pkg]:
