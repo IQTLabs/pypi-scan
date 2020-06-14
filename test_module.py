@@ -3,6 +3,7 @@
 import unittest
 
 import main  # Script containing pypi-scan functions
+from filters import filterByPackageNameLen, distanceCalculations, whitelist
 from scrapers import getAllPackages, getTopPackages
 
 class TestFunctions(unittest.TestCase):
@@ -28,16 +29,16 @@ class TestFunctions(unittest.TestCase):
         """Test distanceCalculations function"""
         top_package = "cat"
         all_packages = ["bat", "apple"]
-        squatters = main.distanceCalculations(top_package, all_packages)
+        squatters = distanceCalculations(top_package, all_packages)
         self.assertEqual(squatters, ["bat"])
 
     def test_filterByPackageNameLen(self):
         """test filterByPackageNameLen"""
         initial_list = ["eeny", "meeny", "miny", "moe"]
-        six_char_list = main.filterByPackageNameLen(initial_list, 6)
-        five_char_list = main.filterByPackageNameLen(initial_list, 5)
-        four_char_list = main.filterByPackageNameLen(initial_list, 4)
-        three_char_list = main.filterByPackageNameLen(initial_list, 3)
+        six_char_list = filterByPackageNameLen(initial_list, 6)
+        five_char_list = filterByPackageNameLen(initial_list, 5)
+        four_char_list = filterByPackageNameLen(initial_list, 4)
+        three_char_list = filterByPackageNameLen(initial_list, 3)
         self.assertEqual(six_char_list, [])
         self.assertEqual(five_char_list, ["meeny"])
         self.assertEqual(four_char_list, ["eeny", "meeny", "miny"])
@@ -46,7 +47,7 @@ class TestFunctions(unittest.TestCase):
     def test_whitelist(self):
         """test whitelist function"""
         test_whitelist = {"key1": ["val1"], "key2": ["val2"]}
-        result = main.whitelist(test_whitelist, "test_data/whitelist.txt")
+        result = whitelist(test_whitelist, "test_data/whitelist.txt")
         self.assertEqual(result, {"key1": [], "key2": ["val2"]})
         self.assertEqual(len(result), 2)
         self.assertTrue("key1" in result)
