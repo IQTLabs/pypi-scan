@@ -14,7 +14,7 @@ import json
 from filters import distanceCalculations
 
 def createSuspiciousPackageDict(all_packages, top_packages):
-    """ Examine all top packages for typosquatters
+    """ Examine all top packages for typosquatters.
 
 	Loop through all top packages and check for instances of
 	typosquatting.
@@ -37,7 +37,7 @@ def createSuspiciousPackageDict(all_packages, top_packages):
 
 
 def storeSquattingCandidates(squat_candidates):
-    """ Persist results of squatting candidate search
+    """ Persist results of squatting candidate search.
 
 	Dump typosquatter candidate list to a json file. Store
 	with time-stamped file name to results folder.
