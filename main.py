@@ -61,9 +61,13 @@ def modSquatters(module):
     package_names = getAllPackages()
     squat_candidates = createSuspiciousPackageDict(package_names,
                                                    module_in_list)
-
+    # Print results
     print('Checking ' + module + ' for typosquatting candidates.')
-    for i, candidate in enumerate(squat_candidates[module]):
+    # Check if there are not typosquatting candidates
+    if len(squat_candidates[module]) == 0:
+        print('No typosquatting candidates found.')
+    else:
+        for i, candidate in enumerate(squat_candidates[module]):
             print(str(i) + ": " + candidate)
 
 if __name__ == "__main__":
