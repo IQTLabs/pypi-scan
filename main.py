@@ -43,23 +43,21 @@ def topMods():
     top_packages = getTopPackages()
     filtered_package_list = filterByPackageNameLen(top_packages)
     squat_candidates = createSuspiciousPackageDict(package_names, filtered_package_list)
-    # TODO: This whitelist candidate naming is confusing. Should probably change.
-    whitelist_candidates = whitelist(squat_candidates)
-    storeSquattingCandidates(whitelist_candidates)
+    post_whitelist_candidates = whitelist(squat_candidates)
+    storeSquattingCandidates(post_whitelist_candidates)
 
     # Print all top packages and potential typosquatters
     print("Number of top packages to examine: " + str(len(squat_candidates)))
     cnt_potential_squatters = 0
-    for i in whitelist_candidates:
-        print(i, ": ", whitelist_candidates[i])
-        cnt_potential_squatters += len(whitelist_candidates[i])
+    for i in post_whitelist_candidates:
+        print(i, ": ", post_whitelist_candidates[i])
+        cnt_potential_squatters += len(post_whitelist_candidates[i])
     print("Number of potential typosquatters: " + str(cnt_potential_squatters))
 
 def modSquatters(module):
     """ Check if a particular package name has potential squatters"""
 
     module_in_list = [module]
-
     package_names = getAllPackages()
     squat_candidates = createSuspiciousPackageDict(package_names,
                                                    module_in_list)
