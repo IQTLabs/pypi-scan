@@ -23,7 +23,7 @@ least as long a specified minimum are analyzed.
 
 import argparse
 
-from filters import filterByPackageNameLen, distanceCalculations, whitelist
+from filters import filterByPackageNameLen, whitelist
 from scrapers import getAllPackages, getTopPackages
 from utils import createSuspiciousPackageDict, storeSquattingCandidates
 
