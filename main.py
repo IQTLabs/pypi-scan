@@ -27,19 +27,25 @@ from filters import filterByPackageNameLen, distanceCalculations, whitelist
 from scrapers import getAllPackages, getTopPackages
 from utils import createSuspiciousPackageDict, storeSquattingCandidates
 
+
 def parseArgs():
     """ Parse command line arguments. """
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("-o", "--operation",
-                        help="Specify operation to perform.",
-                        choices=['mod-squatters', 'top-mods'],
-                        default='mod-squatters')
-    parser.add_argument("-m", "--module_name",
-                        help="Module name to check for typosquatters.")
+    parser.add_argument(
+        "-o",
+        "--operation",
+        help="Specify operation to perform.",
+        choices=["mod-squatters", "top-mods"],
+        default="mod-squatters",
+    )
+    parser.add_argument(
+        "-m", "--module_name", help="Module name to check for typosquatters."
+    )
     args = parser.parse_args()
 
     return args
+
 
 def topMods():
     """ Check top packages for typosquatters """
@@ -60,29 +66,30 @@ def topMods():
         cnt_potential_squatters += len(post_whitelist_candidates[i])
     print("Number of potential typosquatters: " + str(cnt_potential_squatters))
 
+
 def modSquatters(module):
     """ Check if a particular package name has potential squatters"""
 
     module_in_list = [module]
     package_names = getAllPackages()
-    squat_candidates = createSuspiciousPackageDict(package_names,
-                                                   module_in_list)
+    squat_candidates = createSuspiciousPackageDict(package_names, module_in_list)
     # Print results
-    print('Checking ' + module + ' for typosquatting candidates.')
+    print("Checking " + module + " for typosquatting candidates.")
     # Check for no typosquatting candidates
     if len(squat_candidates[module]) == 0:
-        print('No typosquatting candidates found.')
+        print("No typosquatting candidates found.")
     else:
         for i, candidate in enumerate(squat_candidates[module]):
             print(str(i) + ": " + candidate)
 
+
 if __name__ == "__main__":
 
-    cli_args = parseArgs() # get command line arguments
+    cli_args = parseArgs()  # get command line arguments
 
     # Check top packages for typosquatters
     if cli_args.operation == "top-mods":
         topMods()
     elif cli_args.operation == "mod-squatters":
-        #TODO: Make specifying edit distance a choice
+        # TODO: Make specifying edit distance a choice
         modSquatters(cli_args.module_name)
