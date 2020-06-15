@@ -15,6 +15,7 @@ import requests
 # Key constant
 TOP_N = 50  # number of top packages to examine
 
+
 def getAllPackages(page="https://pypi.org/simple/"):
     """ Download simple list of pypi package names
 

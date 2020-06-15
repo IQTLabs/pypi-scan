@@ -6,6 +6,7 @@ from filters import filterByPackageNameLen, distanceCalculations, whitelist
 from scrapers import getAllPackages, getTopPackages
 from utils import createSuspiciousPackageDict, storeSquattingCandidates
 
+
 class TestFunctions(unittest.TestCase):
     """Test all functions for pypi-scan script"""
 
