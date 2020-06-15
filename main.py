@@ -46,7 +46,6 @@ def parseArgs():
 
     return args
 
-
 def topMods():
     """ Check top packages for typosquatters """
 
@@ -66,7 +65,6 @@ def topMods():
         cnt_potential_squatters += len(post_whitelist_candidates[i])
     print("Number of potential typosquatters: " + str(cnt_potential_squatters))
 
-
 def modSquatters(module):
     """ Check if a particular package name has potential squatters"""
 
@@ -81,7 +79,6 @@ def modSquatters(module):
     else:
         for i, candidate in enumerate(squat_candidates[module]):
             print(str(i) + ": " + candidate)
-
 
 if __name__ == "__main__":
 
