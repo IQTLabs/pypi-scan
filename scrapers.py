@@ -9,11 +9,12 @@ import json
 import urllib.request
 
 from bs4 import BeautifulSoup
-import jsontree
 import requests
+import jsontree
 
-# Key constant
-TOP_N = 50  # number of top packages to examine
+import constants
+
+TOP_N = constants.TOP_N
 
 
 def getAllPackages(page="https://pypi.org/simple/"):

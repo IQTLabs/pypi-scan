@@ -7,9 +7,10 @@ data.
 
 import Levenshtein
 
-# Key constants
-MAX_DISTANCE = 1  # Edit distance threshold to determine typosquatting status
-MIN_LEN_PACKAGE_NAME = 5  # Minimum length of package name to be included for analysis
+import constants
+
+MAX_DISTANCE = constants.MAX_DISTANCE
+MIN_LEN_PACKAGE_NAME = constants.MIN_LEN_PACKAGE_NAME
 
 
 def filterByPackageNameLen(package_list, min_len=MIN_LEN_PACKAGE_NAME):
