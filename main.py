@@ -104,5 +104,6 @@ if __name__ == "__main__":
     # Check top packages for typosquatters
     if cli_args.operation == "top-mods":
         topMods()
+    # Check particular package for typosquatters
     elif cli_args.operation == "mod-squatters":
         modSquatters(cli_args.module_name, cli_args.edit_distance)
