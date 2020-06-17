@@ -68,7 +68,7 @@ def topMods():
 
 
 def modSquatters(module):
-    """ Check if a particular package name has potential squatters"""
+    """ Check if a particular package name has potential squatters """
 
     module_in_list = [module]
     package_names = getAllPackages()
