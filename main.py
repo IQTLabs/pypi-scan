@@ -22,6 +22,8 @@ least as long a specified minimum are analyzed.
 """
 
 import argparse
+import sys
+import textwrap
 
 from filters import filterByPackageNameLen, whitelist
 from scrapers import getAllPackages, getTopPackages
@@ -31,7 +33,9 @@ from utils import createSuspiciousPackageDict, storeSquattingCandidates
 def parseArgs():
     """ Parse command line arguments. """
 
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter
+    )
     parser.add_argument(
         "-o",
         "--operation",
@@ -49,19 +53,43 @@ def parseArgs():
         default=1,  # Set default to 1
         type=int,  # Convert argument input to integer
     )
+    parser.add_argument(
+        "-n",
+        "--number_packages",
+        help="Specify number of top packages to scan",
+        default=50,
+        type=int,
+    )
+    parser.add_argument(
+        "-l",
+        "--len_package_name",
+        help="Specify minimum length of package name",
+        default=5,
+        type=int,
+    )
     args = parser.parse_args()
 
     return args
 
 
-def topMods():
-    """ Check top packages for typosquatters """
+def topMods(max_distance, top_n, min_len):
+    """ Check top packages for typosquatters
+
+    Prints top packages and any potential typosquatters
+
+    INPUTS:
+    max_distance: maximum edit distance to check for typosquatting
+    top_n: the number of top packages to retrieve
+    min_len: a minimum length of characters
+    """
 
     # Get list of potential typosquatters
     package_names = getAllPackages()
-    top_packages = getTopPackages()
-    filtered_package_list = filterByPackageNameLen(top_packages)
-    squat_candidates = createSuspiciousPackageDict(package_names, filtered_package_list)
+    top_packages = getTopPackages(top_n=top_n)
+    filtered_package_list = filterByPackageNameLen(top_packages, min_len=min_len)
+    squat_candidates = createSuspiciousPackageDict(
+        package_names, filtered_package_list, max_distance
+    )
     post_whitelist_candidates = whitelist(squat_candidates)
     storeSquattingCandidates(post_whitelist_candidates)
 
@@ -76,6 +104,8 @@ def topMods():
 
 def modSquatters(module, max_distance):
     """ Check if a particular package name has potential squatters
+
+    Prints any potential typosquatters for specified module
 
     INPUTS:
     module: name to check for typosquatting
@@ -103,7 +133,19 @@ if __name__ == "__main__":
 
     # Check top packages for typosquatters
     if cli_args.operation == "top-mods":
-        topMods()
+        topMods(
+            cli_args.edit_distance, cli_args.number_packages, cli_args.len_package_name
+        )
     # Check particular package for typosquatters
     elif cli_args.operation == "mod-squatters":
-        modSquatters(cli_args.module_name, cli_args.edit_distance)
+        # Make sure user proviced --module flag
+        if cli_args.module_name == None:
+            print(textwrap.dedent("""
+                ERROR: User must use -m flag to specify module.
+                For instance:
+                >>> python main.py -m requests
+                """
+                ))
+            sys.exit(0) # Exit program
+        else:
+            modSquatters(cli_args.module_name, cli_args.edit_distance)
