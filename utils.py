@@ -11,9 +11,13 @@ import time
 
 import json
 
+import constants
 from filters import distanceCalculations
 
-def createSuspiciousPackageDict(all_packages, top_packages):
+MAX_DISTANCE = constants.MAX_DISTANCE
+
+
+def createSuspiciousPackageDict(all_packages, top_packages, max_distance=MAX_DISTANCE):
     """ Examine all top packages for typosquatters.
 
 	Loop through all top packages and check for instances of
@@ -22,6 +26,7 @@ def createSuspiciousPackageDict(all_packages, top_packages):
 	INPUTS:
 	--all_packages: list of all package names
 	--top_package: package name to perform comparison
+	--max_distance: maximum edit distance to check for typosquatting
 
 	OUTPUTS:
 	--suspicious_packages: an ordered dict of the top packages (key)
@@ -30,7 +35,7 @@ def createSuspiciousPackageDict(all_packages, top_packages):
     suspicious_packages = collections.OrderedDict()
 
     for top_package in top_packages:
-        close_packages = distanceCalculations(top_package, all_packages)
+        close_packages = distanceCalculations(top_package, all_packages, max_distance)
         suspicious_packages[top_package] = close_packages
 
     return suspicious_packages

@@ -42,6 +42,13 @@ def parseArgs():
     parser.add_argument(
         "-m", "--module_name", help="Module name to check for typosquatters."
     )
+    parser.add_argument(
+        "-e",
+        "--edit_distance",
+        help="Maximum edit distance to check.",
+        default=1,  # Set default to 1
+        type=int,  # Convert argument input to integer
+    )
     args = parser.parse_args()
 
     return args
@@ -67,12 +74,19 @@ def topMods():
     print("Number of potential typosquatters: " + str(cnt_potential_squatters))
 
 
-def modSquatters(module):
-    """ Check if a particular package name has potential squatters """
+def modSquatters(module, max_distance):
+    """ Check if a particular package name has potential squatters
+
+    INPUTS:
+    module: name to check for typosquatting
+    max_distance: maximum edit distance to check for typosquatting
+    """
 
     module_in_list = [module]
     package_names = getAllPackages()
-    squat_candidates = createSuspiciousPackageDict(package_names, module_in_list)
+    squat_candidates = createSuspiciousPackageDict(
+        package_names, module_in_list, max_distance
+    )
     # Print results
     print("Checking " + module + " for typosquatting candidates.")
     # Check for no typosquatting candidates
@@ -91,5 +105,4 @@ if __name__ == "__main__":
     if cli_args.operation == "top-mods":
         topMods()
     elif cli_args.operation == "mod-squatters":
-        # TODO: Make specifying edit distance a choice
-        modSquatters(cli_args.module_name)
+        modSquatters(cli_args.module_name, cli_args.edit_distance)
