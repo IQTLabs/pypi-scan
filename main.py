@@ -140,12 +140,15 @@ if __name__ == "__main__":
     elif cli_args.operation == "mod-squatters":
         # Make sure user proviced --module flag
         if cli_args.module_name == None:
-            print(textwrap.dedent("""
+            print(
+                textwrap.dedent(
+                    """
                 ERROR: User must use -m flag to specify module.
                 For instance:
                 >>> python main.py -m requests
                 """
-                ))
-            sys.exit(0) # Exit program
+                )
+            )
+            sys.exit(0)  # Exit program
         else:
             modSquatters(cli_args.module_name, cli_args.edit_distance)
