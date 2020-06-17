@@ -20,7 +20,7 @@ def filterByPackageNameLen(package_list, min_len=MIN_LEN_PACKAGE_NAME):
 
 	INPUTS:
 	--package_list: a list of package names
-	--min_len: a specific minimum length of characters
+	--min_len: a minimum length of characters
 
 	OUTPUTS:
 	--filtered_package_list: filtered list of package names
