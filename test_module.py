@@ -64,7 +64,7 @@ class TestFunctions(unittest.TestCase):
     def test_commandline(self):
         """Test command line usage"""
 
-        # Test single module scan usage
+        # Test single module scan usage for module with no typosquatters
         output = subprocess.run(
             ["python", "main.py", "-m", "pcap2map"], capture_output=True
         )
@@ -72,6 +72,28 @@ class TestFunctions(unittest.TestCase):
             output.stdout.decode("utf-8"),
             "Checking pcap2map for typosquatting candidates.\r\nNo typosquatting candidates found.\r\n",
         )
+
+        # Test single module scan usage for module with typosquatters
+        output = subprocess.run(
+            ["python", "main.py", "-m", "urllib3"], capture_output=True
+        )
+        self.assertEqual(
+            output.stdout.decode("utf-8"),
+            "Checking urllib3 for typosquatting candidates.\r\n0: urllib4\r\n1: urllib5\r\n",
+        )
+
+        # Test multiple module scan usage
+        output = subprocess.run(
+            ["python", "main.py", "-o", "top-mods"], capture_output=True
+        )
+        processed_output = output.stdout.decode("utf-8")
+        split_processed_output = processed_output.splitlines()
+        self.assertEqual(len(split_processed_output), 45)
+        self.assertEqual(
+            split_processed_output[0], "Number of top packages to examine: 43"
+        )
+
+        #TODO: Add test for multiple module scan using lots of flags
 
 
 if __name__ == "__main__":
