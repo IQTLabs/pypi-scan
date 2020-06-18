@@ -1,5 +1,6 @@
 """ Test all functions used to execute pypi-scan """
 
+import subprocess
 import unittest
 
 from filters import filterByPackageNameLen, distanceCalculations, whitelist
@@ -34,7 +35,7 @@ class TestFunctions(unittest.TestCase):
         self.assertEqual(squatters, ["bat"])
 
     def test_filterByPackageNameLen(self):
-        """test filterByPackageNameLen"""
+        """Test filterByPackageNameLen"""
         initial_list = ["eeny", "meeny", "miny", "moe"]
         six_char_list = filterByPackageNameLen(initial_list, 6)
         five_char_list = filterByPackageNameLen(initial_list, 5)
@@ -46,7 +47,7 @@ class TestFunctions(unittest.TestCase):
         self.assertEqual(three_char_list, ["eeny", "meeny", "miny", "moe"])
 
     def test_whitelist(self):
-        """test whitelist function"""
+        """Test whitelist function"""
         test_whitelist = {"key1": ["val1"], "key2": ["val2"]}
         result = whitelist(test_whitelist, "test_data/whitelist.txt")
         self.assertEqual(result, {"key1": [], "key2": ["val2"]})
@@ -59,6 +60,18 @@ class TestFunctions(unittest.TestCase):
         top_packages = getTopPackages()
         squat_candidates = createSuspiciousPackageDict(package_names, top_packages)
         storeSquattingCandidates(squat_candidates)
+
+    def test_commandline(self):
+        """Test command line usage"""
+
+        # Test single module scan usage
+        output = subprocess.run(
+            ["python", "main.py", "-m", "pcap2map"], capture_output=True
+        )
+        self.assertEqual(
+            output.stdout.decode("utf-8"),
+            "Checking pcap2map for typosquatting candidates.\r\nNo typosquatting candidates found.\r\n",
+        )
 
 
 if __name__ == "__main__":
