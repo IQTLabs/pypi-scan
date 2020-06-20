@@ -20,9 +20,9 @@ List potential typosquatters on numpy:
 >>> python main.py -m numpy
 Checking numpy for typosquatting candidates.
 0: bumpy
-1: dumpy:
+1: dumpy
 2: gnumpy
-...
+...(outputed shortened)
 ```
 
 List potential typosquatters on top packages:
@@ -31,7 +31,61 @@ List potential typosquatters on top packages:
 Number of top packages to examine: 43
 urllib3 : ['urllib4', 'urllib5']
 botocore : ['kotocore']
-...
+...(output shortened)
 ```
+
+Advanced usage includes use of several switches:
+```
+# Search top 100 pypi packages, if the package name is of at least length
+# 4 and for all typosquatters within an edit distance of two. See the help
+# section below for further explanation of switches.
+>>> python main.py -o top-mods -e 2 -n 100 -l 4
+```
+
+## Installation
+
+Download to your local machine via git:
+```
+git clone https://github.com/jspeed-meyers/pypi-scan
+```
+
+Navigate to folder that contains main.py:
+```
+cd pypiscan/pypiscan
+```
+
+After navigating to folder that contains main.py, ensure dependencies are
+installed and then run tests:
+```
+pip install -r requirements.txt
+python -m unittest
+```
+
+## Help
+
+Get help on command line options by navigating to folder that contains main.py
+and running this command:
+```
+>>> python main.py -h
+usage: main.py [-h] [-o {mod-squatters,top-mods}] [-m MODULE_NAME]
+               [-e EDIT_DISTANCE] [-n NUMBER_PACKAGES] [-l LEN_PACKAGE_NAME]
+               [-s]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -o {mod-squatters,top-mods}, --operation {mod-squatters,top-mods}
+                        Specify operation to perform. (default: mod-squatters)
+  -m MODULE_NAME, --module_name MODULE_NAME
+                        Module name to check for typosquatters. (default:
+                        None)
+  -e EDIT_DISTANCE, --edit_distance EDIT_DISTANCE
+                        Maximum edit distance to check. (default: 1)
+  -n NUMBER_PACKAGES, --number_packages NUMBER_PACKAGES
+                        Specify number of top packages to scan (default: 50)
+  -l LEN_PACKAGE_NAME, --len_package_name LEN_PACKAGE_NAME
+                        Specify minimum length of package name (default: 5)
+  -s, --stored_json     Use a stored top package list (default: False)
+```
+NOTE: This command line interface is under development and could have changed.
 
 More coming soon...
