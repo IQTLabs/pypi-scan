@@ -93,7 +93,18 @@ class TestFunctions(unittest.TestCase):
             split_processed_output[0], "Number of top packages to examine: 43"
         )
 
-        #TODO: Add test for multiple module scan using lots of flags
+        # Test multiple module scan usage with stored package used
+        output = subprocess.run(
+            ["python", "main.py", "-o", "top-mods", "-s"], capture_output=True
+        )
+        processed_output = output.stdout.decode("utf-8")
+        split_processed_output = processed_output.splitlines()
+        self.assertEqual(len(split_processed_output), 45)
+        self.assertEqual(
+            split_processed_output[0], "Number of top packages to examine: 43"
+        )
+
+        # TODO: Add test for multiple module scan using lots of flags
 
 
 if __name__ == "__main__":

@@ -67,12 +67,19 @@ def parseArgs():
         default=5,
         type=int,
     )
+    # Switch to use stored top package list
+    parser.add_argument(
+        "-s",
+        "--stored_json",
+        help="Use a stored top package list",
+        action="store_true",
+    )
     args = parser.parse_args()
 
     return args
 
 
-def topMods(max_distance, top_n, min_len):
+def topMods(max_distance, top_n, min_len, stored_json):
     """ Check top packages for typosquatters
 
     Prints top packages and any potential typosquatters
@@ -81,11 +88,12 @@ def topMods(max_distance, top_n, min_len):
     max_distance: maximum edit distance to check for typosquatting
     top_n: the number of top packages to retrieve
     min_len: a minimum length of characters
+    stored_json: a flag to denote whether to used stored top packages json
     """
 
     # Get list of potential typosquatters
     package_names = getAllPackages()
-    top_packages = getTopPackages(top_n=top_n)
+    top_packages = getTopPackages(top_n=top_n, stored=stored_json)
     filtered_package_list = filterByPackageNameLen(top_packages, min_len=min_len)
     squat_candidates = createSuspiciousPackageDict(
         package_names, filtered_package_list, max_distance
@@ -133,9 +141,18 @@ if __name__ == "__main__":
 
     # Check top packages for typosquatters
     if cli_args.operation == "top-mods":
+        # Check to see if stored_json file of top packages
+        # is requested at command line
+        stored_json = False
+        if cli_args.stored_json is not None and cli_args.stored_json == True:
+            stored_json = True
         topMods(
-            cli_args.edit_distance, cli_args.number_packages, cli_args.len_package_name
+            cli_args.edit_distance,
+            cli_args.number_packages,
+            cli_args.len_package_name,
+            stored_json,
         )
+
     # Check particular package for typosquatters
     elif cli_args.operation == "mod-squatters":
         # Make sure user proviced --module flag
