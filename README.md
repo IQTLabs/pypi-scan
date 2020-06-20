@@ -13,4 +13,25 @@ Imagine you want to download the package 'numpy' but you mistype that name and s
 'nunpy' instead. You then download a malicious package. Of course, not all packages with
 similar names are malicious, but some might be. 
 
-MORE INFO COMING.
+## Usage
+
+List potential typosquatters on numpy:
+```
+>>> python main.py -m numpy
+Checking numpy for typosquatting candidates.
+0: bumpy
+1: dumpy:
+2: gnumpy
+...
+```
+
+List potential typosquatters on top packages:
+```
+>>> python main.py -o top-mods
+Number of top packages to examine: 43
+urllib3 : ['urllib4', 'urllib5']
+botocore : ['kotocore']
+...
+```
+
+More coming soon...
