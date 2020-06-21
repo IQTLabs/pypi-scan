@@ -7,12 +7,17 @@ that are intentionally named such that common mis-typings of the original
 package could result in typing this other package name. Mis-typing distance
 is measured via levenshtein distance, a measure of "edit" distance.
 
-One functionality allows user to specify a package name and to see if there
-are any other packages that are similarly named. This could help a package
-creator or maintainer check for possible typosquatting.
+One functionality (ModSquatters) allows user to specify a package name and to
+see if there are any other packages that are similarly named. This could help
+a package creator or maintainer check for possible typosquatting.
 
-There is also a functionality better suited for the administrators of pypi
-or for an information security researcher: this program can check the top
+Another functionality (names_to_defend) allows a user to specify a package
+name and to then view a list of potential names that might be worth defending
+given the similarity of those names. A user could then register those names
+too to try to prevent typosquatting attacks.
+
+There is also a functionality (topMods) better suited for the administrators of
+pypi or for an information security researcher: this program can check the top
 packages (the default is the top 50) for typosquatting. The default
 configuration identifies a package as a potential typosquatter if its edit
 distance is less than or equal a specified value (default is 1) compared to
@@ -27,7 +32,11 @@ import textwrap
 
 from filters import filterByPackageNameLen, whitelist
 from scrapers import getAllPackages, getTopPackages
-from utils import createSuspiciousPackageDict, storeSquattingCandidates
+from utils import (
+    createSuspiciousPackageDict,
+    storeSquattingCandidates,
+    create_potential_squatter_names,
+)
 
 
 def parseArgs():
@@ -40,7 +49,7 @@ def parseArgs():
         "-o",
         "--operation",
         help="Specify operation to perform.",
-        choices=["mod-squatters", "top-mods"],
+        choices=["mod-squatters", "top-mods", "defend-name"],
         default="mod-squatters",
     )
     parser.add_argument(
@@ -135,6 +144,17 @@ def modSquatters(module, max_distance):
             print(str(i) + ": " + candidate)
 
 
+def names_to_defend(module_name):
+    """ Print out module names that might merit defending
+
+    INPUT:
+    --module_name: Initial module name to protect from typosquatting
+    """
+    names = create_potential_squatter_names(module_name)
+    for i, name in enumerate(names):
+        print(f"{i}:", name)
+
+
 if __name__ == "__main__":
 
     cli_args = parseArgs()  # get command line arguments
@@ -155,7 +175,7 @@ if __name__ == "__main__":
 
     # Check particular package for typosquatters
     elif cli_args.operation == "mod-squatters":
-        # Make sure user proviced --module flag
+        # Make sure user provided --module flag
         if cli_args.module_name == None:
             print(
                 textwrap.dedent(
@@ -169,3 +189,20 @@ if __name__ == "__main__":
             sys.exit(0)  # Exit program
         else:
             modSquatters(cli_args.module_name, cli_args.edit_distance)
+
+    # Enumerate potential names that could potentially be typosquatted
+    elif cli_args.operation == "defend-name":
+        # Make sure user provided --module flag
+        if cli_args.module_name == None:
+            print(
+                textwrap.dedent(
+                    """
+                ERROR: User must use -m flag to specify module.
+                For instance:
+                >>> python main.py -o defend-name -m requests
+                """
+                )
+            )
+            sys.exit(0)
+        else:
+            names_to_defend(cli_args.module_name)
