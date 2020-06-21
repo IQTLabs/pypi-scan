@@ -150,6 +150,7 @@ def names_to_defend(module_name):
     INPUT:
     --module_name: Initial module name to protect from typosquatting
     """
+    print(f'Here is a list of similar names--measured by keyboard distance--to "{module_name}":')
     names = create_potential_squatter_names(module_name)
     for i, name in enumerate(names):
         print(f"{i}:", name)
