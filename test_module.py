@@ -117,6 +117,19 @@ class TestFunctions(unittest.TestCase):
             split_processed_output[0], "Number of top packages to examine: 43"
         )
 
+        # Test defend-package usage, i.e. names that are likely candidates based
+        # on spelling alone that could be typosquatters
+        output = subprocess.run(
+            ["python", "main.py", "-o", "defend-name", "-m", "test"], capture_output=True
+        )
+        processed_output = output.stdout.decode("utf-8")
+        split_processed_output = processed_output.splitlines()
+        self.assertEqual(len(split_processed_output), 9)
+        self.assertEqual(
+            split_processed_output[0],
+            'Here is a list of similar names--measured by keyboard distance--to "test":'
+        )
+
         # TODO: Add test for multiple module scan using lots of flags
 
 
