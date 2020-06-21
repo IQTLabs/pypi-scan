@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "b6a36897a6c5c4053ad09e166eab153a248ef29c42661443b73dc8574f9895e0"
+            "sha256": "4b6b1fbf85f5e5572dd13c63699b9ec7781ffc8ddd2f58006aa06e2b2c48a20c"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -27,10 +27,10 @@
         },
         "certifi": {
             "hashes": [
-                "sha256:5ad7e9a056d25ffa5082862e36f119f7f7cec6457fa07ee2f8c339814b80c9b1",
-                "sha256:9cd41137dc19af6a5e03b630eefe7d1f458d964d406342dd3edf625839b944cc"
+                "sha256:5930595817496dd21bb8dc35dad090f1c2cd0adfaf21204bf6732ca5d8ee34d3",
+                "sha256:8fc0819f1f30ba15bdb34cceffb9ef04d99f420f68eb75d901e9560b8749fc41"
             ],
-            "version": "==2020.4.5.2"
+            "version": "==2020.6.20"
         },
         "chardet": {
             "hashes": [
@@ -52,6 +52,14 @@
             ],
             "index": "pypi",
             "version": "==0.5.1"
+        },
+        "mrs-spellings": {
+            "hashes": [
+                "sha256:b521df2c9aa8b2487d48562a5a1d2c41c5a6cc03b42ae91e0705f107c6402967",
+                "sha256:faf32fa96417ee627fdb5dc51a3c14d2c3e8fc864e44f40772e36d68d8077fe4"
+            ],
+            "index": "pypi",
+            "version": "==1.0.3"
         },
         "python-levenshtein": {
             "hashes": [

@@ -8,8 +8,10 @@ verify_ssl = true
 [packages]
 beautifulsoup4 = "*"
 jsontree = "*"
+mrs-spellings = "*"
 requests = "*"
 python-Levenshtein = "*"
+
 
 [requires]
 python_version = "3.8"
