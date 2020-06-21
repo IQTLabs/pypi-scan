@@ -5,7 +5,11 @@ import unittest
 
 from filters import filterByPackageNameLen, distanceCalculations, whitelist
 from scrapers import getAllPackages, getTopPackages
-from utils import createSuspiciousPackageDict, storeSquattingCandidates
+from utils import (
+    createSuspiciousPackageDict,
+    storeSquattingCandidates,
+    create_potential_squatter_names,
+)
 
 
 class TestFunctions(unittest.TestCase):
@@ -53,6 +57,13 @@ class TestFunctions(unittest.TestCase):
         self.assertEqual(result, {"key1": [], "key2": ["val2"]})
         self.assertEqual(len(result), 2)
         self.assertTrue("key1" in result)
+
+    def test_potential_squatter_names(self):
+        """Test create_potential_squatter_names function"""
+        module_name = "test"
+        potential_list = create_potential_squatter_names(module_name)
+        expected_list = set(["tedt", "trst", "tesy", "tesr", "rest", "teat", "twst", "yest"])
+        self.assertEqual(potential_list, expected_list)
 
     def test_end2end(self):
         """Test pypi-scan analysis from start to finish"""
