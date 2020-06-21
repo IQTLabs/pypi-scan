@@ -13,12 +13,14 @@ import json
 from mrs_spellings import MrsWord
 
 import constants
-from filters import distanceCalculations
+from filters import distance_calculations
 
 MAX_DISTANCE = constants.MAX_DISTANCE
 
 
-def createSuspiciousPackageDict(all_packages, top_packages, max_distance=MAX_DISTANCE):
+def create_suspicious_package_dict(
+    all_packages, top_packages, max_distance=MAX_DISTANCE
+):
     """ Examine all top packages for typosquatters.
 
 	Loop through all top packages and check for instances of
@@ -36,13 +38,13 @@ def createSuspiciousPackageDict(all_packages, top_packages, max_distance=MAX_DIS
     suspicious_packages = collections.OrderedDict()
 
     for top_package in top_packages:
-        close_packages = distanceCalculations(top_package, all_packages, max_distance)
+        close_packages = distance_calculations(top_package, all_packages, max_distance)
         suspicious_packages[top_package] = close_packages
 
     return suspicious_packages
 
 
-def storeSquattingCandidates(squat_candidates):
+def store_squatting_candidates(squat_candidates):
     """ Persist results of squatting candidate search.
 
 	Dump typosquatter candidate list to a json file. Store

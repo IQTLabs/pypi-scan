@@ -13,7 +13,7 @@ MAX_DISTANCE = constants.MAX_DISTANCE
 MIN_LEN_PACKAGE_NAME = constants.MIN_LEN_PACKAGE_NAME
 
 
-def filterByPackageNameLen(package_list, min_len=MIN_LEN_PACKAGE_NAME):
+def filter_by_package_name_len(package_list, min_len=MIN_LEN_PACKAGE_NAME):
     """
 	Filter out package names whose length in characters is
 	greater than a specified minimum length
@@ -36,7 +36,7 @@ def filterByPackageNameLen(package_list, min_len=MIN_LEN_PACKAGE_NAME):
     return filtered_package_list
 
 
-def distanceCalculations(top_package, all_packages, max_distance=MAX_DISTANCE):
+def distance_calculations(top_package, all_packages, max_distance=MAX_DISTANCE):
     """ Find all packages within a defined edit distance
 
 	INPUTS:

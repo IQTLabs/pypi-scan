@@ -3,11 +3,11 @@
 import subprocess
 import unittest
 
-from filters import filterByPackageNameLen, distanceCalculations, whitelist
-from scrapers import getAllPackages, getTopPackages
+from filters import filter_by_package_name_len, distance_calculations, whitelist
+from scrapers import get_all_packages, get_top_packages
 from utils import (
-    createSuspiciousPackageDict,
-    storeSquattingCandidates,
+    create_suspicious_package_dict,
+    store_squatting_candidates,
     create_potential_squatter_names,
 )
 
@@ -17,17 +17,17 @@ class TestFunctions(unittest.TestCase):
 
     def test_getAllPackages(self):
         """Test getAllPackages function"""
-        package_names = getAllPackages()
+        package_names = get_all_packages()
         self.assertTrue(len(package_names) > 200000)
 
     def test_getTopPackages(self):
         """Test getTopPackages function"""
-        top_packages = getTopPackages(100)
+        top_packages = get_top_packages(100)
         self.assertEqual(len(top_packages), 100)
         self.assertEqual(top_packages["requests"], 4)
 
         # Check if stored package option works
-        stored_packages = getTopPackages(50, stored=True)
+        stored_packages = get_top_packages(50, stored=True)
         self.assertEqual(len(stored_packages), 50)
         self.assertEqual(stored_packages["requests"], 4)
 
@@ -35,16 +35,16 @@ class TestFunctions(unittest.TestCase):
         """Test distanceCalculations function"""
         top_package = "cat"
         all_packages = ["bat", "apple"]
-        squatters = distanceCalculations(top_package, all_packages)
+        squatters = distance_calculations(top_package, all_packages)
         self.assertEqual(squatters, ["bat"])
 
     def test_filterByPackageNameLen(self):
         """Test filterByPackageNameLen"""
         initial_list = ["eeny", "meeny", "miny", "moe"]
-        six_char_list = filterByPackageNameLen(initial_list, 6)
-        five_char_list = filterByPackageNameLen(initial_list, 5)
-        four_char_list = filterByPackageNameLen(initial_list, 4)
-        three_char_list = filterByPackageNameLen(initial_list, 3)
+        six_char_list = filter_by_package_name_len(initial_list, 6)
+        five_char_list = filter_by_package_name_len(initial_list, 5)
+        four_char_list = filter_by_package_name_len(initial_list, 4)
+        three_char_list = filter_by_package_name_len(initial_list, 3)
         self.assertEqual(six_char_list, [])
         self.assertEqual(five_char_list, ["meeny"])
         self.assertEqual(four_char_list, ["eeny", "meeny", "miny"])
@@ -69,10 +69,10 @@ class TestFunctions(unittest.TestCase):
 
     def test_end2end(self):
         """Test pypi-scan analysis from start to finish"""
-        package_names = getAllPackages()
-        top_packages = getTopPackages()
-        squat_candidates = createSuspiciousPackageDict(package_names, top_packages)
-        storeSquattingCandidates(squat_candidates)
+        package_names = get_all_packages()
+        top_packages = get_top_packages()
+        squat_candidates = create_suspicious_package_dict(package_names, top_packages)
+        store_squatting_candidates(squat_candidates)
 
     def test_commandline(self):
         """Test command line usage"""
@@ -120,14 +120,15 @@ class TestFunctions(unittest.TestCase):
         # Test defend-package usage, i.e. names that are likely candidates based
         # on spelling alone that could be typosquatters
         output = subprocess.run(
-            ["python", "main.py", "-o", "defend-name", "-m", "test"], capture_output=True
+            ["python", "main.py", "-o", "defend-name", "-m", "test"],
+            capture_output=True,
         )
         processed_output = output.stdout.decode("utf-8")
         split_processed_output = processed_output.splitlines()
         self.assertEqual(len(split_processed_output), 9)
         self.assertEqual(
             split_processed_output[0],
-            'Here is a list of similar names--measured by keyboard distance--to "test":'
+            'Here is a list of similar names--measured by keyboard distance--to "test":',
         )
 
         # TODO: Add test for multiple module scan using lots of flags

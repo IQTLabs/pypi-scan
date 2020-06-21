@@ -17,7 +17,7 @@ import constants
 TOP_N = constants.TOP_N
 
 
-def getAllPackages(page="https://pypi.org/simple/"):
+def get_all_packages(page="https://pypi.org/simple/"):
     """ Download simple list of pypi package names
 
 	pypi.org/simple conveniently lists all the names of current
@@ -43,7 +43,7 @@ def getAllPackages(page="https://pypi.org/simple/"):
     return package_names
 
 
-def getTopPackages(top_n=TOP_N, stored=False):
+def get_top_packages(top_n=TOP_N, stored=False):
     """ Identify top packages by download count on pypi
 
 	A friendly person has already provided an occasionally
