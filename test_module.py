@@ -62,7 +62,9 @@ class TestFunctions(unittest.TestCase):
         """Test create_potential_squatter_names function"""
         module_name = "test"
         potential_list = create_potential_squatter_names(module_name)
-        expected_list = set(["tedt", "trst", "tesy", "tesr", "rest", "teat", "twst", "yest"])
+        expected_list = set(
+            ["tedt", "trst", "tesy", "tesr", "rest", "teat", "twst", "yest"]
+        )
         self.assertEqual(potential_list, expected_list)
 
     def test_end2end(self):
