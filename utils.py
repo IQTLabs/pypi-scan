@@ -10,6 +10,7 @@ import os
 import time
 
 import json
+from mrs_spellings import MrsWord
 
 import constants
 from filters import distanceCalculations
@@ -57,3 +58,24 @@ def storeSquattingCandidates(squat_candidates):
     file_name = os.path.join("results", full_file_name)
     with open(file_name, "w") as path:
         json.dump(squat_candidates, path)
+
+
+def create_potential_squatter_names(module_name):
+    """ Create a set of potential typosquatting names
+
+	Given a module name, create a set of potential typosquatting
+	names based on qwerty distance, a measure of how close keys
+	are to each other. This is a more sophisticated measure of
+	keyboard key distance than levenshtein distance.
+
+	INPUT:
+	--module_name: a name for a module
+
+	OUTPUT:
+	--potential_squatter_set: a list of potential typosquatting name
+	"""
+
+    potential_candidates = MrsWord(module_name).qwerty_swap()
+    potential_candidates_joined = " ".join(potential_candidates)
+    potential_candidates_set = set(potential_candidates_joined.split(" "))
+    return potential_candidates_set
