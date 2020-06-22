@@ -1,6 +1,8 @@
 """ Test all functions used to execute pypi-scan """
 
+import os
 import subprocess
+import textwrap
 import unittest
 
 from filters import filter_by_package_name_len, distance_calculations, whitelist
@@ -81,19 +83,23 @@ class TestFunctions(unittest.TestCase):
         output = subprocess.run(
             ["python", "main.py", "-m", "pcap2map"], capture_output=True
         )
-        self.assertEqual(
-            output.stdout.decode("utf-8"),
-            "Checking pcap2map for typosquatting candidates.\r\nNo typosquatting candidates found.\r\n",
-        )
+        expected = ''.join(['Checking pcap2map for typosquatting candidates.',
+                        os.linesep,
+                        'No typosquatting candidates found.',
+                        os.linesep])
+        self.assertEqual(output.stdout.decode("utf-8"), expected)
 
         # Test single module scan usage for module with typosquatters
         output = subprocess.run(
             ["python", "main.py", "-m", "urllib3"], capture_output=True
         )
-        self.assertEqual(
-            output.stdout.decode("utf-8"),
-            "Checking urllib3 for typosquatting candidates.\r\n0: urllib4\r\n1: urllib5\r\n",
-        )
+        expected = ''.join(['Checking urllib3 for typosquatting candidates.',
+                        os.linesep,
+                        '0: urllib4',
+                        os.linesep,
+                        '1: urllib5',
+                        os.linesep])
+        self.assertEqual(output.stdout.decode("utf-8"), expected)
 
         # Test multiple module scan usage
         output = subprocess.run(
