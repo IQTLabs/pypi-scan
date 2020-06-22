@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/jspeed-meyers/pypi-scan.svg?branch=master)](https://travis-ci.com/jspeed-meyers/pypi-scan)
+
 # pypi-scan
 Scan pypi for typosquatting
 
