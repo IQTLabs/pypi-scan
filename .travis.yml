@@ -1,0 +1,6 @@
+language: python
+python:
+  - "3.8"
+install:
+  - pipenv install
+script: python -m unittest
