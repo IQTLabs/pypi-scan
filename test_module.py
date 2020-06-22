@@ -2,7 +2,6 @@
 
 import os
 import subprocess
-import textwrap
 import unittest
 
 from filters import filter_by_package_name_len, distance_calculations, whitelist
