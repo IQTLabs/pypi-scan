@@ -82,22 +82,30 @@ class TestFunctions(unittest.TestCase):
         output = subprocess.run(
             ["python", "main.py", "-m", "pcap2map"], capture_output=True
         )
-        expected = ''.join(['Checking pcap2map for typosquatting candidates.',
-                        os.linesep,
-                        'No typosquatting candidates found.',
-                        os.linesep])
+        expected = "".join(
+            [
+                "Checking pcap2map for typosquatting candidates.",
+                os.linesep,
+                "No typosquatting candidates found.",
+                os.linesep,
+            ]
+        )
         self.assertEqual(output.stdout.decode("utf-8"), expected)
 
         # Test single module scan usage for module with typosquatters
         output = subprocess.run(
             ["python", "main.py", "-m", "urllib3"], capture_output=True
         )
-        expected = ''.join(['Checking urllib3 for typosquatting candidates.',
-                        os.linesep,
-                        '0: urllib4',
-                        os.linesep,
-                        '1: urllib5',
-                        os.linesep])
+        expected = "".join(
+            [
+                "Checking urllib3 for typosquatting candidates.",
+                os.linesep,
+                "0: urllib4",
+                os.linesep,
+                "1: urllib5",
+                os.linesep,
+            ]
+        )
         self.assertEqual(output.stdout.decode("utf-8"), expected)
 
         # Test multiple module scan usage
