@@ -6,7 +6,7 @@ Scan pypi for typosquatting
 
 Have you ever wanted to see if other packages are typosquatting your pypi package or
 any pypi package of interest? Have you ever wanted to check the most downloaded packages
-on pypi for potential typosquatters? You can do both of these actions with pypi-scan.
+on pypi for potential typosquatters? What about create a list of potential typosquatting names for a package you maintain so that you can go claim those names yourself on pypi? You can do both of these actions with pypi-scan.
 
 Pypi (the Python Package Index) is a repository for Python packages. It's like a store
 where anybody with an internet connection can download (for free) Python packages.
