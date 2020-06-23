@@ -3,4 +3,7 @@ python:
   - "3.8"
 install:
   - pipenv install
+  - pip install --user codecov
 script: python -m unittest
+after_success:
+  - codecov
