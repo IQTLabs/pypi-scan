@@ -3,7 +3,7 @@ python:
   - "3.8"
 install:
   - pipenv install
-  - pip install --user codecov
-script: python -m unittest
+  - pip install coverage
+script: coverage run -m unittest discover
 after_success:
-  - codecov
+  - bash <(curl -s https://codecov.io/bash)
