@@ -21,7 +21,7 @@ similar names are malicious, but some might be.
 
 ## Usage
 
-List potential typosquatters on numpy:
+List potential typosquatters on a specific package (e.g. numpy):
 ```
 >>> python main.py -m numpy
 Checking numpy for typosquatting candidates.
