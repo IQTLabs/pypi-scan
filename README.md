@@ -59,6 +59,15 @@ Here is a list of similar names--measured by keyboard distance--to "pandas":
 2: pansas
 ...(output shortened)
 ```
+
+Alternatively, to build and run a container via Docker:
+```
+docker build -t pypi-scan .
+# To open bash shell inside container
+docker run -it test_app bash
+```
+All commands can then be run from the command line inside the container.
+
 ## Installation
 
 Download to your local machine via git:
@@ -66,14 +75,10 @@ Download to your local machine via git:
 git clone https://github.com/jspeed-meyers/pypi-scan
 ```
 
-Navigate to folder that contains main.py:
-```
-cd pypiscan/pypiscan
-```
-
 After navigating to folder that contains main.py, ensure dependencies are
 installed and then run tests:
 ```
+cd pypiscan/pypiscan
 pip install -r requirements.txt
 python -m unittest
 ```
