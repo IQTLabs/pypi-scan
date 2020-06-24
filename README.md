@@ -73,13 +73,13 @@ Get help on command line options by navigating to folder that contains main.py
 and running this command:
 ```
 >>> python main.py -h
-usage: main.py [-h] [-o {mod-squatters,top-mods}] [-m MODULE_NAME]
+usage: main.py [-h] [-o {mod-squatters,top-mods,defend-name}] [-m MODULE_NAME]
                [-e EDIT_DISTANCE] [-n NUMBER_PACKAGES] [-l LEN_PACKAGE_NAME]
                [-s]
 
 optional arguments:
   -h, --help            show this help message and exit
-  -o {mod-squatters,top-mods}, --operation {mod-squatters,top-mods}
+  -o {mod-squatters,top-mods,defend-name}, --operation {mod-squatters,top-mods,defend-name}
                         Specify operation to perform. (default: mod-squatters)
   -m MODULE_NAME, --module_name MODULE_NAME
                         Module name to check for typosquatters. (default:
