@@ -46,8 +46,19 @@ Advanced usage includes use of several switches:
 # 4 and for all typosquatters within an edit distance of two. See the help
 # section below for further explanation of switches.
 >>> python main.py -o top-mods -e 2 -n 100 -l 4
+...(output omitted)
 ```
 
+List potential names that typosquatters might choose for a particular package.
+A user could then defensively register these names on pypi.
+```
+>>> python main.py -o defend-name -m pandas
+Here is a list of similar names--measured by keyboard distance--to "pandas":
+0: pabdas
+1: panfas
+2: pansas
+...(output shortened)
+```
 ## Installation
 
 Download to your local machine via git:
