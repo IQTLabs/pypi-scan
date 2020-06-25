@@ -2,6 +2,7 @@
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/d1731169a12d42da81da02b249ca069c)](https://www.codacy.com/manual/jmeyers/pypi-scan?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=jspeed-meyers/pypi-scan&amp;utm_campaign=Badge_Grade)
 [![codecov](https://codecov.io/gh/jspeed-meyers/pypi-scan/branch/master/graph/badge.svg)](https://codecov.io/gh/jspeed-meyers/pypi-scan)
 [![Requirements Status](https://requires.io/github/jspeed-meyers/pypi-scan/requirements.svg?branch=master)](https://requires.io/github/jspeed-meyers/pypi-scan/requirements/?branch=master)
+[![Python 3.7, 3.8](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/downloads/release/python-360/)
 [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/jspeed-meyers/pypi-scan/blob/master/LICENSE)
 
 # pypi-scan
