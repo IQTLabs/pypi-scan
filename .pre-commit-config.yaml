@@ -9,3 +9,7 @@ repos:
     rev: 19.3b0
     hooks:
     -   id: black
+-   repo: https://github.com/PyCQA/bandit
+    rev: 1.6.2
+    hooks:
+    - id: bandit
