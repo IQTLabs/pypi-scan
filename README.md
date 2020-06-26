@@ -19,7 +19,7 @@ Typosquatting is a practice in which someone chooses a package name that is simi
 an existing package and places a malicious package in this deceptively titled namespace.
 Imagine you want to download the package 'numpy' but you mistype that name and spell
 'nunpy' instead. You then download a malicious package. Of course, not all packages with
-similar names are malicious, but some might be. 
+similar names are malicious, but some might be.
 
 ## Usage
 

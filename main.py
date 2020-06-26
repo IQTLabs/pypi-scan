@@ -72,10 +72,7 @@ def parse_args():
     )
     # Switch to use stored top package list
     parser.add_argument(
-        "-s",
-        "--stored_json",
-        help="Use a stored top package list",
-        action="store_true",
+        "-s", "--stored_json", help="Use a stored top package list", action="store_true"
     )
     args = parser.parse_args()
 
