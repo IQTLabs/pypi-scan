@@ -21,7 +21,13 @@ Imagine you want to download the package 'numpy' but you mistype that name and s
 'nunpy' instead. You then download a malicious package. Of course, not all packages with
 similar names are malicious, but some might be.
 
+To determine if a package is a potential typosquatter, pypi-scan employs Levenshtein distance,
+which is, roughly speaking, a measure of how many edits are required to transform one string of
+characters into another.
+https://en.wikipedia.org/wiki/Levenshtein_distance
+
 ## Usage
+(Requires an internet connection.)
 
 List potential typosquatters on a specific package (e.g. numpy):
 ```
@@ -30,8 +36,10 @@ Checking numpy for typosquatting candidates.
 0: bumpy
 1: dumpy
 2: gnumpy
-...(outputed shortened)
+...
 ```
+Timing info: ~10 seconds
+
 
 List potential typosquatters on top packages:
 ```
@@ -39,8 +47,9 @@ List potential typosquatters on top packages:
 Number of top packages to examine: 43
 urllib3 : ['urllib4', 'urllib5']
 botocore : ['kotocore']
-...(output shortened)
+...
 ```
+Timing info: ~15 seconds
 
 Advanced usage includes use of several switches:
 ```
@@ -48,11 +57,14 @@ Advanced usage includes use of several switches:
 # 4 and for all typosquatters within an edit distance of two. See the help
 # section below for further explanation of switches.
 >>> python main.py -o top-mods -e 2 -n 100 -l 4
-...(output omitted)
+...
 ```
+Timing info: ~20 seconds
 
 List potential names that typosquatters might choose for a particular package.
-A user could then defensively register these names on pypi.
+A user could then defensively register these names on pypi. This functionality uses
+QWERTY distance, not Levenshtein distance. QWERTY distance measures distances by
+the distance between keys on a computer keyboard.
 ```
 >>> python main.py -o defend-name -m pandas
 Here is a list of similar names--measured by keyboard distance--to "pandas":
@@ -61,6 +73,7 @@ Here is a list of similar names--measured by keyboard distance--to "pandas":
 2: pansas
 ...(output shortened)
 ```
+Timing info: ~1 second
 
 Alternatively, to build and run a container via Docker:
 ```
