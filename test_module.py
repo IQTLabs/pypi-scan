@@ -34,9 +34,9 @@ class TestFunctions(unittest.TestCase):
 
     def test_distanceCalculations(self):
         """Test distanceCalculations function"""
-        top_package = "cat"
+        package_of_interest = "cat"
         all_packages = ["bat", "apple"]
-        squatters = distance_calculations(top_package, all_packages)
+        squatters = distance_calculations(package_of_interest, all_packages)
         self.assertEqual(squatters, ["bat"])
 
     def test_filterByPackageNameLen(self):

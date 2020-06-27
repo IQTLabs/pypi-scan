@@ -27,36 +27,37 @@ def filter_by_package_name_len(package_list, min_len=MIN_LEN_PACKAGE_NAME):
     return [pkg for pkg in package_list if len(pkg) >= min_len]
 
 
-def distance_calculations(top_package, all_packages, max_distance=MAX_DISTANCE):
-    """ Find all packages within a defined edit distance
+def distance_calculations(package_of_interest, all_packages, max_distance=MAX_DISTANCE):
+    """ Find packages within a defined edit distance and return sorted list
 
 	INPUTS:
-	--top_package: package name to perform comparison
+	--package_of_interest: package name on which to perform comparison
 	--all_packages: list of all package names
 	--max_distance: the maximum distance that justifies reporting
 
 	OUTPUTS:
-	--close_package_names: list of potential typosquatters
+	--similar_package_names: list of potential typosquatters
 	"""
 
     # Empty list to store similar package names
-    close_package_names = []
+    similar_package_names = []
 
     # Loop thru all package names
     for package in all_packages:
 
-        # Skip if the package IS the same as top_package
-        if package == top_package:
+        # Skip if the package is the package of interest
+        if package == package_of_interest:
             continue
 
         # Calculate distance
-        distance = Levenshtein.distance(top_package, package)
+        distance = Levenshtein.distance(package_of_interest, package)
 
-        # If distance is sufficiently close, add to list
+        # If distance is sufficiently small, add to list
         if distance <= max_distance:
-            close_package_names.append(package)
+            similar_package_names.append(package)
 
-    return close_package_names
+    # Return alphabetically sorted list of similar package names
+    return sorted(similar_package_names)
 
 
 def whitelist(squat_candidates, whitelist_filename="whitelist.txt"):
