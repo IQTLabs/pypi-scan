@@ -39,7 +39,6 @@ Checking numpy for typosquatting candidates.
 ```
 Timing info: ~10 seconds
 
-
 List potential typosquatters on top packages:
 ```
 >>> python main.py -o top-mods
@@ -49,6 +48,8 @@ botocore : ['kotocore']
 ...
 ```
 Timing info: ~15 seconds
+Note I: This command generates a .json report file in the 'results' directory.
+Note II:
 
 Advanced usage includes use of several switches:
 ```
@@ -73,6 +74,9 @@ Here is a list of similar names--measured by keyboard distance--to "pandas":
 ...(output shortened)
 ```
 Timing info: ~1 second
+NOTE: One colleague has asked me if registering similar namespaces as a defensive
+protection against typosquatting is ethical. My own review of Pypi suggests the practice
+is common among top-downloaded packages. But is it ethical? I'm not sure.
 
 Alternatively, to build and run a container via Docker:
 ```
