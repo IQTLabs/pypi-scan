@@ -14,9 +14,7 @@ MIN_LEN_PACKAGE_NAME = constants.MIN_LEN_PACKAGE_NAME
 
 
 def filter_by_package_name_len(package_list, min_len=MIN_LEN_PACKAGE_NAME):
-    """
-	Filter out package names whose length in characters is
-	greater than a specified minimum length
+    """ Keep packages whose name is at least as long as a minimum length
 
 	INPUTS:
 	--package_list: a list of package names
@@ -26,14 +24,7 @@ def filter_by_package_name_len(package_list, min_len=MIN_LEN_PACKAGE_NAME):
 	--filtered_package_list: filtered list of package names
 	"""
 
-    # Loop thru packages and add package if name's
-    # length is greater than or equal to specified min length
-    filtered_package_list = []
-    for package in package_list:
-        if len(package) >= min_len:
-            filtered_package_list.append(package)
-
-    return filtered_package_list
+    return [pkg for pkg in package_list if len(pkg) >= min_len]
 
 
 def distance_calculations(top_package, all_packages, max_distance=MAX_DISTANCE):
