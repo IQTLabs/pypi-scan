@@ -49,7 +49,8 @@ botocore : ['kotocore']
 ```
 Timing info: ~15 seconds
 Note I: This command generates a .json report file in the 'results' directory.
-Note II:
+Note II: Users can whitelist known good packages by adding package names in
+whitelist.txt; there should be one package name per line.
 
 Advanced usage includes use of several switches:
 ```
