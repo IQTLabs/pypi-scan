@@ -21,10 +21,9 @@ Imagine you want to download the package 'numpy' but you mistype that name and s
 'nunpy' instead. You then download a malicious package. Of course, not all packages with
 similar names are malicious, but some might be.
 
-To determine if a package is a potential typosquatter, pypi-scan employs Levenshtein distance,
+To determine if a package is a potential typosquatter, pypi-scan employs [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance),
 which is, roughly speaking, a measure of how many edits are required to transform one string of
-characters into another.
-https://en.wikipedia.org/wiki/Levenshtein_distance
+characters into another. The default edit distance is one.
 
 ## Usage
 (Requires an internet connection.)
