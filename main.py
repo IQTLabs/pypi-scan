@@ -130,3 +130,14 @@ if __name__ == "__main__":
             sys.exit(0)
         else:
             names_to_defend(cli_args.module_name)
+
+    # Check if operation argument was incorrectly specified
+    else:
+        print(
+            textwrap.dedent(
+                """
+                ERROR: User incorrectly typed argument to --operation flag
+                """
+            )
+        )
+        sys.exit(0)
