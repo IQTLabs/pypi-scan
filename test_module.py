@@ -1,7 +1,7 @@
 """ Test all functions used to execute pypi-scan """
 
 import os
-import subprocess
+import subprocess  # nosec
 import unittest
 
 from filters import filter_by_package_name_len, distance_calculations, whitelist
@@ -81,7 +81,7 @@ class TestFunctions(unittest.TestCase):
         # Test single module scan usage for module with no typosquatters
         output = subprocess.run(
             ["python", "main.py", "-m", "pcap2map"], capture_output=True
-        )
+        )  # nosec
         expected = "".join(
             [
                 "Checking pcap2map for typosquatting candidates.",
@@ -95,7 +95,7 @@ class TestFunctions(unittest.TestCase):
         # Test single module scan usage for module with typosquatters
         output = subprocess.run(
             ["python", "main.py", "-m", "urllib3"], capture_output=True
-        )
+        )  # nosec
         expected = "".join(
             [
                 "Checking urllib3 for typosquatting candidates.",
@@ -111,7 +111,7 @@ class TestFunctions(unittest.TestCase):
         # Test multiple module scan usage
         output = subprocess.run(
             ["python", "main.py", "-o", "top-mods"], capture_output=True
-        )
+        )  # nosec
         processed_output = output.stdout.decode("utf-8")
         split_processed_output = processed_output.splitlines()
         self.assertEqual(len(split_processed_output), 45)
@@ -122,7 +122,7 @@ class TestFunctions(unittest.TestCase):
         # Test multiple module scan usage with stored package used
         output = subprocess.run(
             ["python", "main.py", "-o", "top-mods", "-s"], capture_output=True
-        )
+        )  # nosec
         processed_output = output.stdout.decode("utf-8")
         split_processed_output = processed_output.splitlines()
         self.assertEqual(len(split_processed_output), 45)
@@ -135,7 +135,7 @@ class TestFunctions(unittest.TestCase):
         output = subprocess.run(
             ["python", "main.py", "-o", "defend-name", "-m", "test"],
             capture_output=True,
-        )
+        )  # nosec
         processed_output = output.stdout.decode("utf-8")
         split_processed_output = processed_output.splitlines()
         self.assertEqual(len(split_processed_output), 9)
