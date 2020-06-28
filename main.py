@@ -1,5 +1,4 @@
-"""
-Pypi typosquatting scanning capability
+"""Scan Python Package Index (PyPI) for typosquatting.
 
 This program contains functionality related to scanning pypi, the
 python package index, for typosquatting. Typosquatting occurs when
