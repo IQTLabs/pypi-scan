@@ -85,11 +85,6 @@ if __name__ == "__main__":
 
     # Check top packages for typosquatters
     if cli_args.operation == "top-mods":
-        # Check to see if stored_json file of top packages
-        # is requested at command line
-        # stored_json = False
-        # if cli_args.stored_json is not None and cli_args.stored_json == True:
-        #     stored_json = True
         top_mods(
             cli_args.edit_distance,
             cli_args.number_packages,
