@@ -63,10 +63,6 @@ def distance_calculations(package_of_interest, all_packages, max_distance=MAX_DI
 def whitelist(squat_candidates, whitelist_filename="whitelist.txt"):
     """ Remove whitelisted packages from typosquat candidate list
 
-	Using packages listed in the whitelist_filename file, remove all
-	potential typosquatters that are found in the whitelist, a list of
-	known good packages.
-
 	INPUT:
 	--squat_candidates: dict of packages and potential typosquatters
 	--whitelist_filename: file location for whitelist
@@ -82,15 +78,12 @@ def whitelist(squat_candidates, whitelist_filename="whitelist.txt"):
             # Strip out end of line character
             whitelist.append(line.strip("\n"))
 
-    # Remove packages contained in whitelist from dict of
-    # top packages (keys) and potential typosquatters (values)
-    for pkg in squat_candidates:  # loop thru pkg's
-        new_squat_candidates = []
-        for candidate in squat_candidates[pkg]:
-            # Only keep candidates NOT on whitelist
-            if candidate not in whitelist:
-                new_squat_candidates.append(candidate)
+    # Remove packages contained in whitelist
+    whitelist_set = set(whitelist)
+    for pkg in squat_candidates:
+        new_squat_candidates_set = set(squat_candidates[pkg]) - whitelist_set
+        new_squat_candidates_list = list(new_squat_candidates_set)
         # Update typosquat candidate list
-        squat_candidates[pkg] = new_squat_candidates
+        squat_candidates[pkg] = new_squat_candidates_list
 
     return squat_candidates
