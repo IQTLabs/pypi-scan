@@ -35,7 +35,6 @@ from porcelain import mod_squatters, names_to_defend, top_mods
 
 def parse_args():
     """Parse command line arguments."""
-
     parser = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
