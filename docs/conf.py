@@ -1,9 +1,9 @@
-# Configuration file for the Sphinx documentation builder.
-#
-# This file only contains a selection of the most common options. For a full
-# list see the documentation:
-# https://www.sphinx-doc.org/en/master/usage/configuration.html
+"""Configure Sphinx documentation builder.
 
+This file only contains a selection of the most common options. For a
+full list see the documentation:
+https://www.sphinx-doc.org/en/master/usage/configuration.html
+"""
 # -- Path setup --------------------------------------------------------------
 
 # If extensions (or modules to document with autodoc) are in another directory,
@@ -52,3 +52,6 @@ html_theme = "alabaster"
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ["_static"]
+
+# Try to avoid build issue associated with 'contents.rst not found' issue
+master_doc = "index"
