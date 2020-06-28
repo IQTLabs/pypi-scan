@@ -1,29 +1,32 @@
 """
 Pypi typosquatting scanning capability
 
-This program contains functionality related to scanning pypi, the python
-package index, for typosquatting. Typosquatting occurs when there are packages
-that are intentionally named such that common mis-typings of the original
-package could result in typing this other package name. Mis-typing distance
-is measured via levenshtein distance, a measure of "edit" distance.
+This program contains functionality related to scanning pypi, the
+python package index, for typosquatting. Typosquatting occurs when
+there are packages that are intentionally named such that common
+mis-typings of the original package could result in typing this other
+package name. Mis-typing distance is measured via levenshtein distance,
+a measure of "edit" distance.
 
-One functionality (mod-squatters) allows user to specify a package name and to
-see if there are any other packages that are similarly named. This could help
-a package creator or maintainer check for possible typosquatting.
+One functionality (mod-squatters) allows user to specify a package name
+and to see if there are any other packages that are similarly named.
+This could help a package creator or maintainer check for possible
+typosquatting.
 
 Another functionality (defend-name) allows a user to specify a package
-name and to then view a list of potential names that might be worth defending
-given the similarity of those names. A user could then register those names
-too to try to prevent typosquatting attacks.
+name and to then view a list of potential names that might be worth
+defending given the similarity of those names. A user could then
+register those names too to try to prevent typosquatting attacks.
 
-There is also a functionality (top-mods) better suited for the administrators of
-pypi or for an information security researcher: this program can check the top
-packages (the default is the top 50) for typosquatting. The default
-configuration identifies a package as a potential typosquatter if its edit
-distance is less than or equal a specified value (default is 1) compared to
-one of the top packages. Additionally, there is a whitelist capability to
-exclude packages that are known good. Note: Only packages whose names are at
-least as long a specified minimum are analyzed.
+There is also a functionality (top-mods) better suited for the
+administrators of pypi or for an information security researcher: this
+program can check the top packages (the default is the top 50) for
+typosquatting. The default configuration identifies a package as a
+potential typosquatter if its edit distance is less than or equal a
+specified value (default is 1) compared to one of the top packages.
+Additionally, there is a whitelist capability to exclude packages that
+are known good. Note: Only packages whose names are at least as long a
+specified minimum are analyzed.
 """
 
 import argparse
