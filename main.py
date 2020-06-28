@@ -87,14 +87,14 @@ if __name__ == "__main__":
     if cli_args.operation == "top-mods":
         # Check to see if stored_json file of top packages
         # is requested at command line
-        stored_json = False
-        if cli_args.stored_json is not None and cli_args.stored_json == True:
-            stored_json = True
+        # stored_json = False
+        # if cli_args.stored_json is not None and cli_args.stored_json == True:
+        #     stored_json = True
         top_mods(
             cli_args.edit_distance,
             cli_args.number_packages,
             cli_args.len_package_name,
-            stored_json,
+            cli_args.stored_json,
         )
 
     # Check particular package for typosquatters
@@ -104,10 +104,10 @@ if __name__ == "__main__":
             print(
                 textwrap.dedent(
                     """
-                ERROR: User must use -m flag to specify module.
-                For instance:
-                >>> python main.py -m requests
-                """
+                    ERROR: User must use -m flag to specify module.
+                    For instance:
+                    >>> python main.py -m requests
+                    """
                 )
             )
             sys.exit(0)  # Exit program
@@ -121,10 +121,10 @@ if __name__ == "__main__":
             print(
                 textwrap.dedent(
                     """
-                ERROR: User must use -m flag to specify module.
-                For instance:
-                >>> python main.py -o defend-name -m requests
-                """
+                    ERROR: User must use -m flag to specify module.
+                    For instance:
+                    >>> python main.py -o defend-name -m requests
+                    """
                 )
             )
             sys.exit(0)
