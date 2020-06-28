@@ -23,6 +23,12 @@ class TestFunctions(unittest.TestCase):
 
     def test_getTopPackages(self):
         """Test getTopPackages function"""
+        # Check default setting
+        top_packages = get_top_packages()
+        self.assertEqual(len(top_packages), 50)
+        self.assertEqual(top_packages["requests"], 4)
+
+        # Check user supplied number of top packages
         top_packages = get_top_packages(100)
         self.assertEqual(len(top_packages), 100)
         self.assertEqual(top_packages["requests"], 4)
