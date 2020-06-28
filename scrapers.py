@@ -18,7 +18,7 @@ TOP_N = constants.TOP_N
 
 
 def get_all_packages(page="https://pypi.org/simple/"):
-    """ Download simple list of pypi package names
+    """Download simple list of pypi package names
 
 	pypi.org/simple conveniently lists all the names of current
 	packages. This function scrapes that listing and then places
@@ -44,7 +44,7 @@ def get_all_packages(page="https://pypi.org/simple/"):
 
 
 def get_top_packages(top_n=TOP_N, stored=False):
-    """ Identify top packages by download count on pypi
+    """Identify top packages by download count on pypi
 
 	A friendly person has already provided an occasionally
 	updated JSON feed to enable this program to build a list

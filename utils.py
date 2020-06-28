@@ -21,7 +21,7 @@ MAX_DISTANCE = constants.MAX_DISTANCE
 def create_suspicious_package_dict(
     all_packages, top_packages, max_distance=MAX_DISTANCE
 ):
-    """ Examine all top packages for typosquatters.
+    """Examine all top packages for typosquatters.
 
 	Loop through all top packages and check for instances of
 	typosquatting.
@@ -45,7 +45,7 @@ def create_suspicious_package_dict(
 
 
 def store_squatting_candidates(squat_candidates):
-    """ Persist results of squatting candidate search.
+    """Persist results of squatting candidate search.
 
 	Dump typosquatter candidate list to a json file. Store
 	with time-stamped file name to results folder.
@@ -63,7 +63,7 @@ def store_squatting_candidates(squat_candidates):
 
 
 def create_potential_squatter_names(module_name):
-    """ Create a set of potential typosquatting names
+    """Create a set of potential typosquatting names
 
 	Given a module name, create a set of potential typosquatting
 	names based on qwerty distance, a measure of how close keys

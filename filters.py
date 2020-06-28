@@ -14,7 +14,7 @@ MIN_LEN_PACKAGE_NAME = constants.MIN_LEN_PACKAGE_NAME
 
 
 def filter_by_package_name_len(package_list, min_len=MIN_LEN_PACKAGE_NAME):
-    """ Keep packages whose name is at least as long as a minimum length
+    """Keep packages whose name is at least as long as a minimum length
 
 	INPUTS:
 	--package_list: a list of package names
@@ -28,7 +28,7 @@ def filter_by_package_name_len(package_list, min_len=MIN_LEN_PACKAGE_NAME):
 
 
 def distance_calculations(package_of_interest, all_packages, max_distance=MAX_DISTANCE):
-    """ Find packages within a defined edit distance and return sorted list
+    """Find packages <= defined edit distance and return sorted list
 
 	INPUTS:
 	--package_of_interest: package name on which to perform comparison
@@ -61,7 +61,7 @@ def distance_calculations(package_of_interest, all_packages, max_distance=MAX_DI
 
 
 def whitelist(squat_candidates, whitelist_filename="whitelist.txt"):
-    """ Remove whitelisted packages from typosquat candidate list
+    """Remove whitelisted packages from typosquat candidate list
 
 	INPUT:
 	--squat_candidates: dict of packages and potential typosquatters
