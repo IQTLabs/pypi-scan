@@ -1,5 +1,4 @@
-"""
-Utility functions that perform actions related to typosquatting
+"""Perform actions related to typosquatting.
 
 These are the important misfits. They don't fit in elsewhere but these
 functions need to be in a module somewhere.
@@ -54,7 +53,6 @@ def store_squatting_candidates(squat_candidates):
 	--squat_candidates: A dic of the top packages and their
 	potential typosquatters
 	"""
-
     timestamp = time.strftime("%d-%b-%Y-%H-%M-%S", time.localtime())
     full_file_name = timestamp + "-record" + ".json"
     file_name = os.path.join("results", full_file_name)
@@ -76,7 +74,6 @@ def create_potential_squatter_names(module_name):
 	OUTPUT:
 	--potential_squatter_set: a list of potential typosquatting name
 	"""
-
     potential_candidates = MrsWord(module_name).qwerty_swap()
     potential_candidates_joined = " ".join(potential_candidates)
     potential_candidates_set = set(potential_candidates_joined.split(" "))
