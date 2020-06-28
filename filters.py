@@ -1,5 +1,4 @@
-"""
-Functions for filtering typosquatting-related lists
+"""Filter typosquatting-related lists.
 
 A module that contains all functions that filter data related to typosquatting
 data.
@@ -14,31 +13,29 @@ MIN_LEN_PACKAGE_NAME = constants.MIN_LEN_PACKAGE_NAME
 
 
 def filter_by_package_name_len(package_list, min_len=MIN_LEN_PACKAGE_NAME):
-    """Keep packages whose name is at least as long as a minimum length
+    """Keep packages whose name is >= a minimum length.
 
-	INPUTS:
-	--package_list: a list of package names
-	--min_len: a minimum length of characters
+    INPUTS:
+    --package_list: a list of package names
+    --min_len: a minimum length of characters
 
-	OUTPUTS:
-	--filtered_package_list: filtered list of package names
-	"""
-
+    OUTPUTS:
+    --filtered_package_list: filtered list of package names
+    """
     return [pkg for pkg in package_list if len(pkg) >= min_len]
 
 
 def distance_calculations(package_of_interest, all_packages, max_distance=MAX_DISTANCE):
-    """Find packages <= defined edit distance and return sorted list
+    """Find packages <= defined edit distance and return sorted list.
 
-	INPUTS:
-	--package_of_interest: package name on which to perform comparison
-	--all_packages: list of all package names
-	--max_distance: the maximum distance that justifies reporting
+    INPUTS:
+    --package_of_interest: package name on which to perform comparison
+    --all_packages: list of all package names
+    --max_distance: the maximum distance that justifies reporting
 
-	OUTPUTS:
-	--similar_package_names: list of potential typosquatters
-	"""
-
+    OUTPUTS:
+    --similar_package_names: list of potential typosquatters
+    """
     # Empty list to store similar package names
     similar_package_names = []
 
@@ -61,16 +58,15 @@ def distance_calculations(package_of_interest, all_packages, max_distance=MAX_DI
 
 
 def whitelist(squat_candidates, whitelist_filename="whitelist.txt"):
-    """Remove whitelisted packages from typosquat candidate list
+    """Remove whitelisted packages from typosquat candidate list.
 
-	INPUT:
-	--squat_candidates: dict of packages and potential typosquatters
-	--whitelist_filename: file location for whitelist
+    INPUT:
+    --squat_candidates: dict of packages and potential typosquatters
+    --whitelist_filename: file location for whitelist
 
-	OUPUT:
-	--dict of packages and post-whitelist potential typosquatters
-	"""
-
+    OUPUT:
+    --dict of packages and post-whitelist potential typosquatters
+    """
     # Create whitelist
     whitelist = []
     with open(whitelist_filename, "r") as file:
