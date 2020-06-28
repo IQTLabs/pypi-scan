@@ -7,11 +7,11 @@ verify_ssl = true
 
 [packages]
 beautifulsoup4 = "*"
+idna = "*"
 jsontree = "*"
 mrs-spellings = "*"
 requests = "*"
 python-Levenshtein = "*"
-
 
 [requires]
 python_version = "3.8"
