@@ -11,7 +11,7 @@ Welcome to pypi-scan's documentation!
    :caption: Contents:
 
 Pypi-scan assists with your anti-typosquatting needs related to the python
-package index (PyPI), a repository for open soucre Python programs.
+package index (PyPI), a repository for open source Python programs.
 Typosquatting refers to packages that use names similar to another, more
 popular package to trick unsuspecting users into downloading malicious
 software. PyPI, like many other package managers, has been been subject to
