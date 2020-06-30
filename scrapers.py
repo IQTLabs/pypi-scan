@@ -23,8 +23,11 @@ def get_all_packages(page="https://pypi.org/simple/"):
     packages. This function scrapes that listing and then places
     the package names in a python list structure.
 
-    OUPUT:
-    package_names: a list of package names on pypi
+    Args:
+      page (str): webpage from which to download pypi package names
+
+    Returns:
+      list: package names on pypi
     """
     # Retrieve package name listing data from pypy
     pypi_package_page = requests.get(page)
@@ -51,12 +54,12 @@ def get_top_packages(top_n=TOP_N, stored=False):
     a stored list, that is possible if the user sets the stored
     flag to true.
 
-    INPUTS:
-    --top_n: the number of top packages to retrieve
-    --stored: whether to use the stored package list
+    Args:
+      top_n (int): the number of top packages to retrieve
+      stored (bool): whether to use the stored package list
 
-    OUTPUTS:
-    --top_packages: dict with top packages
+    Returns:
+      dict: top packages
     """
     if stored:  # Get stored data
         with open("top_packages_may_2020.json", "r") as f:
