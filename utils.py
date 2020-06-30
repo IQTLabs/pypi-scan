@@ -22,18 +22,17 @@ def create_suspicious_package_dict(
 ):
     """Examine all top packages for typosquatters.
 
-	Loop through all top packages and check for instances of
-	typosquatting.
+    Loop through all top packages and check for instances of
+    typosquatting.
 
-	INPUTS:
-	--all_packages: list of all package names
-	--top_package: package name to perform comparison
-	--max_distance: maximum edit distance to check for typosquatting
+    Args:
+        all_packages (list): all package names
+        top_package (str): package name to perform comparison
+        max_distance (int): maximum edit distance to check for typosquatting
 
-	OUTPUTS:
-	--suspicious_packages: an ordered dict of the top packages (key)
-	and potential typosquatters (value)
-	"""
+    Returns:
+        dict: top packages (key) and potential typosquatters (value)
+    """
     suspicious_packages = collections.OrderedDict()
 
     for top_package in top_packages:
@@ -46,13 +45,12 @@ def create_suspicious_package_dict(
 def store_squatting_candidates(squat_candidates):
     """Persist results of squatting candidate search.
 
-	Dump typosquatter candidate list to a json file. Store
-	with time-stamped file name to results folder.
+    Dump typosquatter candidate list to a json file. Store
+    with time-stamped file name to results folder.
 
-	INPUT:
-	--squat_candidates: A dic of the top packages and their
-	potential typosquatters
-	"""
+    Args:
+        squat_candidates (dict): top packages and potential typosquatters
+    """
     timestamp = time.strftime("%d-%b-%Y-%H-%M-%S", time.localtime())
     full_file_name = timestamp + "-record" + ".json"
     file_name = os.path.join("results", full_file_name)
@@ -61,19 +59,19 @@ def store_squatting_candidates(squat_candidates):
 
 
 def create_potential_squatter_names(module_name):
-    """Create a set of potential typosquatting names
+    """Create a set of potential typosquatting names.
 
-	Given a module name, create a set of potential typosquatting
-	names based on qwerty distance, a measure of how close keys
-	are to each other. This is a more sophisticated measure of
-	keyboard key distance than levenshtein distance.
+    Given a module name, create a set of potential typosquatting
+    names based on qwerty distance, a measure of how close keys
+    are to each other. This is a more sophisticated measure of
+    keyboard key distance than levenshtein distance.
 
-	INPUT:
-	--module_name: a name for a module
+    Args:
+        module_name (str): a name for a module
 
-	OUTPUT:
-	--potential_squatter_set: a list of potential typosquatting name
-	"""
+    Returns:
+        list: potential typosquatting name
+    """
     potential_candidates = MrsWord(module_name).qwerty_swap()
     potential_candidates_joined = " ".join(potential_candidates)
     potential_candidates_set = set(potential_candidates_joined.split(" "))

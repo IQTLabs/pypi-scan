@@ -24,10 +24,10 @@ def get_all_packages(page="https://pypi.org/simple/"):
     the package names in a python list structure.
 
     Args:
-      page (str): webpage from which to download pypi package names
+        page (str): webpage from which to download pypi package names
 
     Returns:
-      list: package names on pypi
+        list: package names on pypi
     """
     # Retrieve package name listing data from pypy
     pypi_package_page = requests.get(page)
@@ -55,11 +55,11 @@ def get_top_packages(top_n=TOP_N, stored=False):
     flag to true.
 
     Args:
-      top_n (int): the number of top packages to retrieve
-      stored (bool): whether to use the stored package list
+        top_n (int): the number of top packages to retrieve
+        stored (bool): whether to use the stored package list
 
     Returns:
-      dict: top packages
+        dict: top packages
     """
     if stored:  # Get stored data
         with open("top_packages_may_2020.json", "r") as f:
