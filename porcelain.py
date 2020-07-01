@@ -1,8 +1,7 @@
-""" Functions that group lower-level functions and represent separate code paths
+"""Functions that group lower-level functions and represent separate code paths.
 
 These are the main related functionalities that can be called in main.py
 """
-
 from filters import filter_by_package_name_len, whitelist
 from scrapers import get_all_packages, get_top_packages
 from utils import (
@@ -13,15 +12,15 @@ from utils import (
 
 
 def mod_squatters(module, max_distance):
-    """ Check if a particular package name has potential squatters
+    """Check if a particular package name has potential squatters.
 
     Prints any potential typosquatters for specified module
 
-    INPUTS:
-    module: name to check for typosquatting
-    max_distance: maximum edit distance to check for typosquatting
-    """
+    Args:
+        module (str): name to check for typosquatting
+        max_distance (int): maximum edit distance to check for typosquatting
 
+    """
     module_in_list = [module]
     package_names = get_all_packages()
     squat_candidates = create_suspicious_package_dict(
@@ -38,10 +37,11 @@ def mod_squatters(module, max_distance):
 
 
 def names_to_defend(module_name):
-    """ Print out module names that might merit defending
+    """Print out module names that might merit defending.
 
-    INPUT:
-    --module_name: Initial module name to protect from typosquatting
+    Args:
+        module_name (str): Initial module name to protect from typosquatting
+
     """
     print(
         f'Here is a list of similar names--measured by keyboard distance--to "{module_name}":'
@@ -52,17 +52,17 @@ def names_to_defend(module_name):
 
 
 def top_mods(max_distance, top_n, min_len, stored_json):
-    """ Check top packages for typosquatters
+    """Check top packages for typosquatters.
 
     Prints top packages and any potential typosquatters
 
-    INPUTS:
-    max_distance: maximum edit distance to check for typosquatting
-    top_n: the number of top packages to retrieve
-    min_len: a minimum length of characters
-    stored_json: a flag to denote whether to used stored top packages json
-    """
+    Args:
+        max_distance (int): maximum edit distance to check for typosquatting
+        top_n (int): the number of top packages to retrieve
+        min_len (int): a minimum length of characters
+        stored_json (bool): a flag to denote whether to used stored top packages json
 
+    """
     # Get list of potential typosquatters
     package_names = get_all_packages()
     top_packages = get_top_packages(top_n=top_n, stored=stored_json)
