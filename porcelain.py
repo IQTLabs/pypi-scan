@@ -80,3 +80,29 @@ def top_mods(max_distance, top_n, min_len, stored_json):
         print(i, ": ", post_whitelist_candidates[i])
         cnt_potential_squatters += len(post_whitelist_candidates[i])
     print("Number of potential typosquatters: " + str(cnt_potential_squatters))
+
+
+def scan_recent(max_distance):
+    """Scan packages recently added to pypi for possible typosquatting.
+
+    Print recently added packages and any package names on which these
+    packages are potentially typosuqatting.
+
+    Args:
+        max_distance (int): maximum edit distance to check for typosquatting
+
+    """
+    # Download current list of PyPI packages and convert to set
+    current_packages = get_all_packages()
+
+    # Load most recent stored list of PyPI packages and concert to set
+
+    # Find packages that are in newest list but not old list
+
+    # For each of these new packages, create list of packages
+    # in current list that are within the max_distance in
+    # terms of Levenshtein distance
+
+    # Loop through list or dict and print out.
+
+    pass
