@@ -32,7 +32,7 @@ import argparse
 import sys
 import textwrap
 
-from porcelain import mod_squatters, names_to_defend, top_mods
+from porcelain import mod_squatters, names_to_defend, top_mods, scan_recent
 
 
 def parse_args():
@@ -44,7 +44,7 @@ def parse_args():
         "-o",
         "--operation",
         help="Specify operation to perform.",
-        choices=["mod-squatters", "top-mods", "defend-name"],
+        choices=["mod-squatters", "top-mods", "defend-name", "scan-recent"],
         default="mod-squatters",
     )
     parser.add_argument(
@@ -74,6 +74,12 @@ def parse_args():
     # Switch to use stored top package list
     parser.add_argument(
         "-s", "--stored_json", help="Use a stored top package list", action="store_true"
+    )
+    # Switch to save newly created pypi package list
+    parser.add_argument(
+        "--save",
+        help="When using scan-recent, save newly created package list",
+        action="store_true",
     )
     args = parser.parse_args()
 
@@ -126,6 +132,10 @@ if __name__ == "__main__":
             sys.exit(0)
         else:
             names_to_defend(cli_args.module_name)
+
+    # Scan packages recently added to PyPI for potential typosquatters
+    elif cli_args.operation == "scan-recent":
+        scan_recent(cli_args.edit_distance, cli_args.save)
 
     # Check if operation argument was incorrectly specified
     else:
