@@ -31,8 +31,57 @@
 
           <div class="body" role="main">
 
-  <div class="section" id="scrapers-module">
-<h1>scrapers module<a class="headerlink" href="#scrapers-module" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-scrapers">
+<span id="scrapers-module"></span><h1>scrapers module<a class="headerlink" href="#module-scrapers" title="Permalink to this headline">¶</a></h1>
+<p>Perform webscraping related to typosquatting on PyPI.</p>
+<p>A module that contains any functions that can make internet
+calls to gather data related to typosquatting.</p>
+<dl class="py function">
+<dt id="scrapers.get_all_packages">
+<code class="sig-prename descclassname">scrapers.</code><code class="sig-name descname">get_all_packages</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">page</span><span class="o">=</span><span class="default_value">'https://pypi.org/simple/'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#scrapers.get_all_packages" title="Permalink to this definition">¶</a></dt>
+<dd><p>Download simple list of PyPI package names.</p>
+<p>pypi.org/simple conveniently lists all the names of current
+packages. This function scrapes that listing and then places
+the package names in a python list structure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>page</strong> (<em>str</em>) – webpage from which to download pypi package names</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>package names on pypi</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="scrapers.get_top_packages">
+<code class="sig-prename descclassname">scrapers.</code><code class="sig-name descname">get_top_packages</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">top_n</span><span class="o">=</span><span class="default_value">50</span></em>, <em class="sig-param"><span class="n">stored</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#scrapers.get_top_packages" title="Permalink to this definition">¶</a></dt>
+<dd><p>Identify top packages by download count on pypi.</p>
+<p>A friendly person has already provided an occasionally
+updated JSON feed to enable this program to build a list
+of the top pypi packages by download count. The default
+does a fresh pull of this feed. If the user wants to use
+a stored list, that is possible if the user sets the stored
+flag to true.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>top_n</strong> (<em>int</em>) – the number of top packages to retrieve</p></li>
+<li><p><strong>stored</strong> (<em>bool</em>) – whether to use the stored package list</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>top packages</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 
 

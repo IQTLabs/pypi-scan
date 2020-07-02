@@ -31,8 +31,72 @@
 
           <div class="body" role="main">
 
-  <div class="section" id="filters-module">
-<h1>filters module<a class="headerlink" href="#filters-module" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-filters">
+<span id="filters-module"></span><h1>filters module<a class="headerlink" href="#module-filters" title="Permalink to this headline">¶</a></h1>
+<p>Filter typosquatting-related lists.</p>
+<p>A module that contains all functions that filter data related to typosquatting
+data.</p>
+<dl class="py function">
+<dt id="filters.distance_calculations">
+<code class="sig-prename descclassname">filters.</code><code class="sig-name descname">distance_calculations</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">package_of_interest</span></em>, <em class="sig-param"><span class="n">all_packages</span></em>, <em class="sig-param"><span class="n">max_distance</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#filters.distance_calculations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find packages &lt;= defined edit distance and return sorted list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>package_of_interest</strong> (<em>str</em>) – package name on which to perform comparison</p></li>
+<li><p><strong>all_packages</strong> (<em>list</em>) – list of all package names</p></li>
+<li><p><strong>max_distance</strong> (<em>int</em>) – the maximum distance that justifies reporting</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>potential typosquatters</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="filters.filter_by_package_name_len">
+<code class="sig-prename descclassname">filters.</code><code class="sig-name descname">filter_by_package_name_len</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">package_list</span></em>, <em class="sig-param"><span class="n">min_len</span><span class="o">=</span><span class="default_value">5</span></em><span class="sig-paren">)</span><a class="headerlink" href="#filters.filter_by_package_name_len" title="Permalink to this definition">¶</a></dt>
+<dd><p>Keep packages whose name is &gt;= a minimum length.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>package_list</strong> (<em>list</em>) – a list of package names</p></li>
+<li><p><strong>min_len</strong> (<em>int</em>) – a minimum length of charactersArgs</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>filtered package names</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="filters.whitelist">
+<code class="sig-prename descclassname">filters.</code><code class="sig-name descname">whitelist</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">squat_candidates</span></em>, <em class="sig-param"><span class="n">whitelist_filename</span><span class="o">=</span><span class="default_value">'whitelist.txt'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#filters.whitelist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove whitelisted packages from typosquat candidate list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>squat_candidates</strong> (<em>dict</em>) – dict of packages and potential typosquatters</p></li>
+<li><p><strong>whitelist_filename</strong> (<em>str</em>) – file location for whitelist</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>packages and post-whitelist potential typosquatters</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 
 

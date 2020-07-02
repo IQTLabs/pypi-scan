@@ -27,9 +27,6 @@ three uses of pypi-scan:
 - Enumerate potential names that typosquatters might use to attack a
   particular package.
 
-.. automodule:: scrapers
-   :members:
-
 More documentation coming soon!
 
 Indices and tables
