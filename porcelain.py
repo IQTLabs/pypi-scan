@@ -2,6 +2,9 @@
 
 These are the main related functionalities that can be called in main.py
 """
+import os
+from time import gmtime, strftime
+
 from filters import filter_by_package_name_len, whitelist
 from scrapers import get_all_packages, get_top_packages
 from utils import (
@@ -82,7 +85,7 @@ def top_mods(max_distance, top_n, min_len, stored_json):
     print("Number of potential typosquatters: " + str(cnt_potential_squatters))
 
 
-def scan_recent(max_distance):
+def scan_recent(max_distance, save_new_list=False):
     """Scan packages recently added to pypi for possible typosquatting.
 
     Print recently added packages and any package names on which these
@@ -90,10 +93,21 @@ def scan_recent(max_distance):
 
     Args:
         max_distance (int): maximum edit distance to check for typosquatting
+        save_new_list (bool): flag to save new list
 
     """
     # Download current list of PyPI packages and convert to set
     current_packages = get_all_packages()
+
+    # If saving is requested, save new list with timestamped name
+    if save_new_list == True:
+        timestamp = strftime("%Y-%b-%d-%H:%M:%S", gmtime())
+        filename = "pypi-package-list-" + timestamp + ".txt"
+        # Platform-independent path joing
+        path = os.path.join("package_lists", filename)
+        # TODO: Bug with invalid argument. Need to debug.
+        with open(path, "w") as f:
+            f.write()
 
     # Load most recent stored list of PyPI packages and concert to set
 
