@@ -2,3 +2,4 @@ __pycache__
 suspicious_packages.txt
 whitelist.txt
 .coverage
+package_lists/*
