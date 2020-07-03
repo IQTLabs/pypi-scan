@@ -120,17 +120,6 @@ class TestFunctions(unittest.TestCase):
         )
         self.assertEqual(output.stdout.decode("utf-8"), expected)
 
-        # Test multiple module scan usage
-        output = subprocess.run(
-            ["python", "main.py", "-o", "top-mods"], capture_output=True
-        )  # nosec
-        processed_output = output.stdout.decode("utf-8")
-        split_processed_output = processed_output.splitlines()
-        self.assertEqual(len(split_processed_output), 45)
-        self.assertEqual(
-            split_processed_output[0], "Number of top packages to examine: 43"
-        )
-
         # Test multiple module scan usage with stored package used
         output = subprocess.run(
             ["python", "main.py", "-o", "top-mods", "-s"], capture_output=True
