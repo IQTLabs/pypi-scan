@@ -1,4 +1,4 @@
-""" Test all functions used to execute pypi-scan """
+"""Test all functions used to execute pypi-scan"""
 
 import os
 import subprocess  # nosec
@@ -27,12 +27,12 @@ class TestFunctions(unittest.TestCase):
         # Check default setting
         top_packages = get_top_packages()
         self.assertEqual(len(top_packages), 50)
-        self.assertEqual(top_packages["requests"], 4)
+        self.assertEqual(top_packages["requests"], 5)
 
         # Check user supplied number of top packages
         top_packages = get_top_packages(100)
         self.assertEqual(len(top_packages), 100)
-        self.assertEqual(top_packages["requests"], 4)
+        self.assertEqual(top_packages["requests"], 5)
 
         # Check if stored package option works
         stored_packages = get_top_packages(50, stored=True)
