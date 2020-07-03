@@ -8,6 +8,8 @@ from scrapers import get_all_packages, get_top_packages
 from utils import (
     create_potential_squatter_names,
     create_suspicious_package_dict,
+    load_most_recent_packages,
+    print_suspicious_packages,
     store_squatting_candidates,
     store_recent_scan_results,
 )
@@ -76,6 +78,7 @@ def top_mods(max_distance, top_n, min_len, stored_json):
     store_squatting_candidates(post_whitelist_candidates)
 
     # Print all top packages and potential typosquatters
+    # TODO: Consider putting into utils function
     print("Number of top packages to examine: " + str(len(squat_candidates)))
     cnt_potential_squatters = 0
     for i in post_whitelist_candidates:
@@ -96,20 +99,23 @@ def scan_recent(max_distance, save_new_list=False):
 
     """
     # Download current list of PyPI packages and convert to set
-    current_packages = get_all_packages()
-
+    current_packages_set = set(get_all_packages())
     # If saving is requested, save new list with timestamped name
     if save_new_list == True:
         store_recent_scan_results(current_packages)
 
     # Load most recent stored list of PyPI packages and concert to set
+    recent_packages_set = load_most_recent_packages()
 
     # Find packages that are in newest list but not old list
+    # This is a set operation: find all elements in first not in second
+    new_packages = current_packages_set - recent_packages_set
 
-    # For each of these new packages, create list of packages
-    # in current list that are within the max_distance in
-    # terms of Levenshtein distance
+    # Check each new package and see if it is a potential typosquatter
+    squat_candidates = create_suspicious_package_dict(
+        current_packages_set, new_packages, max_distance
+    )
 
-    # Loop through list or dict and print out.
+    # TODO: Consider adding in length to avoid checking short package names
 
-    pass
+    print_suspicious_packages(squat_candidates)
