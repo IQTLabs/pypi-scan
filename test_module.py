@@ -80,6 +80,14 @@ class TestFunctions(unittest.TestCase):
         test_package_list = ["peter", "paul", "mary"]
         store_recent_scan_results(test_package_list, folder="test_data")
 
+    def test_load_most_recent_packages(self):
+        """"""
+        pass
+
+    def test_print_suspicious_packages(self):
+        """"""
+        pass
+
     def test_end2end(self):
         """Test pypi-scan analysis from start to finish"""
         package_names = get_all_packages()
