@@ -7,6 +7,7 @@ functions need to be in a module somewhere.
 import collections
 import os
 import time
+from time import gmtime, strftime
 
 import json
 from mrs_spellings import MrsWord
@@ -76,3 +77,21 @@ def create_potential_squatter_names(module_name):
     potential_candidates_joined = " ".join(potential_candidates)
     potential_candidates_set = set(potential_candidates_joined.split(" "))
     return potential_candidates_set
+
+
+def store_recent_scan_results(packages):
+    """Store results of scanning packages recently added to PyPI.
+
+    Save timestamped version of JSON file to allow analysis of packages
+    recently added to PyPI
+
+    Args:
+        packages (list): Packages on PyPI
+
+    """
+    timestamp = strftime("%Y-%b-%d-%H-%M-%S", gmtime())
+    filename = "pypi-package-list-" + timestamp + ".json"
+    # Platform-independent path joining
+    path = os.path.join("package_lists", filename)
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(packages, f, ensure_ascii=False, indent=4)
