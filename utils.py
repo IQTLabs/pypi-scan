@@ -79,7 +79,7 @@ def create_potential_squatter_names(module_name):
     return potential_candidates_set
 
 
-def store_recent_scan_results(packages):
+def store_recent_scan_results(packages, folder="package_lists"):
     """Store results of scanning packages recently added to PyPI.
 
     Save timestamped version of JSON file to allow analysis of packages
@@ -87,11 +87,24 @@ def store_recent_scan_results(packages):
 
     Args:
         packages (list): Packages on PyPI
+        folder (str): Folder in which to store JSON file
 
     """
     timestamp = strftime("%Y-%b-%d-%H-%M-%S", gmtime())
     filename = "pypi-package-list-" + timestamp + ".json"
     # Platform-independent path joining
-    path = os.path.join("package_lists", filename)
+    path = os.path.join(folder, filename)
     with open(path, "w", encoding="utf-8") as f:
         json.dump(packages, f, ensure_ascii=False, indent=4)
+
+
+def load_most_recent_package(folder="package_lists"):
+    """Load the package list JSON file most recently stored.
+
+    Load the JSON file containing PyPI packages with the most recent
+    timestamp.
+
+    Args:
+        folder (str): Folder in which to check for most recent JSON file
+
+    """
