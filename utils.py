@@ -8,8 +8,7 @@ import collections
 import glob
 import json
 import os
-import time
-from time import gmtime, strftime, time
+from time import gmtime, localtime, strftime, time
 
 from mrs_spellings import MrsWord
 
@@ -53,8 +52,7 @@ def store_squatting_candidates(squat_candidates):
     Args:
         squat_candidates (dict): top packages and potential typosquatters
     """
-    # TODO: Remove time. and just use strftime
-    timestamp = time.strftime("%d-%b-%Y-%H-%M-%S", time.localtime())
+    timestamp = strftime("%d-%b-%Y-%H-%M-%S", localtime())
     full_file_name = timestamp + "-record" + ".json"
     file_name = os.path.join("results", full_file_name)
     with open(file_name, "w") as path:
@@ -120,7 +118,7 @@ def load_most_recent_packages(folder="package_lists"):
     # Find newest json file that is at least 24 hours old
     current_time = time()
     newest_file_older_than_1day = ""
-    DAY_IN_SECONDS = 60  # * 60 * 24
+    DAY_IN_SECONDS = 60 * 60 * 24
     for file in json_files:
         file_timestamp = os.path.getmtime(file)
         if file_timestamp <= (current_time - DAY_IN_SECONDS):
