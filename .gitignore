@@ -3,3 +3,4 @@ suspicious_packages.txt
 whitelist.txt
 .coverage
 package_lists/*
+test_data/pypi*
