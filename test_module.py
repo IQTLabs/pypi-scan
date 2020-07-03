@@ -7,9 +7,10 @@ import unittest
 from filters import filter_by_package_name_len, distance_calculations, whitelist
 from scrapers import get_all_packages, get_top_packages
 from utils import (
-    create_suspicious_package_dict,
-    store_squatting_candidates,
     create_potential_squatter_names,
+    create_suspicious_package_dict,
+    store_recent_scan_results,
+    store_squatting_candidates,
 )
 
 
@@ -73,6 +74,11 @@ class TestFunctions(unittest.TestCase):
             ["tedt", "trst", "tesy", "tesr", "rest", "teat", "twst", "yest"]
         )
         self.assertEqual(potential_list, expected_list)
+
+    def test_store_recent_scan_results(self):
+        """Test store_recent_scan_results function"""
+        test_package_list = ["peter", "paul", "mary"]
+        store_recent_scan_results(test_package_list, folder="test_data")
 
     def test_end2end(self):
         """Test pypi-scan analysis from start to finish"""
