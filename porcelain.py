@@ -77,14 +77,8 @@ def top_mods(max_distance, top_n, min_len, stored_json):
     post_whitelist_candidates = whitelist(squat_candidates)
     store_squatting_candidates(post_whitelist_candidates)
 
-    # Print all top packages and potential typosquatters
-    # TODO: Consider putting into utils function
-    print("Number of top packages to examine: " + str(len(squat_candidates)))
-    cnt_potential_squatters = 0
-    for i in post_whitelist_candidates:
-        print(i, ": ", post_whitelist_candidates[i])
-        cnt_potential_squatters += len(post_whitelist_candidates[i])
-    print("Number of potential typosquatters: " + str(cnt_potential_squatters))
+    # TODO: Might have to adjust tests
+    print_suspicious_packages(post_whitelist_candidates)
 
 
 def scan_recent(max_distance, save_new_list=False):
@@ -102,7 +96,7 @@ def scan_recent(max_distance, save_new_list=False):
     current_packages_set = set(get_all_packages())
     # If saving is requested, save new list with timestamped name
     if save_new_list == True:
-        store_recent_scan_results(current_packages)
+        store_recent_scan_results(list(current_packages_set))
 
     # Load most recent stored list of PyPI packages and concert to set
     recent_packages_set = load_most_recent_packages()
