@@ -77,7 +77,6 @@ def top_mods(max_distance, top_n, min_len, stored_json):
     post_whitelist_candidates = whitelist(squat_candidates)
     store_squatting_candidates(post_whitelist_candidates)
 
-    # TODO: Might have to adjust tests
     print_suspicious_packages(post_whitelist_candidates)
 
 
