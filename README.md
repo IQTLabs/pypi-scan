@@ -12,10 +12,10 @@ Scan PyPI for typosquatting
 
 There are four anti-typosquatting functionalities in pypi-scan:
 
-  - Check if there are potential typosquatters on a package you care about.
-  - Check if there are potential typosquatters on the most downloaded PyPI packages.
-  - Check if packages newly added to PyPI are potential typosquatters.
-  - Create list of package names that a typosquatter might use.
+-  Check if there are potential typosquatters on a package you care about.
+-  Check if there are potential typosquatters on the most downloaded PyPI packages.
+-  Check if packages newly added to PyPI are potential typosquatters.
+-  Create list of package names that a typosquatter might use.
 
 PyPI (the Python Package Index) is a repository for Python packages. It's like a store
 where anybody with an internet connection can download (for free) Python packages.
