@@ -28,6 +28,21 @@ four uses of pypi-scan:
 - Enumerate potential names that typosquatters might use to attack a
   particular package.
 
+For further information on the threat of typosquatting, both in PyPI and
+in other package repositories, and for possible defenses, see:
+
+Nikolai Phillipp Tschacher, "Typosquatting in Programming Language Package
+Managers," University of Hamburg, Bachelor Thesis, 2016.
+Tschacher examines the extent to which users of PyPI and other package managers
+are susceptible to typosquatting attacks. His conclusions? "Thousands of hosts
+can be infected with malware by typosquatting package managers within a few
+days."
+
+Matt Bullock, "pypi-parker," github, https://github.com/mattsb42, 2017.
+Bullock wrote a piece of software that reduces the time needed for a package
+manager to defensively register PyPI names a typosquatter might use.
+
+
 More documentation coming soon!
 
 Indices and tables
