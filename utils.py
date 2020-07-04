@@ -115,7 +115,8 @@ def load_most_recent_packages(folder="package_lists"):
     path = os.path.join(folder, "*.json")
     json_files = glob.glob(path)
 
-    # Find newest json file that is at least 24 hours old
+    # Find json file that is at least 24 hours old.
+    # TODO: Is the first one found the newest of the candidates? Need to check.
     current_time = time()
     newest_file_older_than_1day = ""
     DAY_IN_SECONDS = 60 * 60 * 24
@@ -125,7 +126,7 @@ def load_most_recent_packages(folder="package_lists"):
             newest_file_older_than_1day = file
             break
 
-    # Check for existence of file and load if it exists
+    # Check for existence of file and, if it exists, load it
     if not newest_file_older_than_1day:
         raise FileNotFoundError("No json files older than one day found.")
     else:
@@ -141,7 +142,7 @@ def print_suspicious_packages(packages):
         packages (dict): (key) package and (value) potential typosquatters
 
     """
-    print("Number of new packages to examine: " + str(len(packages)))
+    print("Number of packages to examine: " + str(len(packages)))
     cnt_potential_squatters = 0
     for pkg in packages:
         print(pkg, ": ", packages[pkg])
