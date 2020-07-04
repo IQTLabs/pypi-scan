@@ -9,6 +9,8 @@ from scrapers import get_all_packages, get_top_packages
 from utils import (
     create_potential_squatter_names,
     create_suspicious_package_dict,
+    load_most_recent_packages,
+    print_supsicious_packages,
     store_recent_scan_results,
     store_squatting_candidates,
 )
@@ -81,11 +83,14 @@ class TestFunctions(unittest.TestCase):
         store_recent_scan_results(test_package_list, folder="test_data")
 
     def test_load_most_recent_packages(self):
-        """"""
-        pass
+        """Test load_most_recent_packages function"""
+        self.assertRaises(FileNotFoundError,
+                          load_most_recent_packages("docs"))
+        package_list = load_most_recent_packages("test_data")
+        self.assertEqual(['peter', 'paul', 'mary'], list(package_list))
 
     def test_print_suspicious_packages(self):
-        """"""
+        """Test print_supsicious_packages function"""
         pass
 
     def test_end2end(self):
