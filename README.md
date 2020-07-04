@@ -8,13 +8,16 @@
 [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/jspeed-meyers/pypi-scan/blob/master/LICENSE)
 
 # pypi-scan
-Scan pypi for typosquatting
+Scan PyPI for typosquatting
 
-Have you ever wanted to see if other packages are typosquatting your pypi package or
-any pypi package of interest? Have you ever wanted to check the most downloaded packages
-on pypi for potential typosquatters? What about create a list of potential typosquatting names for a package you maintain so that you can go claim those names yourself on pypi? You can do all of these actions with pypi-scan.
+There are four anti-typosquatting functionalities in pypi-scan:
 
-Pypi (the Python Package Index) is a repository for Python packages. It's like a store
+- Check if there are potential typosquatters on a package you care about.
+- Check if there are potential typosquatters on the most downloaded PyPI packages.
+- Check if packages newly added to PyPI are potential typosquatters.
+- Create list of package names that a typosquatter might use.
+
+PyPI (the Python Package Index) is a repository for Python packages. It's like a store
 where anybody with an internet connection can download (for free) Python packages.
 Typosquatting is a practice in which someone chooses a package name that is similar to
 an existing package and places a malicious package in this deceptively titled namespace.
@@ -63,6 +66,14 @@ Advanced usage includes use of several switches:
 ```
 Timing info: ~20 seconds
 
+List packages recently added to PyPI and any other packages that these new
+packages might be typosquatting. This functionality is new and still
+under development.
+```
+>>> python main.py -o recent-scan
+...
+```
+
 List potential names that typosquatters might choose for a particular package.
 A user could then defensively register these names on pypi. This functionality uses
 QWERTY distance, not Levenshtein distance. QWERTY distance measures distances by
@@ -109,13 +120,13 @@ Get help on command line options by navigating to folder that contains main.py
 and running this command:
 ```
 >>> python main.py -h
-usage: main.py [-h] [-o {mod-squatters,top-mods,defend-name}] [-m MODULE_NAME]
-               [-e EDIT_DISTANCE] [-n NUMBER_PACKAGES] [-l LEN_PACKAGE_NAME]
-               [-s]
+usage: main.py [-h] [-o {mod-squatters,top-mods,defend-name,scan-recent}]
+               [-m MODULE_NAME] [-e EDIT_DISTANCE] [-n NUMBER_PACKAGES]
+               [-l LEN_PACKAGE_NAME] [-s] [--save]
 
 optional arguments:
   -h, --help            show this help message and exit
-  -o {mod-squatters,top-mods,defend-name}, --operation {mod-squatters,top-mods,defend-name}
+  -o {mod-squatters,top-mods,defend-name,scan-recent}, --operation {mod-squatters,top-mods,defend-name,scan-recent}
                         Specify operation to perform. (default: mod-squatters)
   -m MODULE_NAME, --module_name MODULE_NAME
                         Module name to check for typosquatters. (default:
@@ -127,6 +138,8 @@ optional arguments:
   -l LEN_PACKAGE_NAME, --len_package_name LEN_PACKAGE_NAME
                         Specify minimum length of package name (default: 5)
   -s, --stored_json     Use a stored top package list (default: False)
+  --save                When using scan-recent, save newly created package
+                        list (default: False)
 ```
 NOTE: This command line interface is under development and could have changed.
 
