@@ -135,9 +135,7 @@ class TestFunctions(unittest.TestCase):
         processed_output = output.stdout.decode("utf-8")
         split_processed_output = processed_output.splitlines()
         self.assertEqual(len(split_processed_output), 45)
-        self.assertEqual(
-            split_processed_output[0], "Number of top packages to examine: 43"
-        )
+        self.assertEqual(split_processed_output[0], "Number of packages to examine: 43")
 
         # Test defend-package usage, i.e. names that are likely candidates based
         # on spelling alone that could be typosquatters
