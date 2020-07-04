@@ -19,16 +19,14 @@ these typosquatting attacks in recent years; based on news reporting, there
 have been at least several dozen documented typosquatting attacks on PyPI.
 
 Pypi-scan can help detect typosquatting on PyPI. There are currently
-three uses of pypi-scan:
+four uses of pypi-scan:
 
-- Scan PyPI for packages that have similar names to the most downloaded
+- Scan PyPI for potential typosquatters on a particular package.
+- Scan PyPI for potential typosquatters on the most downloaded
   packages.
-- Scan PyPI for packages that have similar names to a particular package.
+- Scan packages recently added to PyPI for indications of typosquatting.
 - Enumerate potential names that typosquatters might use to attack a
   particular package.
-
-.. automodule:: scrapers
-   :members:
 
 More documentation coming soon!
 
