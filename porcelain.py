@@ -2,12 +2,16 @@
 
 These are the main related functionalities that can be called in main.py
 """
+
 from filters import filter_by_package_name_len, whitelist
 from scrapers import get_all_packages, get_top_packages
 from utils import (
-    create_suspicious_package_dict,
-    store_squatting_candidates,
     create_potential_squatter_names,
+    create_suspicious_package_dict,
+    load_most_recent_packages,
+    print_suspicious_packages,
+    store_squatting_candidates,
+    store_recent_scan_results,
 )
 
 
@@ -73,10 +77,38 @@ def top_mods(max_distance, top_n, min_len, stored_json):
     post_whitelist_candidates = whitelist(squat_candidates)
     store_squatting_candidates(post_whitelist_candidates)
 
-    # Print all top packages and potential typosquatters
-    print("Number of top packages to examine: " + str(len(squat_candidates)))
-    cnt_potential_squatters = 0
-    for i in post_whitelist_candidates:
-        print(i, ": ", post_whitelist_candidates[i])
-        cnt_potential_squatters += len(post_whitelist_candidates[i])
-    print("Number of potential typosquatters: " + str(cnt_potential_squatters))
+    print_suspicious_packages(post_whitelist_candidates)
+
+
+def scan_recent(max_distance, save_new_list=False):
+    """Scan packages recently added to pypi for possible typosquatting.
+
+    Print recently added packages and any package names on which these
+    packages are potentially typosquatting.
+
+    Args:
+        max_distance (int): maximum edit distance to check for typosquatting
+        save_new_list (bool): flag to save new list
+
+    """
+    # Download current list of PyPI packages and convert to set
+    current_packages_set = set(get_all_packages())
+    # If saving is requested, save new list with timestamped name
+    if save_new_list == True:
+        store_recent_scan_results(list(current_packages_set))
+
+    # Load most recent stored list of PyPI packages and concert to set
+    recent_packages_set = load_most_recent_packages()
+
+    # Find packages that are in newest list but not old list
+    # This is a set operation: find all elements in first not in second
+    new_packages = current_packages_set - recent_packages_set
+
+    # Check each new package and see if it is a potential typosquatter
+    squat_candidates = create_suspicious_package_dict(
+        current_packages_set, new_packages, max_distance
+    )
+
+    # TODO: Consider adding in length to avoid checking short package names
+
+    print_suspicious_packages(squat_candidates)

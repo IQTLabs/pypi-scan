@@ -17,22 +17,27 @@ name and to then view a list of potential names that might be worth
 defending given the similarity of those names. A user could then
 register those names too to try to prevent typosquatting attacks.
 
-There is also a functionality (top-mods) better suited for the
-administrators of pypi or for an information security researcher: this
-program can check the top packages (the default is the top 50) for
+Another two functionalities are better suited for the
+administrators of pypi or for an information security researcher.
+
+One (top-mods) can check the top packages (the default is the top 50) for
 typosquatting. The default configuration identifies a package as a
 potential typosquatter if its edit distance is less than or equal a
 specified value (default is 1) compared to one of the top packages.
 Additionally, there is a whitelist capability to exclude packages that
-are known good. Note: Only packages whose names are at least as long a
+are known good. Only packages whose names are at least as long a
 specified minimum are analyzed.
+
+Another (scan-recent) examines packages recently uploaded (at least 24
+hours ago) to PyPI and checks whether these news packages are potential
+typosquatters.
 """
 
 import argparse
 import sys
 import textwrap
 
-from porcelain import mod_squatters, names_to_defend, top_mods
+from porcelain import mod_squatters, names_to_defend, top_mods, scan_recent
 
 
 def parse_args():
@@ -44,7 +49,7 @@ def parse_args():
         "-o",
         "--operation",
         help="Specify operation to perform.",
-        choices=["mod-squatters", "top-mods", "defend-name"],
+        choices=["mod-squatters", "top-mods", "defend-name", "scan-recent"],
         default="mod-squatters",
     )
     parser.add_argument(
@@ -74,6 +79,12 @@ def parse_args():
     # Switch to use stored top package list
     parser.add_argument(
         "-s", "--stored_json", help="Use a stored top package list", action="store_true"
+    )
+    # Switch to save newly created pypi package list
+    parser.add_argument(
+        "--save",
+        help="When using scan-recent, save newly created package list",
+        action="store_true",
     )
     args = parser.parse_args()
 
@@ -126,6 +137,10 @@ if __name__ == "__main__":
             sys.exit(0)
         else:
             names_to_defend(cli_args.module_name)
+
+    # Scan packages recently added to PyPI for potential typosquatters
+    elif cli_args.operation == "scan-recent":
+        scan_recent(cli_args.edit_distance, cli_args.save)
 
     # Check if operation argument was incorrectly specified
     else:

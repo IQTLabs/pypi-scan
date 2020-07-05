@@ -5,6 +5,7 @@ calls to gather data related to typosquatting.
 """
 
 import json
+import sys
 import urllib.request
 
 from bs4 import BeautifulSoup
@@ -30,7 +31,12 @@ def get_all_packages(page="https://pypi.org/simple/"):
         list: package names on pypi
     """
     # Retrieve package name listing data from pypy
-    pypi_package_page = requests.get(page)
+    try:
+        pypi_package_page = requests.get(page)
+    except requests.exceptions.ConnectionError as e:
+        print("Internet connection issue. Check connection")
+        print(e)
+        sys.exit(1)
 
     # Convert html to easily digestible format
     soup = BeautifulSoup(pypi_package_page.text, "html.parser")
@@ -68,8 +74,14 @@ def get_top_packages(top_n=TOP_N, stored=False):
         top_packages_url = (
             "https://hugovk.github.io/top-pypi-packages/top-pypi-packages-30-days.json"
         )
-        with urllib.request.urlopen(top_packages_url) as url:  # nosec
-            data = json.loads(url.read().decode())
+        # Catch if internet connectivity causes failure
+        try:
+            with urllib.request.urlopen(top_packages_url) as url:  # nosec
+                data = json.loads(url.read().decode())
+        except urllib.error.URLError as e:
+            print("Internet connection issue. Check connection")
+            print(e)
+            sys.exit(1)
 
     # Make JSON data easy to navigate
     json_data = jsontree.jsontree(data)

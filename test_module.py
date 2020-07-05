@@ -1,51 +1,56 @@
-""" Test all functions used to execute pypi-scan """
+"""Test all functions used to execute pypi-scan"""
 
+from io import StringIO
 import os
 import subprocess  # nosec
 import unittest
+from unittest.mock import patch
 
 from filters import filter_by_package_name_len, distance_calculations, whitelist
 from scrapers import get_all_packages, get_top_packages
 from utils import (
-    create_suspicious_package_dict,
-    store_squatting_candidates,
     create_potential_squatter_names,
+    create_suspicious_package_dict,
+    load_most_recent_packages,
+    print_suspicious_packages,
+    store_recent_scan_results,
+    store_squatting_candidates,
 )
 
 
 class TestFunctions(unittest.TestCase):
     """Test all functions for pypi-scan script"""
 
-    def test_getAllPackages(self):
-        """Test getAllPackages function"""
+    def test_get_all_packages(self):
+        """Test get_all_packages function"""
         package_names = get_all_packages()
         self.assertTrue(len(package_names) > 200000)
 
-    def test_getTopPackages(self):
-        """Test getTopPackages function"""
+    def test_get_top_packages(self):
+        """Test get_top_packages function"""
         # Check default setting
         top_packages = get_top_packages()
         self.assertEqual(len(top_packages), 50)
-        self.assertEqual(top_packages["requests"], 4)
+        self.assertEqual(top_packages["requests"], 5)
 
         # Check user supplied number of top packages
         top_packages = get_top_packages(100)
         self.assertEqual(len(top_packages), 100)
-        self.assertEqual(top_packages["requests"], 4)
+        self.assertEqual(top_packages["requests"], 5)
 
         # Check if stored package option works
         stored_packages = get_top_packages(50, stored=True)
         self.assertEqual(len(stored_packages), 50)
         self.assertEqual(stored_packages["requests"], 4)
 
-    def test_distanceCalculations(self):
-        """Test distanceCalculations function"""
+    def test_distance_calculations(self):
+        """Test distance_calculations function"""
         package_of_interest = "cat"
         all_packages = ["bat", "apple"]
         squatters = distance_calculations(package_of_interest, all_packages)
         self.assertEqual(squatters, ["bat"])
 
-    def test_filterByPackageNameLen(self):
+    def test_filter_by_package_name_len(self):
         """Test filterByPackageNameLen"""
         initial_list = ["eeny", "meeny", "miny", "moe"]
         six_char_list = filter_by_package_name_len(initial_list, 6)
@@ -73,6 +78,36 @@ class TestFunctions(unittest.TestCase):
             ["tedt", "trst", "tesy", "tesr", "rest", "teat", "twst", "yest"]
         )
         self.assertEqual(potential_list, expected_list)
+
+    def test_store_recent_scan_results(self):
+        """Test store_recent_scan_results function"""
+        test_package_list = ["peter", "paul", "mary"]
+        store_recent_scan_results(test_package_list, folder="test_data")
+
+    def test_load_most_recent_packages(self):
+        """Test load_most_recent_packages function"""
+        with self.assertRaises(FileNotFoundError):
+            load_most_recent_packages("docs")
+        # Sort because loading order appears to happen randomly
+        package_list = load_most_recent_packages("test_data")
+        self.assertEqual(["peter", "paul", "mary"].sort(), list(package_list).sort())
+
+    def test_print_suspicious_packages(self):
+        """Test print_suspicious_packages function"""
+        expected_output = "".join(
+            [
+                "Number of packages to examine: 2\n",
+                "evil :  ['eval']\n",
+                "knievel :  ['kneevel', 'kanevel']\n",
+                "Number of potential typosquatters: 3\n",
+            ]
+        )
+        # Set up monkey patch to collect output printed to sys.stdout
+        with patch("sys.stdout", new=StringIO()) as fake_out:
+            print_suspicious_packages(
+                {"evil": ["eval"], "knievel": ["kneevel", "kanevel"]}
+            )
+            self.assertEqual(fake_out.getvalue(), expected_output)
 
     def test_end2end(self):
         """Test pypi-scan analysis from start to finish"""
@@ -114,17 +149,6 @@ class TestFunctions(unittest.TestCase):
         )
         self.assertEqual(output.stdout.decode("utf-8"), expected)
 
-        # Test multiple module scan usage
-        output = subprocess.run(
-            ["python", "main.py", "-o", "top-mods"], capture_output=True
-        )  # nosec
-        processed_output = output.stdout.decode("utf-8")
-        split_processed_output = processed_output.splitlines()
-        self.assertEqual(len(split_processed_output), 45)
-        self.assertEqual(
-            split_processed_output[0], "Number of top packages to examine: 43"
-        )
-
         # Test multiple module scan usage with stored package used
         output = subprocess.run(
             ["python", "main.py", "-o", "top-mods", "-s"], capture_output=True
@@ -132,9 +156,7 @@ class TestFunctions(unittest.TestCase):
         processed_output = output.stdout.decode("utf-8")
         split_processed_output = processed_output.splitlines()
         self.assertEqual(len(split_processed_output), 45)
-        self.assertEqual(
-            split_processed_output[0], "Number of top packages to examine: 43"
-        )
+        self.assertEqual(split_processed_output[0], "Number of packages to examine: 43")
 
         # Test defend-package usage, i.e. names that are likely candidates based
         # on spelling alone that could be typosquatters
@@ -150,7 +172,17 @@ class TestFunctions(unittest.TestCase):
             'Here is a list of similar names--measured by keyboard distance--to "test":',
         )
 
-        # TODO: Add test for multiple module scan using lots of flags
+        # Test scan-recent usage, i.e. packages newly uploaded to PyPI and
+        # check if these new packages are potential typosquatters
+        output = subprocess.run(
+            ["python", "main.py", "-o", "scan-recent"], capture_output=True
+        )
+        processed_output = output.stdout.decode("utf-8")
+        split_processed_output = processed_output.splitlines()
+        self.assertEqual(
+            split_processed_output[0][:30],  # TODO: Is this the correct number?
+            "Number of packages to examine:",
+        )
 
 
 if __name__ == "__main__":
