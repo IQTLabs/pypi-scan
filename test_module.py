@@ -21,13 +21,13 @@ from utils import (
 class TestFunctions(unittest.TestCase):
     """Test all functions for pypi-scan script"""
 
-    def test_getAllPackages(self):
-        """Test getAllPackages function"""
+    def test_get_all_packages(self):
+        """Test get_all_packages function"""
         package_names = get_all_packages()
         self.assertTrue(len(package_names) > 200000)
 
-    def test_getTopPackages(self):
-        """Test getTopPackages function"""
+    def test_get_top_packages(self):
+        """Test get_top_packages function"""
         # Check default setting
         top_packages = get_top_packages()
         self.assertEqual(len(top_packages), 50)
@@ -43,14 +43,14 @@ class TestFunctions(unittest.TestCase):
         self.assertEqual(len(stored_packages), 50)
         self.assertEqual(stored_packages["requests"], 4)
 
-    def test_distanceCalculations(self):
-        """Test distanceCalculations function"""
+    def test_distance_calculations(self):
+        """Test distance_calculations function"""
         package_of_interest = "cat"
         all_packages = ["bat", "apple"]
         squatters = distance_calculations(package_of_interest, all_packages)
         self.assertEqual(squatters, ["bat"])
 
-    def test_filterByPackageNameLen(self):
+    def test_filter_by_package_name_len(self):
         """Test filterByPackageNameLen"""
         initial_list = ["eeny", "meeny", "miny", "moe"]
         six_char_list = filter_by_package_name_len(initial_list, 6)
@@ -90,8 +90,7 @@ class TestFunctions(unittest.TestCase):
             load_most_recent_packages("docs")
         # Sort because loading order appears to happen randomly
         package_list = load_most_recent_packages("test_data")
-        self.assertEqual(['peter', 'paul', 'mary'].sort(),
-                         list(package_list).sort()) 
+        self.assertEqual(["peter", "paul", "mary"].sort(), list(package_list).sort())
 
     def test_print_suspicious_packages(self):
         """Test print_suspicious_packages function"""
@@ -176,14 +175,13 @@ class TestFunctions(unittest.TestCase):
         # Test scan-recent usage, i.e. packages newly uploaded to PyPI and
         # check if these new packages are potential typosquatters
         output = subprocess.run(
-            ["python", "main.py", "-o", "scan-recent"],
-            capture_output=True,
+            ["python", "main.py", "-o", "scan-recent"], capture_output=True
         )
         processed_output = output.stdout.decode("utf-8")
         split_processed_output = processed_output.splitlines()
         self.assertEqual(
-            split_processed_output[0][:30], # TODO: Is this the correct number?
-            'Number of packages to examine:',
+            split_processed_output[0][:30],  # TODO: Is this the correct number?
+            "Number of packages to examine:",
         )
 
 
