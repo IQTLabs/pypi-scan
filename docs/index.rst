@@ -38,6 +38,13 @@ are susceptible to typosquatting attacks. His conclusions? "Thousands of hosts
 can be infected with malware by typosquatting package managers within a few
 days."
 
+Ruian Duan, Omar Alrawi, Ranjita Pai Kasturi, Ryan Elder, Brendan Saltaformaggio,
+and Wenke Lee, "Measuring and Preventing Supply Chain Attacks on Package Managers,"
+arXiv, 2020.
+These researchers build an analytical pipeline, MalOSS, that finds over three
+hundred malware on RubyGems (Ruby), NPM (nodeJS/Javascript), and PyPI. They
+find seven instances of malware on PyPI.
+
 Matt Bullock, "pypi-parker," github, https://github.com/mattsb42, 2017.
 Bullock wrote a piece of software that reduces the time needed for a package
 manager to defensively register PyPI names a typosquatter might use.
