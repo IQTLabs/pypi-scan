@@ -88,9 +88,10 @@ class TestFunctions(unittest.TestCase):
         """Test load_most_recent_packages function"""
         with self.assertRaises(FileNotFoundError):
             load_most_recent_packages("docs")
-        # TODO: Uncomment on 7/5/2020
-        # package_list = load_most_recent_packages("test_data")
-        # self.assertEqual(['peter', 'paul', 'mary'], list(package_list))
+        # Sort because loading order appears to happen randomly
+        package_list = load_most_recent_packages("test_data")
+        self.assertEqual(['peter', 'paul', 'mary'].sort(),
+                         list(package_list).sort()) 
 
     def test_print_suspicious_packages(self):
         """Test print_suspicious_packages function"""
@@ -174,18 +175,16 @@ class TestFunctions(unittest.TestCase):
 
         # Test scan-recent usage, i.e. packages newly uploaded to PyPI and
         # check if these new packages are potential typosquatters
-        # TODO: Un-comment on 7/5
-        # output = subprocess.run(
-        #     ["python", "main.py", "-o", "scan-recent"],
-        #     capture_output=True,
-        # )  # nosec
-        # processed_output = output.stdout.decode("utf-8")
-        # split_processed_output = processed_output.splitlines()
-        # self.assertEqual(len(split_processed_output), 9)
-        # self.assertEqual(
-        #     split_processed_output[0][:30], # TODO: Is this the correct number?
-        #     'Number of packages to examine:',
-        # )
+        output = subprocess.run(
+            ["python", "main.py", "-o", "scan-recent"],
+            capture_output=True,
+        )
+        processed_output = output.stdout.decode("utf-8")
+        split_processed_output = processed_output.splitlines()
+        self.assertEqual(
+            split_processed_output[0][:30], # TODO: Is this the correct number?
+            'Number of packages to examine:',
+        )
 
 
 if __name__ == "__main__":
