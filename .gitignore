@@ -6,4 +6,4 @@ whitelist.txt
 package_lists/*
 test_data/pypi*
 # Keep at least one test data file
-!test_data\pypi-package-list-2020-Jul-03-13-22-39.json
+!test_data/pypi-package-list-2020-Jul-03-13-22-39.json
