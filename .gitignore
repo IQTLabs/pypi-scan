@@ -2,6 +2,7 @@ __pycache__
 suspicious_packages.txt
 whitelist.txt
 .coverage
+.pytype
 package_lists/*
 test_data/pypi*
 # Keep at least one test data file
