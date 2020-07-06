@@ -5,5 +5,6 @@ whitelist.txt
 .pytype
 package_lists/*
 test_data/pypi*
-# Keep at least one test data file
+# Keep at least one of these files
 !test_data/pypi-package-list-2020-Jul-03-13-22-39.json
+!package_lists/pypi-package-list-2020-Jul-03-01-12-38.json
