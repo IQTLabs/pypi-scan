@@ -1,10 +1,12 @@
-"""Perform actions related to typosquatting.
+"""
+Perform actions related to typosquatting.
 
 These are the important misfits. They don't fit in elsewhere but these
 functions need to be in a module somewhere.
 """
 
 import collections
+import datetime
 import glob
 import json
 import os
@@ -90,7 +92,7 @@ def store_recent_scan_results(packages, folder="package_lists"):
         folder (str): Folder in which to store JSON file
 
     """
-    timestamp = strftime("%Y-%b-%d-%H-%M-%S", gmtime())
+    timestamp = strftime("%Y-%m-%d-%H-%M-%S", gmtime())
     filename = "pypi-package-list-" + timestamp + ".json"
     # Platform-independent path joining
     path = os.path.join(folder, filename)
@@ -121,7 +123,20 @@ def load_most_recent_packages(folder="package_lists"):
     newest_file_older_than_1day = ""
     DAY_IN_SECONDS = 60 * 60 * 24
     for file in json_files:
-        file_timestamp = os.path.getmtime(file)
+        file_no_ext = os.path.splitext(file)[0]  # Remove extension
+        yr, mon, day, hr, min, sec = file_no_ext.split("-")[-6:]  # get time
+        # Convert time variables to integers
+        yr = int(yr)
+        mon = int(mon)
+        day = int(day)
+        hr = int(hr)
+        min = int(min)
+        sec = int(sec)
+        dt = datetime.datetime(yr, mon, day, hr, min, sec)  # unix time
+        # Avoid bugs by using this conservative approach
+        file_timestamp = (dt - datetime.datetime(1970, 1, 1)) / datetime.timedelta(
+            seconds=1
+        )
         if file_timestamp <= (current_time - DAY_IN_SECONDS):
             newest_file_older_than_1day = file
             break
