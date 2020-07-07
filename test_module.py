@@ -19,15 +19,15 @@ from utils import (
 
 
 class TestFunctions(unittest.TestCase):
-    """Test all functions for pypi-scan script"""
+    """Test all functions for pypi-scan script."""
 
     def test_get_all_packages(self):
-        """Test get_all_packages function"""
+        """Test get_all_packages function."""
         package_names = get_all_packages()
         self.assertTrue(len(package_names) > 200000)
 
     def test_get_top_packages(self):
-        """Test get_top_packages function"""
+        """Test get_top_packages function."""
         # Check default setting
         top_packages = get_top_packages()
         self.assertEqual(len(top_packages), 50)
@@ -44,14 +44,14 @@ class TestFunctions(unittest.TestCase):
         self.assertEqual(stored_packages["requests"], 4)
 
     def test_distance_calculations(self):
-        """Test distance_calculations function"""
+        """Test distance_calculations function."""
         package_of_interest = "cat"
         all_packages = ["bat", "apple"]
         squatters = distance_calculations(package_of_interest, all_packages)
         self.assertEqual(squatters, ["bat"])
 
     def test_filter_by_package_name_len(self):
-        """Test filterByPackageNameLen"""
+        """Test filterByPackageNameLen."""
         initial_list = ["eeny", "meeny", "miny", "moe"]
         six_char_list = filter_by_package_name_len(initial_list, 6)
         five_char_list = filter_by_package_name_len(initial_list, 5)
@@ -63,7 +63,7 @@ class TestFunctions(unittest.TestCase):
         self.assertEqual(three_char_list, ["eeny", "meeny", "miny", "moe"])
 
     def test_whitelist(self):
-        """Test whitelist function"""
+        """Test whitelist function."""
         test_whitelist = {"key1": ["val1"], "key2": ["val2"]}
         result = whitelist(test_whitelist, "test_data/whitelist.txt")
         self.assertEqual(result, {"key1": [], "key2": ["val2"]})
@@ -71,7 +71,7 @@ class TestFunctions(unittest.TestCase):
         self.assertTrue("key1" in result)
 
     def test_potential_squatter_names(self):
-        """Test create_potential_squatter_names function"""
+        """Test create_potential_squatter_names function."""
         module_name = "test"
         potential_list = create_potential_squatter_names(module_name)
         expected_list = set(
@@ -80,12 +80,12 @@ class TestFunctions(unittest.TestCase):
         self.assertEqual(potential_list, expected_list)
 
     def test_store_recent_scan_results(self):
-        """Test store_recent_scan_results function"""
+        """Test store_recent_scan_results function."""
         test_package_list = ["peter", "paul", "mary"]
         store_recent_scan_results(test_package_list, folder="test_data")
 
     def test_load_most_recent_packages(self):
-        """Test load_most_recent_packages function"""
+        """Test load_most_recent_packages function."""
         with self.assertRaises(FileNotFoundError):
             load_most_recent_packages("docs")
         # Sort because loading order appears to happen randomly
@@ -93,7 +93,7 @@ class TestFunctions(unittest.TestCase):
         self.assertEqual(["peter", "paul", "mary"].sort(), list(package_list).sort())
 
     def test_print_suspicious_packages(self):
-        """Test print_suspicious_packages function"""
+        """Test print_suspicious_packages function."""
         expected_output = "".join(
             [
                 "Number of packages to examine: 2\n",
@@ -110,14 +110,14 @@ class TestFunctions(unittest.TestCase):
             self.assertEqual(fake_out.getvalue(), expected_output)
 
     def test_end2end(self):
-        """Test pypi-scan analysis from start to finish"""
+        """Test pypi-scan analysis from start to finish."""
         package_names = get_all_packages()
         top_packages = get_top_packages()
         squat_candidates = create_suspicious_package_dict(package_names, top_packages)
         store_squatting_candidates(squat_candidates)
 
     def test_commandline(self):
-        """Test command line usage"""
+        """Test command line usage."""
 
         # Test single module scan usage for module with no typosquatters
         output = subprocess.run(
@@ -172,6 +172,7 @@ class TestFunctions(unittest.TestCase):
             'Here is a list of similar names--measured by keyboard distance--to "test":',
         )
 
+        # TODO: Put in separate test. Mark slow. Only run occasionally. Or add other testing infrastructure
         # Test scan-recent usage, i.e. packages newly uploaded to PyPI and
         # check if these new packages are potential typosquatters
         output = subprocess.run(
