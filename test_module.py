@@ -175,15 +175,16 @@ class TestFunctions(unittest.TestCase):
         # TODO: Put in separate test. Mark slow. Only run occasionally. Or add other testing infrastructure
         # Test scan-recent usage, i.e. packages newly uploaded to PyPI and
         # check if these new packages are potential typosquatters
-        output = subprocess.run(
-            ["python", "main.py", "-o", "scan-recent"], capture_output=True
-        )
-        processed_output = output.stdout.decode("utf-8")
-        split_processed_output = processed_output.splitlines()
-        self.assertEqual(
-            split_processed_output[0][:30],  # TODO: Is this the correct number?
-            "Number of packages to examine:",
-        )
+        # TODO: @unittest.skip("skip because it is too slow. Only activate if you've got some time to kill.")
+        # output = subprocess.run(
+        #     ["python", "main.py", "-o", "scan-recent"], capture_output=True
+        # )
+        # processed_output = output.stdout.decode("utf-8")
+        # split_processed_output = processed_output.splitlines()
+        # self.assertEqual(
+        #     split_processed_output[0][:30],  # TODO: Is this the correct number?
+        #     "Number of packages to examine:",
+        # )
 
 
 if __name__ == "__main__":
