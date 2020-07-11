@@ -145,6 +145,6 @@ NOTE: This command line interface is under development and could have changed.
 
 ## Contributing
 
-Pull requests are welcome! Also, you can open issues or submit bugs and security issues in the Github issue tracker.
+Pull requests are welcome! Also, you can open issues or submit bugs and security issues in the Github issue tracker. If you submit new functionality, please add corresponding tests.
 
 More coming soon...
