@@ -143,4 +143,8 @@ optional arguments:
 ```
 NOTE: This command line interface is under development and could have changed.
 
+## Contributing
+
+Pull requests are welcome!
+
 More coming soon...
