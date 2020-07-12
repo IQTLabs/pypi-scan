@@ -6,7 +6,12 @@ import subprocess  # nosec
 import unittest
 from unittest.mock import patch
 
-from filters import filter_by_package_name_len, distance_calculations, whitelist
+from filters import (
+    confusion_attack_screen,
+    distance_calculations,
+    filter_by_package_name_len,
+    whitelist,
+)
 from scrapers import get_all_packages, get_top_packages
 from utils import (
     create_potential_squatter_names,
@@ -108,6 +113,14 @@ class TestFunctions(unittest.TestCase):
                 {"evil": ["eval"], "knievel": ["kneevel", "kanevel"]}
             )
             self.assertEqual(fake_out.getvalue(), expected_output)
+
+    def test_confusion_attack_screen(self):
+        """Test confusion_attack_screen function"""
+        input_package = "python-nmap"
+        test_list = ["apple", "pear", "nmap-python", "python_nmap"]
+        expected_output = ["nmap-python", "python_nmap"]
+        output = confusion_attack_screen(input_package, test_list)
+        self.assertEqual(output, expected_output)
 
     def test_end2end(self):
         """Test pypi-scan analysis from start to finish."""
