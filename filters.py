@@ -57,6 +57,42 @@ def distance_calculations(package_of_interest, all_packages, max_distance=MAX_DI
     return sorted(similar_package_names)
 
 
+def confusion_attack_screen(package, all_packages):
+    """Find packages that prey on user confusion.
+
+    Because not all typosquatting attacks are misspelling attacks,
+    a typosquatting defense requires for checking whether there are
+    variants of a package that prey on user confusion. For instance,
+    python-nmap vs nmap-python. The edit distance is very high, but
+    the conceptual distance is close. This function helps currently
+    identifies only packages that capitalize on user confusion about
+    word order when words are separated by dashes or underscores. Future
+    versions of this function might add additional functionality.
+
+    Args:
+        package (str): package name on which to perform comparison
+        all_packages (list): list of all package names
+
+    Returns:
+        list: potential typosquatting packages preying on user confusion
+    """
+    # Check if there is only one total dash or underscore
+    # TODO: Consider dealing with other cases (e.g. >=2 dashes)
+    squatters = None
+    if package.count("-") + package.count("_") == 1:
+        if package.count("-") == 1:
+            pkg_name_list = package.split("-")
+            reversed_name = pkg_name_list[1] + "-" + pkg_name_list[0]
+        else:
+            pkg_name_list = package.split("_")
+            reversed_name = pkg_name_list[1] + "_" + pkg_name_list[0]
+        # Check if this reversed name is contained in the full package list
+        if reversed_name in all_packages:
+            squatters = [reversed_name]
+
+    return squatters
+
+
 def whitelist(squat_candidates, whitelist_filename="whitelist.txt"):
     """Remove whitelisted packages from typosquat candidate list.
 
