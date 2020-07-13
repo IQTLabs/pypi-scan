@@ -15,7 +15,7 @@ from time import gmtime, localtime, strftime, time
 from mrs_spellings import MrsWord
 
 import constants
-from filters import distance_calculations
+from filters import confusion_attack_screen, distance_calculations
 
 MAX_DISTANCE = constants.MAX_DISTANCE
 
@@ -26,7 +26,7 @@ def create_suspicious_package_dict(
     """Examine all top packages for typosquatters.
 
     Loop through all top packages and check for instances of
-    typosquatting.
+    typosquatting. This includes confusion
 
     Args:
         all_packages (list): all package names
@@ -39,7 +39,13 @@ def create_suspicious_package_dict(
     suspicious_packages = collections.OrderedDict()
 
     for top_package in top_packages:
+        # Check for misspelling attacks
         close_packages = distance_calculations(top_package, all_packages, max_distance)
+        # Check for confusion attcks
+        reverse_package = confusion_attack_screen(top_package, all_packages)
+        # If there actually is a reverse package squatter, add to list
+        if reverse_package:
+            close_packages.extend(reverse_package)
         suspicious_packages[top_package] = close_packages
 
     return suspicious_packages
