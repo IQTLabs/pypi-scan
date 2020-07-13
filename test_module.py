@@ -1,5 +1,6 @@
 """Test all functions used to execute pypi-scan"""
 
+import collections
 from io import StringIO
 import os
 import subprocess  # nosec
@@ -116,10 +117,30 @@ class TestFunctions(unittest.TestCase):
 
     def test_confusion_attack_screen(self):
         """Test confusion_attack_screen function"""
+        # Check that positive mach situation functions properly
         input_package = "python-nmap"
-        test_list = ["apple", "pear", "nmap-python", "python_nmap"]
-        expected_output = ["nmap-python", "python_nmap"]
+        test_list = ["apple", "pear", "nmap-python", "python-nmap"]
+        expected_output = ["nmap-python"]
         output = confusion_attack_screen(input_package, test_list)
+        self.assertEqual(output, expected_output)
+
+        # Check that no match situation functions properly
+        input_package = "python-koala"
+        test_list = ["apple", "pear", "nmap-python", "python-nmap"]
+        expected_output = None
+        output = confusion_attack_screen(input_package, test_list)
+        self.assertEqual(output, expected_output)
+
+    def test_create_suspicious_package_dict(self):
+        """Test create_suspicious_package_dict function"""
+        # Check if misspelling and confusion attacks are detected
+        ALL_PACKAGES = ["eeny", "meeny", "miny", "moe", "cup-joe", "joe-cup"]
+        TOP_PACKAGE = ["eeny", "cup-joe"]
+        MAX_DISTANCE = 1
+        output = create_suspicious_package_dict(ALL_PACKAGES, TOP_PACKAGE, MAX_DISTANCE)
+        expected_output = collections.OrderedDict(
+            {"eeny": ["meeny"], "cup-joe": ["joe-cup"]}
+        )
         self.assertEqual(output, expected_output)
 
     def test_end2end(self):
