@@ -28,7 +28,8 @@ similar names are malicious, but some might be.
 
 To determine if a package is a potential typosquatter, pypi-scan employs [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance),
 which is, roughly speaking, a measure of how many edits are required to transform one string of
-characters into another. The default edit distance is one.
+characters into another. The default edit distance is one. pypi-scan also checks for "confusion attacks," e.g. switching the order of words around a dash or underscore. Imagine confusing
+python-nmap with nmap-python.
 
 ## Usage
 (Requires an internet connection.)
