@@ -130,15 +130,15 @@ def load_most_recent_packages(folder="package_lists"):
     DAY_IN_SECONDS = 60 * 60 * 24
     for file in json_files:
         file_no_ext = os.path.splitext(file)[0]  # Remove extension
-        yr, mon, day, hr, min, sec = file_no_ext.split("-")[-6:]  # get time
+        yr, mon, day, hr, minute, sec = file_no_ext.split("-")[-6:]  # get time
         # Convert time variables to integers
         yr = int(yr)
         mon = int(mon)
         day = int(day)
         hr = int(hr)
-        min = int(min)
+        minute = int(minute)
         sec = int(sec)
-        dt = datetime.datetime(yr, mon, day, hr, min, sec)  # unix time
+        dt = datetime.datetime(yr, mon, day, hr, minute, sec)  # unix time
         # Avoid bugs by using this conservative approach
         file_timestamp = (dt - datetime.datetime(1970, 1, 1)) / datetime.timedelta(
             seconds=1
