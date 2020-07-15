@@ -206,19 +206,24 @@ class TestFunctions(unittest.TestCase):
             'Here is a list of similar names--measured by keyboard distance--to "test":',
         )
 
-        # TODO: Put in separate test. Mark slow. Only run occasionally. Or add other testing infrastructure
-        # Test scan-recent usage, i.e. packages newly uploaded to PyPI and
-        # check if these new packages are potential typosquatters
-        # TODO: @unittest.skip("skip because it is too slow. Only activate if you've got some time to kill.")
-        # output = subprocess.run(
-        #     ["python", "main.py", "-o", "scan-recent"], capture_output=True
-        # )
-        # processed_output = output.stdout.decode("utf-8")
-        # split_processed_output = processed_output.splitlines()
-        # self.assertEqual(
-        #     split_processed_output[0][:30],  # TODO: Is this the correct number?
-        #     "Number of packages to examine:",
-        # )
+    # TODO: Rewrite scan recent infrastructure to enable straightfoward testing
+    @unittest.skip("Skipping because this test is slow")
+    def test_recent_scan_command_line(self):
+        """Test scan recent functionality end to end.
+
+        This test can be slow if the most recent scan for comparison was
+        more than a few days ago.
+
+        """
+        output = subprocess.run(
+            ["python", "main.py", "-o", "scan-recent"], capture_output=True
+        )
+        processed_output = output.stdout.decode("utf-8")
+        split_processed_output = processed_output.splitlines()
+        self.assertEqual(
+            split_processed_output[0][:30],  # TODO: Is this the correct number?
+            "Number of packages to examine:",
+        )
 
 
 if __name__ == "__main__":
