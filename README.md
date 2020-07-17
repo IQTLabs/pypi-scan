@@ -31,6 +31,10 @@ which is, roughly speaking, a measure of how many edits are required to transfor
 characters into another. The default edit distance is one. pypi-scan also checks for "confusion attacks," e.g. switching the order of words around a dash or underscore. Imagine confusing
 python-nmap with nmap-python.
 
+pypi-scan has been to used to successfully identify and report these package:
+- pandar (which was squatting on pandas). Removed from PyPI.
+- prompt-tool-kit (which was squatting) on prompt-toolkit. Reported to maintainer.
+
 ## Usage
 (Requires an internet connection.)
 
