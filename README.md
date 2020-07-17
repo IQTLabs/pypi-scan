@@ -32,8 +32,8 @@ characters into another. The default edit distance is one. pypi-scan also checks
 python-nmap with nmap-python.
 
 pypi-scan has been to used to successfully identify and report these package:
-- pandar (which was squatting on pandas). Removed from PyPI.
-- prompt-tool-kit (which was squatting) on prompt-toolkit. Reported to maintainer.
+- pandar (which was squatting on pandas) Removed from PyPI.
+- prompt-tool-kit (which was squatting on prompt-toolkit) Reported to maintainer.
 
 ## Usage
 (Requires an internet connection.)
