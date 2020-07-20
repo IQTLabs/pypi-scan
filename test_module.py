@@ -13,7 +13,7 @@ from filters import (
     filter_by_package_name_len,
     whitelist,
 )
-from scrapers import get_all_packages, get_top_packages
+from scrapers import get_all_packages, get_top_packages, get_metadata
 from utils import (
     create_potential_squatter_names,
     create_suspicious_package_dict,
@@ -142,6 +142,11 @@ class TestFunctions(unittest.TestCase):
             {"eeny": ["meeny"], "cup-joe": ["joe-cup"]}
         )
         self.assertEqual(output, expected_output)
+
+    def test_get_metadata(self):
+        """Test metadata scrape functionality on pcap2map"""
+        package = get_metadata("pcap2map")
+        self.assertEqual(package["banner"], "Put IP addresses from PCAP on map")
 
     def test_end2end(self):
         """Test pypi-scan analysis from start to finish."""
