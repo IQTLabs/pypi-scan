@@ -157,6 +157,16 @@ class TestFunctions(unittest.TestCase):
             package["info"]["package_url"], "https://pypi.org/project/pcap2map/"
         )
 
+    def test_compare_metadata(self):
+        """Test compare_metadata functionality.
+        One test should compare the same exact package (pcap2map) to
+        itself and check they are equivalent. Another should check
+        packages that share only one feature and return "low." Another
+        should find multiple similarities and return "high risk." Another
+        should check entirely different packages and return "no risk."
+        """
+        pass
+
     def test_end2end(self):
         """Test pypi-scan analysis from start to finish."""
         package_names = get_all_packages()
