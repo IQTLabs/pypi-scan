@@ -95,3 +95,26 @@ def get_top_packages(top_n=TOP_N, stored=False):
         top_packages[package_name] = i + 1
 
     return top_packages
+
+
+def get_metadata(name):
+    """Retrieve pypi package metadata for one package.
+
+    Retrieve via an internet call to PyPI via JSON metadata on a particular
+    PyPI package and return this information.
+
+    Args:
+        name (str): name of package on pypi for which to retrieve metadata
+
+    Returns:
+        dict: package metadata
+    """
+    # Make call to specified PyPI package via API endpoint
+    link = "https://pypi.org/pypi/" + name + "/json"
+    response = requests.get(link)
+
+    # Convert JSON to dict
+    metadata_dict = response.json()
+
+    # Return dict version
+    return metadata_dict
