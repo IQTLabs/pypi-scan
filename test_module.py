@@ -144,9 +144,18 @@ class TestFunctions(unittest.TestCase):
         self.assertEqual(output, expected_output)
 
     def test_get_metadata(self):
-        """Test metadata scrape functionality on pcap2map"""
+        """Test metadata scrape functionality on pcap2map.
+
+        This package uses pcap2map because John Speed developed pcap2map
+        and placed it on PyPI and he has no intention of changing the
+        metadata associated with the PyPI package.
+        """
         package = get_metadata("pcap2map")
-        self.assertEqual(package["banner"], "Put IP addresses from PCAP on map")
+        self.assertEqual(package["info"]["author_email"], "anon@gmail.com")
+        self.assertEqual(package["info"]["author"], "John Speed Meyers")
+        self.assertEqual(
+            package["info"]["package_url"], "https://pypi.org/project/pcap2map/"
+        )
 
     def test_end2end(self):
         """Test pypi-scan analysis from start to finish."""
