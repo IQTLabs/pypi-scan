@@ -6,7 +6,6 @@
 [![Documentation Status](https://readthedocs.org/projects/pypi-scan/badge/?version=latest)](https://pypi-scan.readthedocs.io/en/latest/?badge=latest)
 [![Python 3.7](https://img.shields.io/badge/python-3.7-blue.svg)](https://www.python.org/downloads/release/python-360/)
 [![Python 3.8](https://img.shields.io/badge/python-3.8-blue.svg)](https://www.python.org/downloads/release/python-360/)
-[![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/jspeed-meyers/pypi-scan/blob/master/LICENSE)
 
 # pypi-scan
 Scan PyPI for typosquatting
