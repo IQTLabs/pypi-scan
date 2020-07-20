@@ -6,6 +6,7 @@
 [![Documentation Status](https://readthedocs.org/projects/pypi-scan/badge/?version=latest)](https://pypi-scan.readthedocs.io/en/latest/?badge=latest)
 [![Python 3.7](https://img.shields.io/badge/python-3.7-blue.svg)](https://www.python.org/downloads/release/python-360/)
 [![Python 3.8](https://img.shields.io/badge/python-3.8-blue.svg)](https://www.python.org/downloads/release/python-360/)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 # pypi-scan
 Scan PyPI for typosquatting
