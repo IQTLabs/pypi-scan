@@ -15,6 +15,7 @@ from filters import (
 )
 from scrapers import get_all_packages, get_top_packages, get_metadata
 from utils import (
+    compare_metadata,
     create_potential_squatter_names,
     create_suspicious_package_dict,
     load_most_recent_packages,
@@ -158,14 +159,19 @@ class TestFunctions(unittest.TestCase):
         )
 
     def test_compare_metadata(self):
-        """Test compare_metadata functionality.
-        One test should compare the same exact package (pcap2map) to
-        itself and check they are equivalent. Another should check
-        packages that share only one feature and return "low." Another
-        should find multiple similarities and return "high risk." Another
-        should check entirely different packages and return "no risk."
-        """
-        pass
+        """Test compare_metadata functionality"""
+        # Check that comparing package to itself returns high risk
+        result = compare_metadata("pcap2map", "pcap2map")
+        self.assertEqual(result, "some_risk")
+
+        # Check that comparing these packages (the second is a suspicious,
+        # but arguably non-malicious typosquatter) returns high risk
+        result = compare_metadata("prompt-toolkit", "prompt-tool-kit")
+        self.assertEqual(result, "some_risk")
+
+        # Check that comparing two known different packages returns no risk
+        result = compare_metadata("pcap2map", "requests")
+        self.assertEqual(result, "no_risk")
 
     def test_end2end(self):
         """Test pypi-scan analysis from start to finish."""
