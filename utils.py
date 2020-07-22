@@ -16,8 +16,51 @@ from mrs_spellings import MrsWord
 
 import constants
 from filters import confusion_attack_screen, distance_calculations
+from scrapers import get_metadata
 
 MAX_DISTANCE = constants.MAX_DISTANCE
+
+
+def compare_metadata(pkg1, pkg2):
+    """Retrieve and compare metadata of two PyPI packages.
+
+    Determine whether the package metadata has no identical fields
+    (i.e. no risk) or has at least one identical field (i.e. some risk).
+    This function operates on the theory that typosquatting packages
+    sometimes, perhaps often, borrow package metadata of the original
+    package in order to trick unsuspecting users.
+
+    Args:
+        pkg1 (str): name of first package to compare
+        pkg2 (str): name of second package to compare
+
+    Returns:
+        str: a value of "no_risk" or "some_risk"
+    """
+    # Retrieve metadata for both packages
+    pkg1_metadata = get_metadata(pkg1)
+    pkg2_metadata = get_metadata(pkg2)
+
+    # Loop through identified fields to count number of identical fields
+    num_identical_fields = 0
+    fields_to_compare = [
+        "author_email",
+        "author",
+        "package_url",
+        "description",
+        "home_page",
+        "summary",
+    ]
+    for field in fields_to_compare:
+        if pkg1_metadata["info"][field] == pkg2_metadata["info"][field]:
+            num_identical_fields += 1
+
+    # Categorize risk level based on count of identical fields
+    risk_level = "no_risk"
+    if num_identical_fields >= 1:
+        risk_level = "some_risk"
+
+    return risk_level
 
 
 def create_suspicious_package_dict(
