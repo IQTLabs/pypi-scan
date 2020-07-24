@@ -109,12 +109,24 @@ def get_metadata(name):
     Returns:
         dict: package metadata
     """
-    # Make call to specified PyPI package via API endpoint
-    link = "https://pypi.org/pypi/" + name + "/json"
-    response = requests.get(link)
+    try:
+        # Make call to specified PyPI package via API endpoint
+        link = "https://pypi.org/pypi/" + name + "/json"
+        response = requests.get(link)
 
-    # Convert JSON to dict
-    metadata_dict = response.json()
+        # Convert JSON to dict
+        metadata_dict = response.json()
+    except json.decoder.JSONDecodeError as e:
+        metadata_dict = {
+            "info": {
+                "author_email": "",
+                "author": "",
+                "package_url": "",
+                "description": "",
+                "home_page": "",
+                "summary": "",
+            }
+        }
 
     # Return dict version
     return metadata_dict
