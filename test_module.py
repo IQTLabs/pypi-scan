@@ -100,12 +100,16 @@ class TestFunctions(unittest.TestCase):
         self.assertEqual(["peter", "paul", "mary"].sort(), list(package_list).sort())
 
     def test_print_suspicious_packages(self):
-        """Test print_suspicious_packages function."""
+        """Test print_suspicious_packages function.
+
+        This function has awkward syntax given the need to output
+        colored text.
+        """
         expected_output = "".join(
             [
                 "Number of packages to examine: 2\n",
                 "evil :  ['eval']\n",
-                "knievel :  ['kneevel', 'kanevel']\n",
+                "knievel :  ['\x1b[31mkneevel\x1b[0m', '\x1b[31mkanevel\x1b[0m']\n",
                 "Number of potential typosquatters: 3\n",
             ]
         )

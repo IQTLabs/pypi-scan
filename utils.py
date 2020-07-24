@@ -10,9 +10,11 @@ import datetime
 import glob
 import json
 import os
+import sys
 from time import gmtime, localtime, strftime, time
 
 from mrs_spellings import MrsWord
+from termcolor import colored
 
 import constants
 from filters import confusion_attack_screen, distance_calculations
@@ -202,13 +204,45 @@ def load_most_recent_packages(folder="package_lists"):
 def print_suspicious_packages(packages):
     """Pretty print a suspicious package list.
 
+    Packages with any identical metadata are printed in red while
+    other potential typosquatters are printed in the normal ink color.
+
     Args:
         packages (dict): (key) package and (value) potential typosquatters
-
     """
     print("Number of packages to examine: " + str(len(packages)))
     cnt_potential_squatters = 0
+    # Note: The complicated printing sequence below accomodates the
+    # decision to use coloring for packages with similar metadata.
     for pkg in packages:
-        print(pkg, ": ", packages[pkg])
+        print(pkg, ":  ", end="")
+        num_pkgs = len(packages[pkg])
+        # Check if there are any potential typosquatters
+        if num_pkgs > 0:
+            print("[", end="")
+            for index, squatter in enumerate(packages[pkg]):
+                # Check if package has at least some identical metadata
+                # Use color printing if so
+                if compare_metadata(pkg, squatter) == "some_risk":
+                    print("'", end="")
+                    print(colored(squatter, "red"), sep="", end="")
+                    # This codes skips printing unnecessary characters
+                    # at the end of the list of potential typosquatters
+                    if index != (num_pkgs - 1):
+                        print("', ", end="")
+                    else:
+                        print("'", end="")
+                # If package has no identical metadata, do normal printing
+                else:
+                    print("'", end="")
+                    print(squatter, end="")
+                    if index != (num_pkgs - 1):
+                        print("', ", end="")
+                    else:
+                        print("'", end="")
+            print("]")
+        # If package has no potential typosquatters, print null set
+        else:
+            print("[]")
         cnt_potential_squatters += len(packages[pkg])
     print("Number of potential typosquatters: " + str(cnt_potential_squatters))
