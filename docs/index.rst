@@ -51,6 +51,12 @@ https://arxiv.org/abs/2005.09535.
 This paper presents a dataset of 174 malicious packages found on NPM,
 PyPI, and RubyGems between 2015 and 2019.
 
+Linux Foundation, "Open Source Software Supply Chain Security," February 2020.
+This explicit "call to action" documents a number of high-profile software
+supply chain attacks and then examines deficiencies in the current
+software supply chain through the lens of developers, repositories, package
+managers, and end users.
+
 Matt Bullock, "pypi-parker," github, https://github.com/mattsb42, 2017.
 Bullock wrote a piece of software that reduces the time needed for a package
 manager to defensively register PyPI names a typosquatter might use.
