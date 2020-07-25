@@ -13,7 +13,4 @@ mrs-spellings = "*"
 python-Levenshtein = "*"
 requests = "*"
 termcolor = "*"
-
-
-[requires]
-python_version = "3.8"
+urllib3 = "*"
