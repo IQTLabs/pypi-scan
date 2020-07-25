@@ -4,7 +4,10 @@ whitelist.txt
 .coverage
 .pytype
 package_lists/*
+results/*
 test_data/pypi*
 # Keep at least one of these files
 !test_data/pypi-package-list-2020-07-03-13-22-39.json
 !package_lists/pypi-package-list-2020-07-03-01-12-38.json
+!results/README.md
+!package_lists/README.md
