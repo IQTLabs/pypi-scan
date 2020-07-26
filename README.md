@@ -18,20 +18,28 @@ There are four anti-typosquatting functionalities in pypi-scan:
 -  Check if packages newly added to PyPI are potential typosquatters.
 -  Create list of package names that a typosquatter might use.
 
-PyPI (the Python Package Index) is a repository for Python packages. It's like a store
-where anybody with an internet connection can download (for free) Python packages.
-Typosquatting is a practice in which someone chooses a package name that is similar to
-an existing package and places a malicious package in this deceptively titled namespace.
-Imagine you want to download the package 'numpy' but you mistype that name and spell
-'nunpy' instead. You then download a malicious package. Of course, not all packages with
-similar names are malicious, but some might be.
+PyPI (the Python Package Index) is a repository for Python packages. It's like
+a store where anybody with an internet connection can download (for free) Python
+packages. Typosquatting is a practice in which someone chooses a package name
+that is similar to an existing package and places a malicious package in this
+deceptively titled namespace. Imagine you want to download the package 'numpy'
+but you mistype that name and spell 'nunpy' instead. You then download a
+malicious package. Of course, not all packages with similar names are malicious,
+but some might be.
 
-To determine if a package is a potential typosquatter, pypi-scan employs [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance),
-which is, roughly speaking, a measure of how many edits are required to transform one string of
-characters into another. The default edit distance is one. pypi-scan also checks for "confusion attacks," e.g. switching the order of words around a dash or underscore. Imagine confusing
-python-nmap with nmap-python.
+To determine if a package is a potential typosquatter, pypi-scan employs
+[Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance),
+which is, roughly speaking, a measure of how many edits are required to
+transform one string of characters into another. The default edit distance
+is one. pypi-scan also checks for "confusion attacks," e.g. switching the
+order of words around a dash or underscore. Imagine confusing python-nmap
+with nmap-python. Finally, when scanning the most downloaded packages,
+pypi-scan checks PyPI package metadata to check if there are identical
+fields between the teal package and the potential typosquatter; any
+packages with identical fields, which could indicate an attempt to confuse
+an unsuspecting user, are outputted in red characters.
 
-pypi-scan has been to used to successfully identify and report these packages:
+pypi-scan has been to used to identify and report these packages:
 - pandar (which was squatting on pandas) Removed from PyPI.
 - prompt-tool-kit (which was squatting on prompt-toolkit) Reported to maintainer.
 
