@@ -109,7 +109,7 @@ class TestFunctions(unittest.TestCase):
             [
                 "Number of packages to examine: 2\n",
                 "evil :  ['eval']\n",
-                "knievel :  ['\x1b[31mkneevel\x1b[0m', '\x1b[31mkanevel\x1b[0m']\n",
+                "knievel :  ['kneevel', 'kanevel']\n",
                 "Number of potential typosquatters: 3\n",
             ]
         )
