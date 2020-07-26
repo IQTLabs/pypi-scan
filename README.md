@@ -18,20 +18,28 @@ There are four anti-typosquatting functionalities in pypi-scan:
 -  Check if packages newly added to PyPI are potential typosquatters.
 -  Create list of package names that a typosquatter might use.
 
-PyPI (the Python Package Index) is a repository for Python packages. It's like a store
-where anybody with an internet connection can download (for free) Python packages.
-Typosquatting is a practice in which someone chooses a package name that is similar to
-an existing package and places a malicious package in this deceptively titled namespace.
-Imagine you want to download the package 'numpy' but you mistype that name and spell
-'nunpy' instead. You then download a malicious package. Of course, not all packages with
-similar names are malicious, but some might be.
+PyPI (the Python Package Index) is a repository for Python packages. It's like
+a store where anybody with an internet connection can download (for free) Python
+packages. Typosquatting is a practice in which someone chooses a package name
+that is similar to an existing package and places a malicious package in this
+deceptively titled namespace. Imagine you want to download the package 'numpy'
+but you mistype that name and spell 'nunpy' instead. You then download a
+malicious package. Of course, not all packages with similar names are malicious,
+but some might be.
 
-To determine if a package is a potential typosquatter, pypi-scan employs [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance),
-which is, roughly speaking, a measure of how many edits are required to transform one string of
-characters into another. The default edit distance is one. pypi-scan also checks for "confusion attacks," e.g. switching the order of words around a dash or underscore. Imagine confusing
-python-nmap with nmap-python.
+To determine if a package is a potential typosquatter, pypi-scan employs
+[Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance),
+which is, roughly speaking, a measure of how many edits are required to
+transform one string of characters into another. The default edit distance
+is one. pypi-scan also checks for "confusion attacks," e.g. switching the
+order of words around a dash or underscore. Imagine confusing python-nmap
+with nmap-python. Finally, when scanning the most downloaded packages,
+pypi-scan checks PyPI package metadata to check if there are identical
+fields between the teal package and the potential typosquatter; any
+packages with identical fields, which could indicate an attempt to confuse
+an unsuspecting user, are outputted in red characters.
 
-pypi-scan has been to used to successfully identify and report these packages:
+pypi-scan has been to used to identify and report these packages:
 - pandar (which was squatting on pandas) Removed from PyPI.
 - prompt-tool-kit (which was squatting on prompt-toolkit) Reported to maintainer.
 
@@ -151,6 +159,24 @@ NOTE: This command line interface is under development and could have changed.
 
 ## Contributing
 
-Pull requests are welcome! Also, you can open issues or submit bugs and security issues in the Github issue tracker. If you submit new functionality, please add corresponding tests.
+Pull requests are welcome! Also, you can open issues or submit bugs and
+security issues in the Github issue tracker. If you submit new functionality,
+please add corresponding tests.
+
+## Needed Improvements and Potential Extensions
+
+- Check for forms of typosquatting other than "fat finger" attacks (open-cv
+  vs. open-vc) and and order attacks (open-cv vs. cv-open). For instance,
+  what about when there are real words that are joined and the attackers
+  add a dash or underscore (coolpkg vs. cool-pkg)?
+- Is there a way to use visualization to explore for typosquatting attacks?
+- How should package metadata be used to search for potential typosquatters?
+  The current version uses metadata crudely: pypi-scan simply changes the
+  coloring of outputted text when a package has any identical metadata to
+  the real package. There are likely improvements to be made.
+- Should pypi-scan try to find attacks other than typosquatting? What types
+  of attacks? How?
+
+Again, issues, comments, discussion, and questions are welcome!
 
 More coming soon...
