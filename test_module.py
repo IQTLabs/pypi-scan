@@ -122,17 +122,17 @@ class TestFunctions(unittest.TestCase):
 
     def test_confusion_attack_screen(self):
         """Test confusion_attack_screen function"""
-        # Check that positive mach situation functions properly
+        # Check that positive match situation functions properly
         input_package = "python-nmap"
-        test_list = ["apple", "pear", "nmap-python", "python-nmap"]
-        expected_output = ["nmap-python"]
+        test_list = ["apple", "pear", "nmap-python", "python-nmap", "python_nmap"]
+        expected_output = ["nmap-python", "python_nmap"]
         output = confusion_attack_screen(input_package, test_list)
         self.assertEqual(output, expected_output)
 
         # Check that no match situation functions properly
         input_package = "python-koala"
         test_list = ["apple", "pear", "nmap-python", "python-nmap"]
-        expected_output = None
+        expected_output = []
         output = confusion_attack_screen(input_package, test_list)
         self.assertEqual(output, expected_output)
 

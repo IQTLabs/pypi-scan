@@ -64,7 +64,7 @@ def confusion_attack_screen(package, all_packages):
     a typosquatting defense requires for checking whether there are
     variants of a package that prey on user confusion. For instance,
     python-nmap vs nmap-python. The edit distance is very high, but
-    the conceptual distance is close. This function helps currently
+    the conceptual distance is close. This function currently
     identifies only packages that capitalize on user confusion about
     word order when words are separated by dashes or underscores. Future
     versions of this function might add additional functionality.
@@ -78,17 +78,22 @@ def confusion_attack_screen(package, all_packages):
     """
     # Check if there is only one total dash or underscore
     # TODO: Consider dealing with other cases (e.g. >=2 dashes)
-    squatters = None
+    squatters = []
     if package.count("-") + package.count("_") == 1:
         if package.count("-") == 1:
             pkg_name_list = package.split("-")
             reversed_name = pkg_name_list[1] + "-" + pkg_name_list[0]
+            switch_symbol = pkg_name_list[0] + "_" + pkg_name_list[1]
+            switch_symbol_reversed = pkg_name_list[1] + "_" + pkg_name_list[0]
         else:
             pkg_name_list = package.split("_")
             reversed_name = pkg_name_list[1] + "_" + pkg_name_list[0]
-        # Check if this reversed name is contained in the full package list
-        if reversed_name in all_packages:
-            squatters = [reversed_name]
+            switch_symbol = pkg_name_list[0] + "-" + pkg_name_list[1]
+            switch_symbol_reversed = pkg_name_list[1] + "-" + pkg_name_list[0]
+        # Check if each attack is contained in the full package list
+        for attack in [reversed_name, switch_symbol, switch_symbol_reversed]:
+            if attack in all_packages:
+                squatters.append(attack)
 
     return squatters
 
