@@ -45,6 +45,7 @@ def compare_metadata(pkg1, pkg2):
 
     # Loop through identified fields to count number of identical fields
     num_identical_fields = 0
+    # TODO: Decide if I should use any other fields?
     fields_to_compare = [
         "author_email",
         "author",
@@ -54,7 +55,11 @@ def compare_metadata(pkg1, pkg2):
         "summary",
     ]
     for field in fields_to_compare:
-        if pkg1_metadata["info"][field] == pkg2_metadata["info"][field]:
+        # Only increment num_identical_fields if the field is not empty
+        # and the fields are identical
+        blank_field = pkg1_metadata["info"][field] == ""
+        same_metadata = pkg1_metadata["info"][field] == pkg2_metadata["info"][field]
+        if (not blank_field) and same_metadata:
             num_identical_fields += 1
 
     # Categorize risk level based on count of identical fields
