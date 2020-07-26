@@ -159,6 +159,24 @@ NOTE: This command line interface is under development and could have changed.
 
 ## Contributing
 
-Pull requests are welcome! Also, you can open issues or submit bugs and security issues in the Github issue tracker. If you submit new functionality, please add corresponding tests.
+Pull requests are welcome! Also, you can open issues or submit bugs and
+security issues in the Github issue tracker. If you submit new functionality,
+please add corresponding tests.
+
+## Needed Improvements and Potential Extensions
+
+- Check for forms of typosquatting other than "fat finger" attacks (open-cv
+  vs. open-vc) and and order attacks (open-cv vs. cv-open). For instance,
+  what about when there are real words that are joined and the attackers
+  add a dash or underscore (coolpkg vs. cool-pkg)?
+- Is there a way to use visualization to explore for typosquatting attacks?
+- How should package metadata be used to search for potential typosquatters?
+  The current version uses metadata crudely: pypi-scan simply changes the
+  coloring of outputted text when a package has any identical metadata to
+  the real package. There are likely improvements to be made.
+- Should pypi-scan try to find attacks other than typosquatting? What types
+  of attacks? How?
+
+Again, issues, comments, discussion, and questions are welcome!
 
 More coming soon...
