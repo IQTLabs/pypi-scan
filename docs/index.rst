@@ -45,6 +45,13 @@ These researchers build an analytical pipeline, MalOSS, that finds over three
 hundred malware on RubyGems (Ruby), NPM (nodeJS/Javascript), and PyPI. They
 find seven instances of malware on PyPI.
 
+Matthew Taylor, Ruturaj K. Vaidya, Drew Davidson, Lorenzo De Carli, and Vaibhav
+Rastogi, "SpellBound: Defending Against Package Typosquatting," arXiv, 2020, available
+at https://arxiv.org/pdf/2003.03471v1.pdf.
+This is a system that helps a user importing libraries from PyPI or npm for
+signs of typosquatting. Their approach combines typical lexical approaches with
+a popularity score.
+
 Marc Ohm, Henrik Plate, Arnold Sykosch, Michael Meier, "Backstabber's Knife Collection:
 A Review of Open Source Software Supply Chain Attacks," arXiv, 2020,
 https://arxiv.org/abs/2005.09535.
