@@ -41,7 +41,8 @@ an unsuspecting user, are outputted in red characters.
 
 pypi-scan has been to used to identify and report these packages:
 - pandar (which was squatting on pandas) Removed from PyPI.
-- prompt-tool-kit (which was squatting on prompt-toolkit) Reported to maintainer.
+- prompt-tool-kit (which is squatting on prompt-toolkit) Reported to maintainer.
+- requestsaa (which is squatting on requests) Reported to maintainer.
 
 ## Usage
 (Requires an internet connection.)
