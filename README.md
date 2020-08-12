@@ -35,7 +35,7 @@ is one. pypi-scan also checks for "confusion attacks," e.g. switching the
 order of words around a dash or underscore. Imagine confusing python-nmap
 with nmap-python. Finally, when scanning the most downloaded packages,
 pypi-scan checks PyPI package metadata to check if there are identical
-fields between the teal package and the potential typosquatter; any
+fields between the real package and the potential typosquatter; any
 packages with identical fields, which could indicate an attempt to confuse
 an unsuspecting user, are outputted in red characters.
 
