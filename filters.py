@@ -4,6 +4,7 @@ A module that contains all functions that filter data related to typosquatting
 data.
 """
 
+import jellyfish
 import Levenshtein
 
 import constants
@@ -57,24 +58,22 @@ def distance_calculations(package_of_interest, all_packages, max_distance=MAX_DI
     return sorted(similar_package_names)
 
 
-def confusion_attack_screen(package, all_packages):
-    """Find packages that prey on user confusion.
+def order_attack_screen(package, all_packages):
+    """Find packages that prey on user confusion about order.
 
-    Because not all typosquatting attacks are misspelling attacks,
-    a typosquatting defense requires for checking whether there are
-    variants of a package that prey on user confusion. For instance,
-    python-nmap vs nmap-python. The edit distance is very high, but
-    the conceptual distance is close. This function currently
-    identifies only packages that capitalize on user confusion about
-    word order when words are separated by dashes or underscores. Future
-    versions of this function might add additional functionality.
+    This screen checks for attacks that prey on user confusion
+    about word order. For instance, python-nmap vs nmap-python.
+    The edit distance is very high, but the conceptual distance is
+    close. This function currently identifies only packages that
+    capitalize on user confusion about  word order when words are
+    separated by dashes or underscores.
 
     Args:
         package (str): package name on which to perform comparison
         all_packages (list): list of all package names
 
     Returns:
-        list: potential typosquatting packages preying on user confusion
+        list: potential typosquatting packages
     """
     # Check if there is only one total dash or underscore
     # TODO: Consider dealing with other cases (e.g. >=2 dashes)
@@ -96,6 +95,42 @@ def confusion_attack_screen(package, all_packages):
                 squatters.append(attack)
 
     return squatters
+
+
+def homophone_attack_screen(package_of_interest, all_packages):
+    """Find packages that prey on homophone confusion.
+
+    This screen checks for attacks that prey on user confusion
+    related to homophones. For instance, 'klumpz' vs. 'clumps'.
+    This function helps find confusion attacks, rather than
+    misspelling attacks.
+
+    Args:
+        package (str): package name on which to perform comparison
+        all_packages (list): list of all package names
+
+    Returns:
+        list: potential typosquatting packages
+    """
+    # Empty list to store similar package names
+    homophone_package_names = []
+
+    # Calculate metaphone code for package of interest, only once
+    package_of_interest_metaphone = jellyfish.metaphone(package_of_interest)
+
+    # Loop thru all package names
+    for package in all_packages:
+
+        # Skip if the package is the package of interest
+        if package == package_of_interest:
+            continue
+
+        # Compare package metaphone code to the metaphone code of the
+        # package of interest
+        if jellyfish.metaphone(package) == package_of_interest_metaphone:
+            homophone_package_names.append(package)
+
+    return homophone_package_names
 
 
 def whitelist(squat_candidates, whitelist_filename="whitelist.txt"):
