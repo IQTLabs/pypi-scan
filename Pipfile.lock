@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "41b6ad55b594513849a074421dc334cd5bb39942d5ed238eda0343f102d52b42"
+            "sha256": "b1b39c5c211a4496514a94a662353812c4ecafab5285067d9c3c4a50e89fa30d"
         },
         "pipfile-spec": 6,
         "requires": {},
@@ -44,6 +44,17 @@
             ],
             "index": "pypi",
             "version": "==2.10"
+        },
+        "jellyfish": {
+            "hashes": [
+                "sha256:2490726dda6603fad0090f7afa2b33718ac03011b6807658b8cdbf512a798e89",
+                "sha256:288727bac0cef5817640d1d0d3655dabb9906d1f7b3e31eb1bd0b005bdf0eaf2",
+                "sha256:4213dda17b75e09b4a5bac48b7dd2602cf54304af49fd6236d3539f49f614e8a",
+                "sha256:a499741401512d05bbd3556e448e960bc908eba3879fb73d450e8e91566a030b",
+                "sha256:f5c7fd1b02edf86135ed005ba8715ed9496d268e3d77e6428445689a441c4c64"
+            ],
+            "index": "pypi",
+            "version": "==0.8.2"
         },
         "jsontree": {
             "hashes": [
