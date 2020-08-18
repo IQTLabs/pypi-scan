@@ -27,13 +27,17 @@ but you mistype that name and spell 'nunpy' instead. You then download a
 malicious package. Of course, not all packages with similar names are malicious,
 but some might be.
 
-To determine if a package is a potential typosquatter, pypi-scan employs
+To determine if a package is a potential typosquatter, pypi-scan checks
+for "misspelling attacks" by employing
 [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance),
 which is, roughly speaking, a measure of how many edits are required to
 transform one string of characters into another. The default edit distance
-is one. pypi-scan also checks for "confusion attacks," e.g. switching the
-order of words around a dash or underscore. Imagine confusing python-nmap
-with nmap-python. Finally, when scanning the most downloaded packages,
+is one. pypi-scan also checks for "confusion attacks." This includes
+"order attacks," e.g. switching the order of words around a dash or
+underscore, and "homophone attacks," packages whose names are spelled
+quite differently but sound the same phonetically. For an example of
+an order attack, imagine confusing python-nmap with nmap-python.
+Finally, when scanning the most downloaded packages,
 pypi-scan checks PyPI package metadata to check if there are identical
 fields between the teal package and the potential typosquatter; any
 packages with identical fields, which could indicate an attempt to confuse
