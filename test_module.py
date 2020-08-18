@@ -145,6 +145,13 @@ class TestFunctions(unittest.TestCase):
         output = homophone_attack_screen(input_package, test_list)
         self.assertEqual(output, expected_output)
 
+        # Check that no match situation functions properly
+        input_package = "clumps"
+        test_list = ["apple", "pear", "nmap-python", "python-nmap"]
+        expected_output = []
+        output = homophone_attack_screen(input_package, test_list)
+        self.assertEqual(output, expected_output)
+
     def test_create_suspicious_package_dict(self):
         """Test create_suspicious_package_dict function"""
         # Check if misspelling and confusion attacks are detected
