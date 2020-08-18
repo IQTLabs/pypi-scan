@@ -8,9 +8,10 @@ import unittest
 from unittest.mock import patch
 
 from filters import (
-    confusion_attack_screen,
     distance_calculations,
     filter_by_package_name_len,
+    homophone_attack_screen,
+    order_attack_screen,
     whitelist,
 )
 from scrapers import get_all_packages, get_top_packages, get_metadata
@@ -120,20 +121,28 @@ class TestFunctions(unittest.TestCase):
             )
             self.assertEqual(fake_out.getvalue(), expected_output)
 
-    def test_confusion_attack_screen(self):
-        """Test confusion_attack_screen function"""
+    def test_order_attack_screen(self):
+        """Test order_attack_screen function"""
         # Check that positive match situation functions properly
         input_package = "python-nmap"
         test_list = ["apple", "pear", "nmap-python", "python-nmap", "python_nmap"]
         expected_output = ["nmap-python", "python_nmap"]
-        output = confusion_attack_screen(input_package, test_list)
+        output = order_attack_screen(input_package, test_list)
         self.assertEqual(output, expected_output)
 
         # Check that no match situation functions properly
         input_package = "python-koala"
         test_list = ["apple", "pear", "nmap-python", "python-nmap"]
         expected_output = []
-        output = confusion_attack_screen(input_package, test_list)
+        output = order_attack_screen(input_package, test_list)
+        self.assertEqual(output, expected_output)
+
+    def test_homophone_attack_screen(self):
+        # Check that positive match situation functions properly
+        input_package = "clumps"
+        test_list = ["apple", "pear", "klumpz"]
+        expected_output = ["klumpz"]
+        output = homophone_attack_screen(input_package, test_list)
         self.assertEqual(output, expected_output)
 
     def test_create_suspicious_package_dict(self):
