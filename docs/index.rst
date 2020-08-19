@@ -68,6 +68,14 @@ Matt Bullock, "pypi-parker," github, https://github.com/mattsb42, 2017.
 Bullock wrote a piece of software that reduces the time needed for a package
 manager to defensively register PyPI names a typosquatter might use.
 
+ReversingLabs Research
+This collection of blog posts examines the threat of malware in package
+managers, especially npm and RubyGems.
+
+https://blog.reversinglabs.com/blog/suppy-chain-malware-detecting-malware-in-package-manager-repositories
+https://blog.reversinglabs.com/blog/the-npm-package-that-walked-away-with-all-your-passwords
+https://blog.reversinglabs.com/newsroom/news/malicious-package-was-stealing-user-credentials-on-the-npm-repository
+https://blog.reversinglabs.com/blog/mining-for-malicious-ruby-gems
 
 More documentation coming soon!
 
