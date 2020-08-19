@@ -17,7 +17,7 @@ from mrs_spellings import MrsWord
 from termcolor import colored
 
 import constants
-from filters import confusion_attack_screen, distance_calculations
+from filters import distance_calculations, homophone_attack_screen, order_attack_screen
 from scrapers import get_metadata
 
 MAX_DISTANCE = constants.MAX_DISTANCE
@@ -92,10 +92,13 @@ def create_suspicious_package_dict(
         # Check for misspelling attacks
         close_packages = distance_calculations(top_package, all_packages, max_distance)
         # Check for confusion attcks
-        reverse_package = confusion_attack_screen(top_package, all_packages)
+        reverse_package = order_attack_screen(top_package, all_packages)
         # If there actually is a reverse package squatter, add to list
         if reverse_package:
             close_packages.extend(reverse_package)
+        # Check for homophone attack
+        homophone_packages = homophone_attack_screen(top_package, all_packages)
+
         suspicious_packages[top_package] = close_packages
 
     return suspicious_packages
