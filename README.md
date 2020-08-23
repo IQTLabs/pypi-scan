@@ -1,12 +1,13 @@
-[![Build Status](https://travis-ci.com/jspeed-meyers/pypi-scan.svg?branch=master)](https://travis-ci.com/jspeed-meyers/pypi-scan)
+[![Build Status](https://travis-ci.com/IQTLabs/pypi-scan.svg?branch=master)](https://travis-ci.com/IQTLabs/pypi-scan)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/d1731169a12d42da81da02b249ca069c)](https://www.codacy.com/manual/jmeyers/pypi-scan?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=jspeed-meyers/pypi-scan&amp;utm_campaign=Badge_Grade)
-[![codecov](https://codecov.io/gh/jspeed-meyers/pypi-scan/branch/master/graph/badge.svg)](https://codecov.io/gh/jspeed-meyers/pypi-scan)
-[![Requirements Status](https://requires.io/github/jspeed-meyers/pypi-scan/requirements.svg?branch=master)](https://requires.io/github/jspeed-meyers/pypi-scan/requirements/?branch=master)
+[![codecov](https://codecov.io/gh/IQTLabs/pypi-scan/branch/master/graph/badge.svg)](https://codecov.io/gh/IQTLabs/pypi-scan)
+[![Requirements Status](https://requires.io/github/IQTLabs/pypi-scan/requirements.svg?branch=master)](https://requires.io/github/IQTLabs/pypi-scan/requirements/?branch=master)
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/4133/badge)](https://bestpractices.coreinfrastructure.org/projects/4133)
 [![Documentation Status](https://readthedocs.org/projects/pypi-scan/badge/?version=latest)](https://pypi-scan.readthedocs.io/en/latest/?badge=latest)
 [![Python 3.7](https://img.shields.io/badge/python-3.7-blue.svg)](https://www.python.org/downloads/release/python-360/)
 [![Python 3.8](https://img.shields.io/badge/python-3.8-blue.svg)](https://www.python.org/downloads/release/python-360/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
 
 # pypi-scan
 Scan PyPI for typosquatting
