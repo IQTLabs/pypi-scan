@@ -122,7 +122,7 @@ All commands can then be run from the command line inside the container.
 
 Download to your local machine via git:
 ```
-git clone https://github.com/jspeed-meyers/pypi-scan
+git clone https://github.com/IQTLabs/pypi-scan
 ```
 
 After navigating to folder that contains main.py, ensure dependencies are
