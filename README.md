@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/IQTLabs/pypi-scan.svg?branch=master)](https://travis-ci.com/jspeed-meyers/pypi-scan)
+[![Build Status](https://travis-ci.com/IQTLabs/pypi-scan.svg?branch=master)](https://travis-ci.com/github/jspeed-meyers/pypi-scan)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/d1731169a12d42da81da02b249ca069c)](https://www.codacy.com/manual/jmeyers/pypi-scan?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=jspeed-meyers/pypi-scan&amp;utm_campaign=Badge_Grade)
 [![codecov](https://codecov.io/gh/IQTLabs/pypi-scan/branch/master/graph/badge.svg)](https://codecov.io/gh/IQTLabs/pypi-scan)
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/4133/badge)](https://bestpractices.coreinfrastructure.org/projects/4133)
