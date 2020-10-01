@@ -51,7 +51,7 @@ pypi-scan has been to used to identify and report these packages:
 For additional analysis related to typosquatting and PyPI, see:
 
 John Speed Meyers and Bentz Tozer, "Bewear: Python Typosquatting is About More
-than Typos," IQT Blog, September 30, 2020. Link[https://www.iqt.org/bewear-python-typosquatting-is-about-more-than-typos/]
+than Typos," IQT Blog, September 30, 2020. [Link](https://www.iqt.org/bewear-python-typosquatting-is-about-more-than-typos/)
 
 
 ## Usage
