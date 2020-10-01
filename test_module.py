@@ -39,12 +39,12 @@ class TestFunctions(unittest.TestCase):
         # Check default setting
         top_packages = get_top_packages()
         self.assertEqual(len(top_packages), 50)
-        self.assertEqual(top_packages["requests"], 5)
+        self.assertEqual(top_packages["requests"], 4)
 
         # Check user supplied number of top packages
         top_packages = get_top_packages(100)
         self.assertEqual(len(top_packages), 100)
-        self.assertEqual(top_packages["requests"], 5)
+        self.assertEqual(top_packages["requests"], 4)
 
         # Check if stored package option works
         stored_packages = get_top_packages(50, stored=True)
@@ -225,9 +225,11 @@ class TestFunctions(unittest.TestCase):
             [
                 "Checking urllib3 for typosquatting candidates.",
                 os.linesep,
-                "0: urllib4",
+                "0: urllib3c",
                 os.linesep,
-                "1: urllib5",
+                "1: urllib4",
+                os.linesep,
+                "2: urllib5",
                 os.linesep,
             ]
         )
