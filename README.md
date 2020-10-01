@@ -48,6 +48,12 @@ pypi-scan has been to used to identify and report these packages:
 - prompt-tool-kit (which is squatting on prompt-toolkit) Reported to maintainer.
 - requestsaa (which is squatting on requests) Reported to maintainer.
 
+For additional analysis related to typosquatting and PyPI, see:
+
+John Speed Meyers and Bentz Tozer, "Bewear: Python Typosquatting is About More
+than Typos," IQT Blog, September 30, 2020. Link[https://www.iqt.org/bewear-python-typosquatting-is-about-more-than-typos/]
+
+
 ## Usage
 (Requires an internet connection.)
 
