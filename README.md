@@ -53,6 +53,8 @@ For additional analysis related to typosquatting and PyPI, see:
 John Speed Meyers and Bentz Tozer, "Bewear: Python Typosquatting is About More
 than Typos," IQT Blog, September 30, 2020. [Link](https://www.iqt.org/bewear-python-typosquatting-is-about-more-than-typos/)
 
+John Speed Meyers and Bentz Tozer, "pypi-scan: A Tool for Scanning the Python
+Package Index for Typosquatters," IQT Blog, October 16, 2020. [Link](https://www.iqt.org/pypi-scan/)
 
 
 ## Usage
