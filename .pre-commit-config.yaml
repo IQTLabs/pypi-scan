@@ -5,7 +5,7 @@ repos:
     -   id: check-yaml
     -   id: trailing-whitespace
 -   repo: https://github.com/pycqa/pydocstyle
-    rev: 5.0.2
+    rev: 5.1.1
     hooks:
     -   id: pydocstyle
 -   repo: https://github.com/psf/black
